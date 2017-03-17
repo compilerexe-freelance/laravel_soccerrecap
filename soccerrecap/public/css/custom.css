@@ -1,0 +1,166 @@
+@font-face {
+    font-family: 'Kanit';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Kanit'), local('Kanit-Regular'), url("../fonts/Kanit.woff2") format('woff2');
+    unicode-range: U+0E01-0E5B, U+200B-200D, U+25CC;
+}
+
+body {
+    /*background-color: #f2f2f2;*/
+    background-color: #FAFAFA;
+    font-family: 'Kanit', sans-serif;
+}
+button {
+    font-family: 'Kanit', sans-serif;
+//font-size: 18px !important;
+    border-radius: 20px !important;
+    background-color: #fff !important;
+}
+
+.btn-remove-hover:active {
+    box-shadow:none !important;
+}
+
+.btn-remove-shadow:active {
+    box-shadow:none !important;
+}
+
+.btn {
+    border-color: inherit !important;
+    box-shadow:none !important;
+}
+
+.btn:focus {
+    outline: none !important;
+}
+
+.btn-tag {
+    margin-top: 10px !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    border-color: #DCDCDC !important;
+    color: #808080 !important;
+}
+
+.font-color-gray {
+    color: #808080 !important;
+}
+.border-none {
+    border: none !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    border-bottom: 1px solid #808080 !important;
+    width: 100% !important;
+    margin-top: 10px !important;
+    box-shadow: none !important;
+}
+
+a {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+a:hover {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+
+.link-gray a {
+    color: #808080 !important;
+    text-decoration: none !important;
+    font-size: 16px !important;
+}
+.link-gray a:hover {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+.font-color-green {
+    color: #03B876 !important;
+}
+.btn-bg-green {
+    background-color: #03B876 !important;
+    color: #fff !important;
+}
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.text-cycle {
+    position: relative;
+    width: 35px;
+    height: 35px;
+    border: 1px rgba(0,0,0,0.1);
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #F2F2F2;
+    line-height: 35px;
+}
+
+.col-fulid {
+    padding: 0px !important;
+}
+
+.note-editable {
+    font-size: 18px;
+    font-weight: normal;
+}
+

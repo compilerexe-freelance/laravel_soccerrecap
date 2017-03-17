@@ -11,6 +11,17 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['prefix' => '/'], function () {
+    Route::get('/', 'HomeController@Home');
+    Route::get('following', 'HomeController@Following');
+    Route::get('top_stories', 'HomeController@TopStories');
+    Route::get('bookmarks', 'HomeController@Bookmarks');
+    Route::get('posts/new', 'StoryController@WriteStory');
+    Route::post('search', 'HomeController@Search');
+    Route::get('profile', 'ProfileController@Profile');
+    Route::get('setting', 'ProfileController@Setting');
+});
+
+Route::group(['prefix' => '/story'], function() {
+    Route::get('/{id}', 'StoryController@ReadStory');
 });
