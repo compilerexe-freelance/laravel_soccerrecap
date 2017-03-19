@@ -27,6 +27,11 @@
                 </div>
 
                 <div class="form-group">
+                    <label class="control-label">Select file your image story</label>
+                    <input id="input-fileupload" name="input-fileupload[]" type="file" required>
+                </div>
+
+                <div class="form-group">
                     <div id="summernote"></div>
                 </div>
 
@@ -37,6 +42,9 @@
 
     <script>
         $(document).ready(function() {
+
+            $("#input-fileupload").fileinput({showCaption: false, showUpload: false});
+
             $('#summernote').summernote({
                 //toolbar: false,
                 height: 500,                 // set editor height
