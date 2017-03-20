@@ -20,6 +20,15 @@ Route::group(['prefix' => '/'], function () {
     Route::post('search', 'HomeController@Search');
     Route::get('profile', 'ProfileController@Profile');
     Route::get('setting', 'ProfileController@Setting');
+
+    Route::post('sign_up', 'MemberController@SignUp');
+    Route::post('sign_in', 'MemberController@SignIn');
+    Route::get('sign_out', 'MemberController@SignOut');
+});
+
+Route::group(['prefix' => '/profile/'], function() {
+    Route::post('update_image', 'ProfileController@UpdateImage');
+    Route::post('update_describe', 'ProfileController@UpdateDescribe');
 });
 
 Route::group(['prefix' => '/story'], function() {

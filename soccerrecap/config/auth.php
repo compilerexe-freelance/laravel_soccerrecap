@@ -36,15 +36,23 @@ return [
     */
 
     'guards' => [
+//        'web' => [
+//            'driver' => 'session',
+//            'provider' => 'users',
+//        ],
+//
+//        'api' => [
+//            'driver' => 'token',
+//            'provider' => 'users',
+//        ],
         'web' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'member',
         ],
-
-        'api' => [
-            'driver' => 'token',
-            'provider' => 'users',
-        ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ]
     ],
 
     /*
@@ -65,15 +73,26 @@ return [
     */
 
     'providers' => [
-        'users' => [
-            'driver' => 'eloquent',
-            'model' => App\User::class,
-        ],
+//        'users' => [
+//            'driver' => 'eloquent',
+//            'model' => App\User::class,
+//        ],
 
         // 'users' => [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+
+        'member' => [
+            'driver' => 'database',
+            'table' => 'member',
+        ],
+
+        'admin' => [
+            'driver' => 'database',
+            'table' => 'administrator',
+        ]
+
     ],
 
     /*

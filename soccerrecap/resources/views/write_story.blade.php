@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label class="control-label">Select file your image story</label>
-                    <input id="input-fileupload" name="input-fileupload[]" type="file" required>
+                    <input id="input-fileupload" name="input-fileupload" type="file" required>
                 </div>
 
                 <div class="form-group">
