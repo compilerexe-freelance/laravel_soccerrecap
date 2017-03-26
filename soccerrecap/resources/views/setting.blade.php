@@ -11,7 +11,8 @@
 
             <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3" style="//border: 1px solid red; margin-top: 50px; margin-bottom: 50px;">
 
-                <form action="#" method="post">
+                <form action="{{ url('update_password') }}" method="post">
+                    {{ csrf_field() }}
                     <div class="form-group">
                         <span style="font-size: 28px;" class="font-color-green">Setting</span>
                     </div>
@@ -28,16 +29,19 @@
                     </div>
 
                     <div class="form-group">
-                        <span style="font-size: 28px;" class="font-color-green">Information</span>
+                        <span style="font-size: 28px;" class="font-color-green">Change Password</span>
+                    </div>
+                    <div class="form-group text-right">
+                        <span style="color: red;">{{ $errors->first('password') }}</span>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control border-none input-lg" placeholder="Password">
+                        <input type="password" name="password" class="form-control border-none input-lg" placeholder="Password (8 characters minimum)" min="8" required>
                     </div>
                     <div class="form-group">
-                        <input type="text" class="form-control border-none input-lg" placeholder="Re-enter Password">
+                        <input type="password" name="password_confirmation" class="form-control border-none input-lg" placeholder="Re-enter Password" required>
                     </div>
                     <div class="form-group text-right" style="margin-top: 20px;">
-                        <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px;">Save</button>
+                        <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px;"><i class="fa fa-save"></i> Save</button>
                     </div>
                 </form>
 

@@ -84,6 +84,14 @@ a:hover {
     background-color: #03B876 !important;
     color: #fff !important;
 }
+.btn-bg-blue {
+    background-color: dodgerblue !important;
+    color: #fff !important;
+}
+.btn-bg-red {
+    background-color: #ce8483 !important;
+    color: #fff !important;
+}
 
 /* The switch - the box around the slider */
 .switch {
@@ -163,3 +171,4 @@ input:checked + .slider:before {
     font-size: 18px;
     font-weight: normal;
 }
+

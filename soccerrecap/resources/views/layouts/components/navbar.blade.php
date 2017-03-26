@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="form-group" style="//padding-left: 10px !important; //padding-right: 10px !important;">
-                            <button type="button" class="btn btn-info btn-remove-shadow" style="border-radius: 20px; width: 100%; color: dodgerblue">Write a Story</button>
+                            <a href="{{ url('posts/new') }}"><button type="button" class="btn btn-info btn-remove-shadow" style="border-radius: 20px; width: 100%; color: dodgerblue">Write a Story</button></a>
                         </div>
 
                         <div class="form-group" style="//padding-left: 10px !important; //padding-right: 10px !important;">
@@ -71,7 +71,7 @@
                                title=""
                                data-placement="bottom"
                                data-content="
-                            <a href='{{ url('write_story') }}'>New story</a><br>
+                            <a href='{{ url('posts/new') }}'>New story</a><br>
                             <a href='{{ url('my_stories') }}'>Drafts and stories</a>
                             <hr style='margin-top: 10px !important;; margin-bottom: 10px !important;'>
                             <a href='{{ url('profile') }}' style='font-size: 15px !important;'>Profile</a><br>
@@ -80,12 +80,8 @@
                            "
                             >
 
-                                @php
-                                    $profile = App\Profile::find(Auth::user()->id);
-                                @endphp
-
-                                @if ($profile->image_profile != null)
-                                    <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('image_profiles/'.Auth::user()->id)) }}"
+                                @if (Storage::has('profile_images/'.Auth::user()->id))
+                                    <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
                                          style="width: 40px !important; height: 40px !important;"
                                          class="img-circle"
                                          alt="">
@@ -95,6 +91,7 @@
                                          class="img-circle"
                                          alt="">
                                 @endif
+
                             </a>
                         </div>
 
@@ -226,8 +223,11 @@
                 <form action="{{ url('sign_in') }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group text-right">
-                        <span id="message_sign_in" style="font-size: 20px; color: red;"></span>
+                        @if (session('status_sign_in'))
+                            <span id="message_sign_in" style="font-size: 20px; color: red;">Please check email or password again.</span>
+                        @endif
                     </div>
+
                     <div class="form-group">
                         <input type="text" name="sign_in_email" value="{{ old('sign_in_email') }}" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Email" required>
                     </div>
@@ -288,11 +288,11 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="password" name="password" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Password (8 characters minimum)" minlength="8" maxlength="15" required>
+                        <input type="password" name="password" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Password (8 characters minimum)" minlength="8" required>
                     </div>
 
                     <div class="form-group">
-                        <input type="password" name="password_confirmation" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Re-enter Password" minlength="8" maxlength="15" required>
+                        <input type="password" name="password_confirmation" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Re-enter Password" minlength="8" required>
                     </div>
 
                     <div class="form-group text-right" style="margin-top: 30px;">
@@ -311,7 +311,7 @@
         <div class="modal-content">
 
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Alert</h4>
+                <h4 class="modal-title" id="myModalLabel">Notification</h4>
             </div>
 
             <div class="modal-body text-center" style="">
@@ -330,33 +330,20 @@
     </div>
 </div>
 
-@if (!empty($errors->all()))
-    <script>
-        $(document).ready(function() {
-            $('#Modal-Sign-Up-Email').modal();
-        });
-    </script>
-@endif
-
-@if (session('status_sign_up') == 'success')
-    <script>
-        $(document).ready(function() {
-            $('#Modal-SignUp-Success').modal();
-        });
-    </script>
-@endif
-
-@if (session('status_sign_in') == 'fail')
-    <script>
-        $(document).ready(function() {
-            $('#message_sign_in').text('Please check email or password again.')
-            $('#Modal-Sign-In-Email').modal();
-        });
-    </script>
-@endif
-
 <script>
     $(document).ready(function() {
+
+        @if (!empty($errors->all()))
+            $('#Modal-Sign-Up-Email').modal();
+        @endif
+
+        @if (session('status_sign_up') == 'success')
+            $('#Modal-SignUp-Success').modal();
+        @endif
+
+        @if (session('status_sign_in'))
+            $('#Modal-Sign-In-Email').modal();
+        @endif
 
         $('#btn-sign-in').on('click', function() {
             $('#Modal-Sign-In').modal();

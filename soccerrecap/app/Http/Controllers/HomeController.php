@@ -5,11 +5,18 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 
+use App\Story;
+use App\Tag;
+
 class HomeController extends Controller
 {
     public function Home() {
         session()->put('navbar', 'home');
-        return view('home');
+        $storys = \App\Story::orderBy('id', 'desc')->get();
+        $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();
+        return view('home')
+            ->with('storys', $storys)
+            ->with('tags', $tags);
     }
 
     public function Following() {

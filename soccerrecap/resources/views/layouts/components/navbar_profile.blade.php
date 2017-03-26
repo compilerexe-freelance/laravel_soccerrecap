@@ -69,12 +69,12 @@
                            title=""
                            data-placement="bottom"
                            data-content="
-                            <a href='#'>New story</a><br>
-                            <a href='#'>Drafts and stories</a>
+                            <a href='{{ url('posts/new') }}'>New story</a><br>
+                            <a href='{{ url('my_stories') }}'>Drafts and stories</a>
                             <hr style='margin-top: 10px !important;; margin-bottom: 10px !important;'>
-                            <a href='profile.php' style='font-size: 15px !important;'>Profile</a><br>
-                            <a href='#' style='font-size: 15px !important;'>Setting</a><br>
-                            <a href='#' style='font-size: 15px !important;'>Sign out</a>
+                            <a href='{{ url('profile') }}' style='font-size: 15px !important;'>Profile</a><br>
+                            <a href='{{ url('setting') }}' style='font-size: 15px !important;'>Setting</a><br>
+                            <a href='{{ url('sign_out') }}' style='font-size: 15px !important;'>Sign out</a>
                            "
                         >
                             <img src="{{ url('images/icons/me.jpg') }}"
