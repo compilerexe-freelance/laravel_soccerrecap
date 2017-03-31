@@ -19,7 +19,7 @@
                                     <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
                                 </div>
                                 <div class="form-group">
-                            <span for="" style="margin-left: 10px;" class="font-color-green">Macbook Pro<br>
+                            <span for="" style="margin-left: 10px;" class="font-color-blue">Macbook Pro<br>
                                 <span style="margin-left: 10px; font-size: 12px !important;" class="font-color-gray">2017/01/02 21:30</span>
                             </span>
                                 </div>

@@ -34,8 +34,8 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
-                                        <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ $story->updated_at }}</span>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
+                                        <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
                                     </span>
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
                                 <span style="color: #a6a6a6; //margin-left: 10px;">15,000</span>
 
-                                {{--<a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark font-color-green"></i></span></a>--}}
+                                {{--<a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark font-color-blue"></i></span></a>--}}
 
                             </div>
                             <div class="form-group text-right">

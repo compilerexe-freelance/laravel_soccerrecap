@@ -20,9 +20,6 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group text-right">
-                                <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
-                            </div>
                             <div class="form-inline">
                                 <div class="form-group" style="margin-top: 20px;">
                                     @if (Storage::has('profile_images/'.$story->member_id))
@@ -32,7 +29,9 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
+                                    <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>

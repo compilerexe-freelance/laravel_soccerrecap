@@ -21,7 +21,7 @@
             <div class="col-md-8 col-md-offset-2">
 
                 <div class="form-group">
-                    <span style="font-size: 26px; font-weight: bold;" class="font-color-green">Followers</span>
+                    <span style="font-size: 26px; font-weight: bold;" class="font-color-blue">Followers</span>
                 </div>
 
                 <div class="form-group table-responsive">

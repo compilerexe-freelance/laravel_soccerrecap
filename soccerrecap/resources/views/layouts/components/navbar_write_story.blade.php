@@ -26,7 +26,7 @@
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->username }}
-                        <span class="caret"></span>
+                        <span class="caret"></span>&ensp;
                         @if (Storage::has('profile_images/'.Auth::user()->id))
                             <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
                                  style="width: 40px !important; height: 40px !important;"

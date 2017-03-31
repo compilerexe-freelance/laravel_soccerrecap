@@ -14,7 +14,7 @@
                 <form action="{{ url('update_password') }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <span style="font-size: 28px;" class="font-color-green">Setting</span>
+                        <span style="font-size: 28px;" class="font-color-blue">Setting</span>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-12 col-sm-12 col-md-6 text-left">
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="form-group">
-                        <span style="font-size: 28px;" class="font-color-green">Change Password</span>
+                        <span style="font-size: 28px;" class="font-color-blue">Change Password</span>
                     </div>
                     <div class="form-group text-right">
                         <span style="color: red;">{{ $errors->first('password') }}</span>

@@ -63,7 +63,7 @@
                     </li>
                     <li style="padding-top: 5px;">
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-success font-color-green">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-success font-color-blue">Search</button>
                         </a>
                     </li>
 
@@ -76,7 +76,7 @@
 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->username }}
-                            <span class="caret"></span>
+                            <span class="caret"></span>&ensp;
                             @if (Storage::has('profile_images/'.Auth::user()->id))
                                 <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
                                      style="width: 40px !important; height: 40px !important;"
@@ -171,7 +171,7 @@
                     </li>
                     <li>
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-success font-color-green">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-success font-color-blue">Search</button>
                         </a>
                     </li>
 
@@ -209,7 +209,7 @@
                     <button type="button" class="btn btn-primary" style="background-color: #0d71bb !important; font-size: 18px;"><i class="fa fa-facebook-official"></i> Sign in with Facebook</button>
                 </div>
                 <div class="form-group">
-                    <a href="#" id="link-sign-in-email" style="text-decoration: none;"><span style="font-size: 16px;" class="font-color-green">Sign in or Sign up with email</span></a>
+                    <a href="#" id="link-sign-in-email" style="text-decoration: none;"><span style="font-size: 16px;" class="font-color-blue">Sign in or Sign up with email</span></a>
                 </div>
             </div>
 
@@ -245,7 +245,7 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px;">
-                        <button type="button" id="btn-sign-up-email" class="btn btn-success btn-remove-shadow font-color-green pull-left" style="font-size: 18px; width: 150px;">Sign up</button>
+                        <button type="button" id="btn-sign-up-email" class="btn btn-success btn-remove-shadow font-color-blue pull-left" style="font-size: 18px; width: 150px;">Sign up</button>
                         <button type="submit" class="btn btn-success btn-remove-hover btn-bg-green pull-right" style="font-size: 18px; width: 150px;">Login</button>
                     </div>
                 </form>
