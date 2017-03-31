@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default" style="border-radius: 0px;">
-    <div class="container">
+    <div class="container-fulid">
 
-        <div class="navbar-header">
+        <div class="navbar-header" style="padding-top: 12px;">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -14,95 +14,44 @@
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-            </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <form class="navbar-form navbar-left text-center" action="#" method="post">
 
-                    <div class="form-group" style="//padding-left: 10px !important; //padding-right: 10px !important;">
+                <li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">
+                    <a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg"></i></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">No have notification.</a></li>
+                    </ul>
+                </li>
 
-                        {{--<button--}}
-                                {{--type="button"--}}
-                                {{--class="btn btn-success"--}}
-                                {{--style="border-radius: 20px; width: 100%; color: #03B876"--}}
-                                {{--data-toggle="popover"--}}
-                                {{--data-trigger="focus"--}}
-                                {{--data-html="true"--}}
-                                {{--title="Ready to Publish"--}}
-                                {{--data-placement="bottom"--}}
-                                {{--data-content="--}}
-                            {{--Add tags to reach more people<br>--}}
-                            {{--<form action='{{ url('posts/new') }}' method='post'>--}}
-                            {{--<input type='text' name='tag_1' id='tag_1' class='form-control border-none' placeholder='Tag 1'><br>--}}
-                            {{--<input type='text' name='tag_2' id='tag_2' class='form-control border-none' placeholder='Tag 2'><br>--}}
-                            {{--<input type='text' id='tag_3' class='form-control border-none' placeholder='Tag 3'><br>--}}
-                            {{--<input type='text' id='tag_4' class='form-control border-none' placeholder='Tag 4'><br>--}}
-                            {{--<input type='text' id='tag_5' class='form-control border-none' placeholder='Tag 5'><br>--}}
-                            {{--<button type='submit' id='btn_publish_confirm' class='btn btn-success btn-bg-green' style='border-radius: 20px; width: 100%; color: #03B876; margin-top: 20px;'>Publish</button>--}}
-                            {{--</form>--}}
-                            {{--">--}}
-                            {{--Publish <i class="fa fa-chevron-down"></i>--}}
-                        {{--</button>--}}
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->username }}
+                        <span class="caret"></span>
+                        @if (Storage::has('profile_images/'.Auth::user()->id))
+                            <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
+                                 style="width: 40px !important; height: 40px !important;"
+                                 class="img-rounded"
+                                 alt="">
+                        @else
+                            <img src="{{ url('images/icons/user.png') }}"
+                                 style="width: 40px !important; height: 40px !important;"
+                                 class="img-circle"
+                                 alt="">
+                        @endif
+                    </a>
 
-                    </div>
-
-                    <div class="form-group" style="//padding-left: 10px !important; //padding-right: 10px !important;">
-                        <button
-                                type="button"
-                                class="btn btn-success"
-                                style="-webkit-border-radius: 50%; -moz-border-radius: 50%; border-radius: 50%; width: 100%; color: #808080; border: 1px solid #808080;"
-                                data-toggle="popover"
-                                data-trigger="focus"
-                                data-html="true"
-                                title="Notifications"
-                                data-placement="bottom"
-                                data-content="
-
-                            ">
-                            <i class="fa fa-bell-o"></i>
-                        </button>
-                    </div>
-
-                    <div class="form-group link-gray" style="//padding-left: 10px !important; //padding-right: 10px !important;">
-                        <a href="#"
-                           data-toggle="popover"
-                           data-trigger="focus"
-                           data-html="true"
-                           title=""
-                           data-placement="bottom"
-                           data-content="
-                            <a href='{{ url('posts/new') }}'>New story</a><br>
-                            <a href='{{ url('my_stories') }}'>Drafts and stories</a>
-                            <hr style='margin-top: 10px !important;; margin-bottom: 10px !important;'>
-                            <a href='{{ url('profile') }}' style='font-size: 15px !important;'>Profile</a><br>
-                            <a href='{{ url('setting') }}' style='font-size: 15px !important;'>Setting</a><br>
-                            <a href='{{ url('sign_out') }}' style='font-size: 15px !important;'>Sign out</a>
-                           "
-                        >
-                            @if (Storage::has('profile_images/'.Auth::user()->id))
-                                <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
-                                     style="width: 40px !important; height: 40px !important;"
-                                     class="img-circle"
-                                     alt="">
-                            @else
-                                <img src="{{ url('images/icons/user.png') }}"
-                                     style="width: 40px !important; height: 40px !important;"
-                                     class="img-circle"
-                                     alt="">
-                            @endif
-                        </a>
-                    </div>
-
-                </form>
+                    <ul class="dropdown-menu">
+                        <li><a href='{{ url('posts/new') }}'>New story</a></li>
+                        <li><a href='{{ url('my_stories') }}'>Stories</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href='{{ url('profile') }}' style='font-size: 15px !important;'>Profile</a></li>
+                        <li><a href='{{ url('setting') }}' style='font-size: 15px !important;'>Setting</a></li>
+                        <li><a href='{{ url('sign_out') }}' style='font-size: 15px !important;'>Sign out</a></li>
+                    </ul>
+                </li>
 
             </ul>
+
         </div>
     </div>
 </nav>
-
-<script>
-    $(document).ready(function(){
-        $('[data-toggle="popover"]').popover();
-    });
-</script>

@@ -39,4 +39,13 @@ class HomeController extends Controller
         return view('search');
     }
 
+    public function Tag(Request $request) {
+        Session()->put('navbar', null);
+        $tag = \App\Tag::find($request->id);
+        $nearby_tags = \App\Tag::where('tag_name', $tag->tag_name)->get();
+        return view('tag')
+            ->with('tag', $tag)
+            ->with('nearby_tags', $nearby_tags);
+    }
+
 }

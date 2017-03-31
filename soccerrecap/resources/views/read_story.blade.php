@@ -6,219 +6,220 @@
 
 @section('content')
 
-    <div class="panel panel-default">
-        <div class="panel-body">
+    <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 20px;">
+        <div class="panel panel-default">
+            <div class="panel-body">
 
-            <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
-                <!-- Header -->
-                <div class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 0px !important; padding-right: 0px !important;">
-                    <div class="col-xs-7 col-sm-12 col-md-4">
-                        <div class="form-group" style="margin-top: 20px;">
-                            @if (Storage::has('profile_images/'.$story->member_id))
-                                <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
-                            @else
-                                <img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
-                            @endif
-                            <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
-                        </div>
-                        <div class="form-group">
-                            <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ $story->updated_at }}</span>
-                        </div>
-                    </div>
-                    <div class="col-xs-5 col-sm-12 col-md-8">
-                        <div class="form-group text-right" style="margin-top: 20px;">
-                            <button type="button" class="btn btn-success bg-success btn-remove-shadow" style="background-color: #03B876 !important;"><i class="fa fa-facebook"></i> SHARE</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Article Image -->
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        @if (Storage::has('story_pictures/'.$story->id))
-                            <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('story_pictures/'.$story->id)) }}" alt="" class="img-responsive">
-                        @endif
-                    </div>
-                </div>
-
-                <!-- Article Detail -->
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
-                        <span style="font-size: 30px;"><b>{{ $story->story_title }}</b></span>
-                    </div>
-                    <div class="form-group">
-                        <span style="font-size: 20px;" class="font-color-gray">{!! $story->story_detail !!}</span>
-                    </div>
-                    <div class="form-group">
-                        <i class="fa fa-tags"></i>
-                        @foreach ($tags as $tag)
-                            <span>{{ $tag->tag_name }}</span>
-                            @if (!$loop->last)
-                                <span>,</span>
-                            @endif
-                        @endforeach
-                    </div>
-                    <div class="form-group">
-                        <button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">
-                            <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
-                            <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
-                        </button>
-
-                        <i class="fa fa-eye" style="margin-left: 10px;"></i>
-                        <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
-
-                        <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
-                        <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comments) }}</span>
-
-                        <a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
-                    </div>
-                    <div class="form-group">
-                        <hr>
-                    </div>
-
-                    @if (Auth::check())
-                        <script>
-                            $(document).ready(function() {
-                                $('#btn_like_story_{{ $story->id }}').on('click', function() {
-                                    $.post('{{ url('like_story/'.$story->id.'/'.Auth::user()->id) }}', {
-                                            _token: '{{ csrf_token() }}',
-                                            story_id: '{{ $story->id }}',
-                                            member_id: '{{ Auth::user()->id }}'
-                                        },
-                                        function(data, status) {
-                                            if (status) {
-                                                $('#story_{{ $story->id }}_like').text(data);
-//                                        console.log("Data: " + data + "\nStatus: " + status);
-//                                        console.log(typeof (data));
-                                            }
-                                        });
-                                });
-                            });
-                        </script>
-                    @endif
-
-                    <!-- Author Icon -->
+                <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
+                    <!-- Header -->
                     <div class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 0px !important; padding-right: 0px !important;">
-                        <div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1 text-center" style="//border: 1px solid red">
-                            <div class="form-group" style="//margin-top: 20px;">
-                                <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                        <div class="col-xs-7 col-sm-12 col-md-4">
+                            <div class="form-group" style="margin-top: 20px;">
+                                @if (Storage::has('profile_images/'.$story->member_id))
+                                    <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                @else
+                                    <img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                @endif
                                 <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
                             </div>
                             <div class="form-group">
-                                <span style="font-size: 14px; font-weight: normal; //margin-left: 94px;" class="font-color-gray">{{ $profile->describe_profile }}</span>
+                                <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2 text-center" style="//border: 1px solid red">
-                            <div class="form-group" style="//margin-top: 25px;">
-                                <button type="button" class="btn btn-success btn-remove-shadow" style="border-radius: 20px; width: 100%; color: #03B876">Follow</button>
+                        <div class="col-xs-5 col-sm-12 col-md-8">
+                            <div class="form-group text-right" style="margin-top: 20px;">
+                                <button type="button" class="btn btn-success bg-success btn-remove-shadow" style="background-color: #03B876 !important;"><i class="fa fa-facebook"></i> SHARE</button>
                             </div>
                         </div>
                     </div>
 
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-4" style="//border: 1px solid #abc; padding-left: 0px !important; //padding-right: 0px !important;">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="form-group">
-                    <a href="#"><h3>What's HTML</h3></a>
-                </div>
-                <div class="form-group">
-                    <span style="font-size: 18px;" class="font-color-gray">Hello world! This is a test!!!</span>
-                </div>
-                <div class="form-group" style="margin-top: 20px; padding-bottom: 50px;">
-
-                    <div class="form-inline">
-                        <div class="form-group pull-left">
-                            <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
-                            <span for="" style="margin-left: 10px;" class="font-color-green">Macbook Pro</span>
-                        </div>
-                        <div class="form-group pull-right" style="margin-top: 5px;">
-                            <button type="button" class="btn btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">1,000</span></button>
-
-                            <i class="fa fa-eye" style="margin-left: 10px;"></i>
-                            <span style="color: #a6a6a6; //margin-left: 10px;">2,000</span>
-
-                            <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
-                            <span style="color: #a6a6a6; //margin-left: 10px;">5,000</span>
+                    <!-- Article Image -->
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            @if (Storage::has('story_pictures/'.$story->id))
+                                <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('story_pictures/'.$story->id)) }}" alt="" class="img-responsive">
+                            @endif
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-xs-12 col-sm-12 col-md-4" style="//border: 1px solid #abc; //padding-left: 0px !important; //padding-right: 0px !important;">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="form-group">
-                    <a href="#"><h3>What's CSS</h3></a>
-                </div>
-                <div class="form-group">
-                    <span style="font-size: 18px;" class="font-color-gray">Hello world! This is a test!!!</span>
-                </div>
-                <div class="form-group" style="margin-top: 20px; padding-bottom: 50px;">
-
-                    <div class="form-inline">
-                        <div class="form-group pull-left">
-                            <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
-                            <span for="" style="margin-left: 10px;" class="font-color-green">Macbook Pro</span>
+                    <!-- Article Detail -->
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <span style="font-size: 30px;"><b>{{ $story->story_title }}</b></span>
                         </div>
-                        <div class="form-group pull-right" style="margin-top: 5px;">
-                            <button type="button" class="btn btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">1,000</span></button>
+                        <div class="form-group">
+                            <span style="font-size: 20px;" class="font-color-gray">{!! $story->story_detail !!}</span>
+                        </div>
+                        <div class="form-group">
+                            <i class="fa fa-tags"></i>
+                            @foreach ($tags as $tag)
+                                <span>{{ $tag->tag_name }}</span>
+                                @if (!$loop->last)
+                                    <span>,</span>
+                                @endif
+                            @endforeach
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">
+                                <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
+                                <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
+                            </button>
 
                             <i class="fa fa-eye" style="margin-left: 10px;"></i>
-                            <span style="color: #a6a6a6; //margin-left: 10px;">2,000</span>
+                            <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
 
                             <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
-                            <span style="color: #a6a6a6; //margin-left: 10px;">5,000</span>
+                            <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comments) }}</span>
+
+                            <a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
                         </div>
+                        <div class="form-group">
+                            <hr>
+                        </div>
+
+                        @if (Auth::check())
+                            <script>
+                                $(document).ready(function() {
+                                    $('#btn_like_story_{{ $story->id }}').on('click', function() {
+                                        $.post('{{ url('like_story/'.$story->id.'/'.Auth::user()->id) }}', {
+                                                _token: '{{ csrf_token() }}',
+                                                story_id: '{{ $story->id }}',
+                                                member_id: '{{ Auth::user()->id }}'
+                                            },
+                                            function(data, status) {
+                                                if (status) {
+                                                    $('#story_{{ $story->id }}_like').text(data);
+//                                        console.log("Data: " + data + "\nStatus: " + status);
+//                                        console.log(typeof (data));
+                                                }
+                                            });
+                                    });
+                                });
+                            </script>
+                    @endif
+
+                    <!-- Author Icon -->
+                        <div class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 0px !important; padding-right: 0px !important;">
+                            <div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1 text-center" style="//border: 1px solid red">
+                                <div class="form-group" style="//margin-top: 20px;">
+                                    @if (Storage::has('profile_images/'.$story->member_id))
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                    @else
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                    @endif
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
+                                </div>
+                                <div class="form-group">
+                                    <span style="font-size: 14px; font-weight: normal; //margin-left: 94px;" class="font-color-gray">{{ $profile->describe_profile }}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2 text-center" style="//border: 1px solid red">
+
+                                @if (Auth::check())
+                                    <div class="form-group" style="//margin-top: 25px;">
+                                        @php
+                                            $follow_check = \App\FollowsMember::where('member_id', Auth::user()->id)
+                                            ->where('follow_member_id', $member->id)
+                                            ->first();
+                                        @endphp
+
+                                        @if ($member->id != Auth::user()->id)
+
+                                            @if ($follow_check)
+                                                <button type="button" id="btn_unfollow" class="btn btn-success btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                                            @else
+                                                <button type="button" id="btn_follow" class="btn btn-success" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                                            @endif
+
+                                            <script>
+                                                $(document).ready(function() {
+                                                    $('#btn_follow').on('click', function() {
+                                                        $.post('{{ url('follow/'.$member->id) }}', {
+                                                                _token: '{{ csrf_token() }}'
+                                                            },
+                                                            function(data, status) {
+                                                                if (status) {
+                                                                    location.reload();
+                                                                }
+                                                            });
+                                                    });
+
+                                                    $('#btn_unfollow').on('click', function() {
+                                                        $.post('{{ url('unfollow/'.$member->id) }}', {
+                                                                _token: '{{ csrf_token() }}'
+                                                            },
+                                                            function(data, status) {
+                                                                if (status) {
+                                                                    location.reload();
+                                                                }
+                                                            });
+                                                    });
+                                                });
+                                            </script>
+
+                                        @endif
+                                    </div>
+                                @endif
+
+                            </div>
+                        </div>
+
                     </div>
 
                 </div>
+
             </div>
         </div>
     </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-4" style="//border: 1px solid #abc; //padding-left: 0px !important; padding-right: 0px !important;">
-        <div class="panel panel-default">
-            <div class="panel-body">
-                <div class="form-group">
-                    <a href="#"><h3>What's PHP</h3></a>
-                </div>
-                <div class="form-group">
-                    <span style="font-size: 18px;" class="font-color-gray">Hello world! This is a test!!!</span>
-                </div>
-                <div class="form-group" style="margin-top: 20px; padding-bottom: 50px;">
+    @foreach ($unique_tag_ids as $unique_tag_id)
 
-                    <div class="form-inline">
-                        <div class="form-group pull-left">
-                            <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
-                            <span for="" style="margin-left: 10px;" class="font-color-green">Macbook Pro</span>
-                        </div>
-                        <div class="form-group pull-right" style="margin-top: 5px;">
-                            <button type="button" class="btn btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">1,000</span></button>
+        @php
+            $story_suggest = \App\Story::find($unique_tag_id);
+            $comment = \App\Comment::where('story_id', $story_suggest->id)->get();
+        @endphp
 
-                            <i class="fa fa-eye" style="margin-left: 10px;"></i>
-                            <span style="color: #a6a6a6; //margin-left: 10px;">2,000</span>
-
-                            <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
-                            <span style="color: #a6a6a6; //margin-left: 10px;">5,000</span>
-                        </div>
+        <div class="col-xs-12 col-sm-12 col-md-4" style="//border: 1px solid #abc; //padding-left: 0px !important; //padding-right: 0px !important;">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="form-group">
+                        <a href="#"><h3>{{ $story_suggest->story_title }}</h3></a>
                     </div>
+                    <div class="form-group">
+                        <span style="font-size: 18px;">{!! str_limit($story_suggest->story_detail, 100) !!}</span>
+                    </div>
+                    <div class="form-group" style="margin-top: 20px; padding-bottom: 50px;">
 
+                        <div class="form-inline">
+                            <div class="form-group pull-left">
+                                @if (Storage::has('profile_images/'.$story_suggest->member_id))
+                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story_suggest->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                @else
+                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                @endif
+                            </div>
+                            <div class="form-group pull-right" style="margin-top: 5px;">
+                                <button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">
+                                    <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
+                                    <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
+                                </button>
+
+                                <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px;"></i>
+                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
+
+                                <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
+                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="col-xs-12 col-sm-12 col-md-12 col-fulid">
+    @endforeach
+
+    <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
 
@@ -249,7 +250,7 @@
                                 <textarea name="comment_detail" id="summernote"></textarea>
                             </div>
                             <div class="form-group text-right" style="margin-top: 20px;">
-                                <button type="submit" id="btn_comment_submit" class="btn btn-success bg-success" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>Publish</button>
+                                <button type="submit" id="btn_comment_submit" class="btn btn-success bg-success" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>Post</button>
                                 <button type="button" id="btn_comment_cancel" class="btn btn-success bg-success font-color-green" style="font-size: 16px; width: 120px;">Cancle</button>
                             </div>
                         </form>
@@ -277,7 +278,7 @@
                                      class="img-circle"
                                      alt="">
                             @endif
-                            <span for="" style="margin-left: 10px;" class="font-color-green">{{ $member->username }} <span class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $comment->created_at)->diffForHumans() }}</span></span>
+                            <span for="" style="margin-left: 10px;" class="font-color-green">{{ $member->username }} <span class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $comment->created_at)->toFormattedDateString() }}</span></span>
                         </div>
                         <div class="form-group">
                             <span style="font-size: 18px;">{!! $comment->comment_detail !!}</span>

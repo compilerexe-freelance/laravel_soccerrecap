@@ -20,27 +20,30 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group text-right">
+                                <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
+                            </div>
                             <div class="form-inline">
                                 <div class="form-group" style="margin-top: 20px;">
                                     @if (Storage::has('profile_images/'.$story->member_id))
-                                        <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
                                     @else
-                                        <img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
-                                        <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ $story->updated_at }}</span>
-                                    </span>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 20px; padding-bottom: 10px;">
-                            <div class="form-group">
-                                @if (Storage::has('story_pictures/'.$story->id))
+                        <div class="col-xs-12 col-sm-12 col-md-12" style="//margin-top: 20px; padding-bottom: 10px;">
+
+                            @if (Storage::has('story_pictures/'.$story->id))
+                                <div class="form-group" style="margin-top: 20px !important;">
                                     <a href="{{ url('/story/'.$story->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('story_pictures/'.$story->id)) }}" alt="" class="img-responsive"></a>
-                                @endif
-                            </div>
+                                </div>
+                            @endif
+
                             <div class="form-group">
                                 <a href="{{ url('/story/'.$story->id) }}"><h3 style="font-weight: bold;">{{ $story->story_title }}</h3></a>
                             </div>
@@ -98,7 +101,7 @@
             <div class="form-group">
 
                 @foreach ($tags as $tag)
-                    <button type="button" class="btn btn-default btn-remove-hover btn-tag">{{ $tag->tag_name }}</button>
+                    <a href="{{ url('tag/'.$tag->id) }}"><button type="button" class="btn btn-default btn-remove-hover btn-tag">{{ $tag->tag_name }}</button></a>
                 @endforeach
 
             </div>

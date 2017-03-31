@@ -25,13 +25,36 @@ class StoryController extends Controller
         $count->count_view = ++$count->count_view;
         $count->save();
 
+        // Suggested
+        $current_tags = \App\Tag::where('story_id', $story->id)->orderByRaw('RAND()')->limit(3)->get();
+        $result_tag_names = array();
+        foreach ($current_tags as $current_tag) {
+            array_push($result_tag_names, $current_tag->tag_name);
+        }
+
+//        print_r($result_tag_names);
+
+        $result_tag_ids = array();
+        foreach ($result_tag_names as $result_tag_name) {
+            $get_tag = \App\Tag::where('tag_name', $result_tag_name)->orderByRaw('RAND()')->first();
+            array_push($result_tag_ids, $get_tag->story_id);
+        }
+//        echo '<br>';
+//        print_r($result_tag_ids);
+
+//        echo '<br>';
+        $collection = collect($result_tag_ids);
+        $unique = $collection->unique();
+        $unique_tag_ids = $unique->values()->all();
+
         return view('read_story')
             ->with('story', $story)
             ->with('tags', $tags)
             ->with('member', $member)
             ->with('profile', $profile)
             ->with('comments', $comments)
-            ->with('count', $count);
+            ->with('count', $count)
+            ->with('unique_tag_ids', $unique_tag_ids);
     }
 
     public function WriteStory() {

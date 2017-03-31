@@ -1,7 +1,7 @@
 @extends('layouts.layout_user')
 
 @section('navbar')
-    @include('layouts.components.navbar_profile')
+    @include('layouts.components.navbar')
 @endsection
 
 @section('content')

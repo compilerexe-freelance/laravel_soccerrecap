@@ -20,16 +20,26 @@ Route::group(['prefix' => '/'], function () {
     Route::post('posts/new', 'StoryController@InsertStory');
     Route::post('search', 'HomeController@Search');
     Route::get('profile', 'ProfileController@Profile');
+    Route::get('profile/user/{id}', 'ProfileController@UserProfile');
     Route::get('setting', 'ProfileController@Setting');
     Route::post('update_password', 'ProfileController@UpdatePassword');
     Route::get('my_stories', 'ProfileController@MyStories');
     Route::get('update_story/{id}', 'ProfileController@GetUpdateStory');
     Route::post('update_story/{id}', 'ProfileController@PostUpdateStory');
     Route::post('posts/comment/{id}', 'StoryController@PostComment');
-
+    Route::post('follow/{id}', 'ProfileController@Follow');
+    Route::post('unfollow/{id}', 'ProfileController@Unfollow');
+    Route::post('tag/follow/{id}', 'ProfileController@TagFollow');
+    Route::post('tag/unfollow/{id}', 'ProfileController@TagUnfollow');
     Route::post('sign_up', 'MemberController@SignUp');
     Route::post('sign_in', 'MemberController@SignIn');
     Route::get('sign_out', 'MemberController@SignOut');
+    Route::get('tag/{id}', 'HomeController@Tag');
+});
+
+Route::group(['prefix' => 'list'], function() {
+   Route::get('followers/{id}', 'ProfileController@ListFollowers');
+    Route::get('tag_following/{id}', 'ProfileController@ListTagFollowing');
 });
 
 Route::group(['prefix' => '/profile/'], function() {

@@ -68,7 +68,7 @@
                     </li>
 
                     <li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">
-                        <a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg"></i></a>
+                        <a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#">Notification</a>
                         <ul class="dropdown-menu">
                             <li><a href="#">No have notification.</a></li>
                         </ul>
@@ -80,7 +80,7 @@
                             @if (Storage::has('profile_images/'.Auth::user()->id))
                                 <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
                                      style="width: 40px !important; height: 40px !important;"
-                                     class="img-rounded"
+                                     class="img-circle"
                                      alt="">
                             @else
                                 <img src="{{ url('images/icons/user.png') }}"
@@ -123,7 +123,7 @@
 @else
 
     <nav class="navbar navbar-default" style="border-radius: 0px; margin-bottom: 0px;">
-        <div class="container-fulid">
+        <div class="container">
 
             <div class="navbar-header" style="padding-top: 7px;">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -170,14 +170,14 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" style="padding-left: 0px">
+                        <a href="#">
                             <button type="button" id="btn_search" class="btn btn-success font-color-green">Search</button>
                         </a>
                     </li>
 
                     <li>
                         <a href="#">
-                            <button type="button" class="btn btn-success font-color-blue" id="btn-sign-in" style="border-radius: 20px; width: 100%; color: #03B876"">Sign In / Sign Up</button>
+                            <button type="button" class="btn btn-success btn-remove-hover" id="btn-sign-in" style="border-radius: 20px; width: 100%; color: #03B876"">Sign In / Sign Up</button>
                         </a>
                     </li>
 

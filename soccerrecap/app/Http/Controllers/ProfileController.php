@@ -11,12 +11,38 @@ use App\Profile;
 use App\Member;
 use App\Story;
 use App\Tag;
+use App\StoryCount;
+use App\FollowsMember;
+use App\FollowsTag;
 
 class ProfileController extends Controller
 {
     public function Profile(Request $request) {
         session()->put('navbar', null);
-        return view('profile');
+        $profile = \App\Profile::find($request->user()->id);
+        $following = \App\FollowsMember::where('member_id', $request->user()->id)->get();
+        $followers = \App\FollowsMember::where('follow_member_id', $request->user()->id)->get();
+        $tag_following = \App\FollowsTag::where('member_id', $request->user()->id)->get();
+
+        // Result like
+        $total_like = 0;
+        $storys = \App\Story::all();
+        foreach ($storys as $story) {
+            if ($story->member_id == $request->user()->id) {
+                $story_count = \App\StoryCount::find($story->id);
+                $total_like = $total_like + $story_count->count_like;
+            }
+        }
+
+        $storys = \App\Story::where('member_id', $request->user()->id)->get();
+
+        return view('profile')
+            ->with('profile', $profile)
+            ->with('total_like', $total_like)
+            ->with('storys', $storys)
+            ->with('following', count($following))
+            ->with('followers', count($followers))
+            ->with('tag_following', count($tag_following));
     }
 
     public function MyStories(Request $request) {
@@ -115,4 +141,90 @@ class ProfileController extends Controller
         $member->save();
         return redirect('sign_out');
     }
+
+    public function UserProfile(Request $request) {
+        $member = \App\Member::find($request->id);
+        $profile = \App\Profile::find($request->id);
+        $followers = \App\FollowsMember::where('follow_member_id', $request->id)->get();
+        $following = \App\FollowsMember::where('member_id', $request->id)->get();
+
+        // Result like
+        $total_like = 0;
+        $storys = \App\Story::all();
+        foreach ($storys as $story) {
+            if ($story->member_id == $request->id) {
+                $story_count = \App\StoryCount::find($story->id);
+                $total_like = $total_like + $story_count->count_like;
+            }
+        }
+
+        $storys = \App\Story::where('member_id', $request->id)->get();
+
+        return view('view_profile')
+            ->with('member', $member)
+            ->with('profile', $profile)
+            ->with('total_like', $total_like)
+            ->with('storys', $storys)
+            ->with('followers', count($followers))
+            ->with('following', count($following));
+    }
+
+    public function Follow(Request $request) {
+
+        $duplicate_check = \App\FollowsMember::where('member_id', $request->user()->id)
+            ->where('follow_member_id', $request->id)
+            ->first();
+
+        if (!$duplicate_check) {
+            $follow = new FollowsMember;
+            $follow->member_id = $request->user()->id;
+            $follow->follow_member_id = $request->id;
+            $follow->save();
+        }
+
+    }
+
+    public function Unfollow(Request $request) {
+        \App\FollowsMember::where('member_id', $request->user()->id)
+            ->where('follow_member_id', $request->id)
+            ->delete();
+    }
+
+    public function ListFollowers(Request $request) {
+        if ($request->user()->id != $request->id) {
+            return redirect('profile');
+        }
+        $list_followers = \App\FollowsMember::where('follow_member_id', $request->id)->get();
+        return view('list_followers')
+            ->with('list_followers', $list_followers);
+    }
+
+    public function ListTagFollowing(Request $request) {
+        if ($request->user()->id != $request->id) {
+            return redirect('profile');
+        }
+        $list_tag_followings = \App\FollowsTag::where('member_id', $request->user()->id)->get();
+        return view('list_tag_following')
+            ->with('list_tag_followings', $list_tag_followings);
+    }
+
+    public function TagFollow(Request $request) {
+        $duplicate_check = \App\FollowsTag::where('member_id', $request->user()->id)
+            ->where('follow_tag_id', $request->id)
+            ->first();
+
+        if (!$duplicate_check) {
+            $follow = new FollowsTag;
+            $follow->member_id = $request->user()->id;
+            $follow->follow_tag_id = $request->id;
+            $follow->save();
+        }
+    }
+
+    public function TagUnfollow(Request $request) {
+        \App\FollowsTag::where('member_id', $request->user()->id)
+            ->where('follow_tag_id', $request->id)
+            ->delete();
+    }
+
 }

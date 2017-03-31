@@ -14,7 +14,8 @@ body {
 button {
     font-family: 'Kanit', sans-serif;
 //font-size: 18px !important;
-    border-radius: 20px !important;
+    //border-radius: 20px !important;
+    border-radius: 0px !important;
     background-color: #fff !important;
 }
 
@@ -79,6 +80,9 @@ a:hover {
 }
 .font-color-green {
     color: #03B876 !important;
+}
+.font-color-blue {
+    color: dodgerblue !important;
 }
 .btn-bg-green {
     background-color: #03B876 !important;
