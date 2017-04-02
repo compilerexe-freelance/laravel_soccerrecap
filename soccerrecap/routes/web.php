@@ -13,7 +13,8 @@
 
 Route::group(['prefix' => '/'], function () {
     Route::get('/', 'HomeController@Home');
-    Route::get('following', 'HomeController@Following');
+    Route::get('following/users', 'HomeController@FollowingUsers');
+    Route::get('following/tags', 'HomeController@FollowingTags');
     Route::get('top_stories', 'HomeController@TopStories');
     Route::get('bookmarks', 'HomeController@Bookmarks');
     Route::get('posts/new', 'StoryController@WriteStory');
@@ -35,6 +36,8 @@ Route::group(['prefix' => '/'], function () {
     Route::post('sign_in', 'MemberController@SignIn');
     Route::get('sign_out', 'MemberController@SignOut');
     Route::get('tag/{id}', 'HomeController@Tag');
+
+    Route::post('notification/check', 'HomeController@NotificationCheck');
 });
 
 Route::group(['prefix' => 'list'], function() {

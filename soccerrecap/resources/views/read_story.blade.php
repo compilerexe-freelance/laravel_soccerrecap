@@ -60,10 +60,15 @@
                             @endforeach
                         </div>
                         <div class="form-group">
-                            <button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">
+                            {{--<button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">--}}
+                                {{--<i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>--}}
+                                {{--<span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>--}}
+                            {{--</button>--}}
+
+                            <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue">
                                 <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
                                 <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
-                            </button>
+                            </a>
 
                             <i class="fa fa-eye" style="margin-left: 10px;"></i>
                             <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
@@ -182,35 +187,48 @@
         <div class="col-xs-12 col-sm-12 col-md-4" style="//border: 1px solid #abc; //padding-left: 0px !important; //padding-right: 0px !important;">
             <div class="panel panel-default">
                 <div class="panel-body">
+
+                    <div class="form-group">
+                        <div class="form-inline">
+                            <div class="form-group" style="margin-top: 10px;">
+                                @if (Storage::has('profile_images/'.$story->member_id))
+                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                @else
+                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
+                                    <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
+                                    </span>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="form-group">
                         <a href="#"><h3>{{ $story_suggest->story_title }}</h3></a>
                     </div>
                     <div class="form-group">
                         <span style="font-size: 18px;">{!! str_limit($story_suggest->story_detail, 100) !!}</span>
                     </div>
-                    <div class="form-group" style="margin-top: 20px; padding-bottom: 50px;">
+                    <div class="form-group text-right" style="margin-top: 20px; //padding-bottom: 50px;">
 
-                        <div class="form-inline">
-                            <div class="form-group pull-left">
-                                @if (Storage::has('profile_images/'.$story_suggest->member_id))
-                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story_suggest->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
-                                @else
-                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
-                                @endif
-                            </div>
-                            <div class="form-group pull-right" style="margin-top: 5px;">
-                                <button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">
-                                    <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
-                                    <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
-                                </button>
+                        {{--<button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">--}}
+                            {{--<i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>--}}
+                            {{--<span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>--}}
+                        {{--</button>--}}
 
-                                <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px;"></i>
-                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
+                        <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue">
+                            <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
+                            <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
+                        </a>
 
-                                <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
-                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
-                            </div>
-                        </div>
+                        <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px;"></i>
+                        <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
+
+                        <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
+                        <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
+
 
                     </div>
                 </div>

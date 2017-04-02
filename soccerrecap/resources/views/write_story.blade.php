@@ -12,7 +12,7 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="//border: 1px solid red;">
 
                 <div class="form-group text-right">
-                    <a href="{{ url('/') }}"><button type="button" class="btn btn-success font-color-blue" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> Back</button></a>
+                    <a href="{{ url('/') }}"><button type="button" class="btn btn-success font-color-green" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> Back</button></a>
                 </div>
 
                 <form action="{{ url('posts/new') }}" method="post" enctype="multipart/form-data">

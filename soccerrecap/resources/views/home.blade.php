@@ -50,10 +50,14 @@
                                 <span style="font-size: 18px;">{!! str_limit($story->story_detail, 100) !!}</span>
                             </div>
                             <div class="form-group">
-                                <button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">
+                                {{--<button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">--}}
+                                    {{--<i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>--}}
+                                    {{--<span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>--}}
+                                {{--</button>--}}
+                                <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue">
                                     <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
                                     <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
-                                </button>
+                                </a>
 
                                 <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px;"></i>
                                 <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>

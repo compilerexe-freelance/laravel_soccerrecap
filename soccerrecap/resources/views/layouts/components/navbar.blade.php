@@ -39,7 +39,17 @@
                 <ul class="nav navbar-nav navbar-left-padding">
 
                     <li @if (session('navbar') == 'home') class="active" @endif><a href="{{ url('/') }}">Latest picks</a></li>
-                    <li @if (session('navbar') == 'following') class="active" @endif><a href="{{ url('/following') }}">Following</a></li>
+                    {{--<li @if (session('navbar') == 'following') class="active" @endif><a href="{{ url('/following') }}">Following</a></li>--}}
+
+                    <li @if (session('navbar') == 'following') class="active dropdown" @else class="dropdown" @endif>
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Following
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ url('following/users') }}">Users</a></li>
+                            <li><a href="{{ url('following/tags') }}">Tags</a></li>
+                        </ul>
+                    </li>
+
                     <li @if (session('navbar') == 'top_stories') class="active" @endif><a href="{{ url('/top_stories') }}">Top stories</a></li>
                     <li @if (session('navbar') == 'bookmarks') class="active" @endif><a href="{{ url('/bookmarks') }}">Bookmarks</a></li>
                     <li class="dropdown">
@@ -63,14 +73,14 @@
                     </li>
                     <li style="padding-top: 5px;">
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-success font-color-blue">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-success font-color-green">Search</button>
                         </a>
                     </li>
 
                     <li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">
-                        <a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg"></i></a>
+                        <a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg" id="bell-color"></i></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">No have notification.</a></li>
+                            <li><a href="#" id="list-notification">No have notification.</a></li>
                         </ul>
                     </li>
 
@@ -116,7 +126,30 @@
 
     <script>
         $(document).ready(function(){
-            $('[data-toggle="popover"]').popover();
+            setInterval(function() {
+                $.post('{{ url('notification/check') }}', {
+                    _token: '{{ csrf_token() }}',
+                    member_id: '{{ Auth::user()->id }}'
+                },
+                function(data, status) {
+                    if (data != null) {
+                        var obj = JSON.parse(data);
+                        var str = obj.username + " follow you.";
+                        $('#bell-color').attr('style', 'color: red');
+                        $('#list-notification').text(str);
+
+                        $.post('{{ url('notification/insert') }}', {
+                            _token: '{{ csrf_token() }}',
+                            id: obj.id
+                        },
+                        function(data, status) {
+
+                        });
+
+                    }
+//                    console.log("Data: " + data + "\nStatus: " + status);
+                });
+            }, 1000);
         });
     </script>
 
@@ -141,9 +174,9 @@
                 <ul class="nav navbar-nav" style="padding: 7px;">
 
                     <li @if (session('navbar') == 'home') class="active" @endif><a href="{{ url('/') }}">Latest picks</a></li>
-                    <li @if (session('navbar') == 'following') class="active" @endif><a href="{{ url('/following') }}">Following</a></li>
-                    <li @if (session('navbar') == 'top_stories') class="active" @endif><a href="{{ url('/top_stories') }}">Top stories</a></li>
-                    <li @if (session('navbar') == 'bookmarks') class="active" @endif><a href="{{ url('/bookmarks') }}">Bookmarks</a></li>
+                    <li @if (session('navbar') == 'following') class="active" @endif><a href="#">Following</a></li>
+                    <li @if (session('navbar') == 'top_stories') class="active" @endif><a href="#">Top stories</a></li>
+                    <li @if (session('navbar') == 'bookmarks') class="active" @endif><a href="#">Bookmarks</a></li>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Knowledge
                             <span class="caret"></span></a>
@@ -153,12 +186,6 @@
                             <li><a href="#">OSX</a></li>
                         </ul>
                     </li>
-
-                    {{--<li><a href="#">Latest picks</a></li>--}}
-                    {{--<li><a href="#">Following</a></li>--}}
-                    {{--<li><a href="#">Top stories</a></li>--}}
-                    {{--<li><a href="#">Bookmarks</a></li>--}}
-                    {{--<li><a href="#">Knowledge</a></li>--}}
 
                 </ul>
 
@@ -171,13 +198,13 @@
                     </li>
                     <li>
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-success font-color-blue">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-success font-color-green">Search</button>
                         </a>
                     </li>
 
                     <li>
                         <a href="#">
-                            <button type="button" class="btn btn-success font-color-blue" id="btn-sign-in" style="border-radius: 20px; width: 100%; color: #03B876"">Sign In / Sign Up</button>
+                            <button type="button" class="btn btn-success btn-bg-green" id="btn-sign-in" style="border-radius: 20px; width: 100%; color: #03B876">Sign In / Sign Up</button>
                         </a>
                     </li>
 
@@ -209,7 +236,7 @@
                     <button type="button" class="btn btn-primary" style="background-color: #0d71bb !important; font-size: 18px;"><i class="fa fa-facebook-official"></i> Sign in with Facebook</button>
                 </div>
                 <div class="form-group">
-                    <a href="#" id="link-sign-in-email" style="text-decoration: none;"><span style="font-size: 16px;" class="font-color-blue">Sign in or Sign up with email</span></a>
+                    <a href="#" id="link-sign-in-email" style="text-decoration: none;"><span style="font-size: 16px;" class="font-color-green">Sign in or Sign up with email</span></a>
                 </div>
             </div>
 
@@ -245,7 +272,7 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px;">
-                        <button type="button" id="btn-sign-up-email" class="btn btn-success btn-remove-shadow font-color-blue pull-left" style="font-size: 18px; width: 150px;">Sign up</button>
+                        <button type="button" id="btn-sign-up-email" class="btn btn-success btn-remove-shadow font-color-green pull-left" style="font-size: 18px; width: 150px;">Sign up</button>
                         <button type="submit" class="btn btn-success btn-remove-hover btn-bg-green pull-right" style="font-size: 18px; width: 150px;">Login</button>
                     </div>
                 </form>

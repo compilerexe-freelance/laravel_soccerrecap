@@ -19,9 +19,18 @@ class HomeController extends Controller
             ->with('tags', $tags);
     }
 
-    public function Following() {
+    public function FollowingUsers(Request $request) {
         Session()->put('navbar', 'following');
-        return view('following');
+        $follows_users = \App\FollowsMember::where('member_id', $request->user()->id)->get();
+        return view('following_users')
+            ->with('follows_users', $follows_users);
+    }
+
+    public function FollowingTags(Request $request) {
+        Session()->put('navbar', 'following');
+        $follows_tags = \App\FollowsTag::where('member_id', $request->user()->id)->get();
+        return view('following_tags')
+            ->with('follows_tags', $follows_tags);
     }
 
     public function TopStories() {
@@ -46,6 +55,12 @@ class HomeController extends Controller
         return view('tag')
             ->with('tag', $tag)
             ->with('nearby_tags', $nearby_tags);
+    }
+
+    public function NotificationCheck(Request $request) {
+        $notifications = \App\FollowsMember::where('follow_member_id', $request->member_id)->orderBy('created_at', 'desc')->limit(1)->first();
+        $fillter_username = \App\Member::find($notifications->member_id);
+        return json_encode($fillter_username);
     }
 
 }
