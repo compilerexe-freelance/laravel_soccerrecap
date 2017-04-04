@@ -10,6 +10,7 @@ use Auth;
 use App\Member;
 use App\Profile;
 use App\Setting;
+use App\PermissionMember;
 
 class MemberController extends Controller
 {
@@ -40,6 +41,12 @@ class MemberController extends Controller
         $profile->describe_profile = "Profile describe ...";
         $profile->save();
 
+        $permission = new PermissionMember;
+        $permission->member_id = $member->id;
+        $permission->temporary_suspend = 0;
+        $permission->suspended = 0;
+        $permission->save();
+
         $setting = new Setting;
         $setting->member_id = $member->id;
         $setting->status_new_sletter = 0;
@@ -51,12 +58,32 @@ class MemberController extends Controller
 
     public function SignIn(Request $request) {
 
-        if (Auth::attempt(['email' => $request->sign_in_email, 'password' => $request->sign_in_password])) {
-            return redirect('/');
+        // Check Permissions
+        $status_permission = 0;
+        $member = \App\Member::where('email', $request->sign_in_email)->first();
+        if ($member) {
+            $permissions = \App\PermissionMember::find($member->id);
+            if ($permissions->suspended == 1) {
+                $status_permission = 1;
+            } else {
+                if ($permissions->temporary_suspend == 1) {
+                    $status_permission = 1;
+                }
+            }
         } else {
-            return redirect('/')
-                ->withInput($request->except('sign_in_password'))
-                ->with('status_sign_in', 'fail');
+            $status_permission = 1;
+        }
+
+        if ($status_permission == 0) {
+            if (Auth::attempt(['email' => $request->sign_in_email, 'password' => $request->sign_in_password])) {
+                return redirect('/');
+            } else {
+                return redirect('/')
+                    ->withInput($request->except('sign_in_password'))
+                    ->with('status_sign_in', 'fail');
+            }
+        } else {
+            return redirect('/');
         }
 
     }

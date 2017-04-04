@@ -11,6 +11,35 @@
 |
 */
 
+Route::group(['prefix' => '/admin'], function() {
+   Route::get('main', 'AdminController@Main');
+
+   Route::group(['prefix' => 'member'], function() {
+       Route::get('send_message', 'ManageMember@SendMessage');
+       Route::get('permission', 'ManageMember@Permission');
+   });
+
+   Route::group(['prefix' => 'permission'], function() {
+       Route::get('temporary_suspend/confirm/{member_id}', 'ManageMember@TemporarySuspendConfirm');
+       Route::get('temporary_suspend/cancel/{member_id}', 'ManageMember@TemporarySuspendCancel');
+       Route::get('suspended/confirm/{member_id}', 'ManageMember@SuspendedConfirm');
+       Route::get('suspended/cancel/{member_id}', 'ManageMember@SuspendedCancel');
+   });
+
+   Route::group(['prefix' => 'edit'], function() {
+       Route::get('tags_story', 'EditController@TagsStory');
+       Route::post('tags_story/update', 'EditController@UpdateTagsStory');
+       Route::get('editor_pick', 'EditController@EditorPick');
+       Route::post('editor_pick/update', 'EditController@UpdateEditorPick');
+   });
+
+   Route::group(['prefix' => 'report'], function() {
+       Route::get('follows', 'ReportController@Follows');
+       Route::get('story_likes', 'ReportController@StoryLikes');
+   });
+
+});
+
 Route::group(['prefix' => '/'], function () {
     Route::get('/', 'HomeController@Home');
     Route::get('following/users', 'HomeController@FollowingUsers');
@@ -45,7 +74,7 @@ Route::group(['prefix' => 'list'], function() {
     Route::get('tag_following/{id}', 'ProfileController@ListTagFollowing');
 });
 
-Route::group(['prefix' => '/profile/'], function() {
+Route::group(['prefix' => '/profile'], function() {
     Route::post('update_image', 'ProfileController@UpdateImage');
     Route::post('update_cover', 'ProfileController@UpdateCover');
     Route::post('update_describe', 'ProfileController@UpdateDescribe');

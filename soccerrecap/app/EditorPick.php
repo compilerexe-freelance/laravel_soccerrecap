@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class EditorsPick extends Model
+class EditorPick extends Model
 {
-    protected $table = 'editors_pick';
+    protected $table = 'editor_pick';
 
     protected $fillable = [
         'story_id_1',

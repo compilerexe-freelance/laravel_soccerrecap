@@ -7,10 +7,23 @@ use Session;
 
 use App\Story;
 use App\Tag;
+use App\Report;
 
 class HomeController extends Controller
 {
     public function Home() {
+
+        // Report visitor
+        $field_check = \App\Report::find(1);
+        if ($field_check) {
+            $field_check->count_visitor = ++$field_check->count_visitor;
+            $field_check->save();
+        } else {
+            $visitor = new Report;
+            $visitor->count_visitor = 1;
+            $visitor->save();
+        }
+
         session()->put('navbar', 'home');
         $storys = \App\Story::orderBy('id', 'desc')->get();
         $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();

@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="{{ url('css/magnific-popup.css') }}">
     <link rel="stylesheet" href="{{ url('summernote/summernote.css') }}">
     <link rel="stylesheet" href="{{ url('bootstrap-fileinput-master/css/fileinput.min.css') }}">
-    <link rel="stylesheet" href="{{ url('css/custom.css') }}">
+    <link rel="stylesheet" href="{{ url('css/admin-custom.css') }}">
+    <link rel="stylesheet" href="{{ url('css/animate.css') }}">
 
     <script src="{{ url('js/jquery-3.1.1.min.js') }}"></script>
     <script src="{{ url('js/bootstrap.min.js') }}"></script>
