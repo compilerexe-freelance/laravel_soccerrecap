@@ -9,7 +9,7 @@ use Auth;
 
 use App\Member;
 use App\Profile;
-use App\Setting;
+use App\SettingMember;
 use App\PermissionMember;
 
 class MemberController extends Controller
@@ -47,7 +47,7 @@ class MemberController extends Controller
         $permission->suspended = 0;
         $permission->save();
 
-        $setting = new Setting;
+        $setting = new SettingMember;
         $setting->member_id = $member->id;
         $setting->status_new_sletter = 0;
         $setting->save();

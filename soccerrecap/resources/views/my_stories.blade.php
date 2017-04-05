@@ -10,6 +10,8 @@
 
         @php
             $member = \App\Member::find($story->member_id);
+            $comment = \App\Comment::where('story_id', $story->id)->get();
+            $count = \App\StoryCount::find($story->id);
         @endphp
 
         <div class="panel panel-default">
@@ -53,13 +55,15 @@
                                 <span style="font-size: 18px;">{!! str_limit($story->story_detail, 100) !!}</span>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">20,000</span></button>
+                                {{--<button type="button" class="btn btn-bg-white btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">20,000</span></button>--}}
+                                <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
+                                <span style="//color: dodgerblue" id="story_{{ $story->id }}_like" class="font-color-gray">{{ number_format($count->count_like) }}</span>
 
                                 <i class="fa fa-eye" style="margin-left: 10px;"></i>
-                                <span style="color: #a6a6a6; //margin-left: 10px;">23,000</span>
+                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
 
                                 <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
-                                <span style="color: #a6a6a6; //margin-left: 10px;">15,000</span>
+                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
 
                                 {{--<a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark font-color-blue"></i></span></a>--}}
 

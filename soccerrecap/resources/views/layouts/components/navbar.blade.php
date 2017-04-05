@@ -56,9 +56,20 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Knowledge
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Windows</a></li>
-                            <li><a href="#">Linux</a></li>
-                            <li><a href="#">OSX</a></li>
+                            {{--<li><a href="#">Windows</a></li>--}}
+                            {{--<li><a href="#">Linux</a></li>--}}
+                            {{--<li><a href="#">OSX</a></li>--}}
+                            @php
+                                $knowledges = \App\Knowledge::all();
+                            @endphp
+                            @if ($knowledges)
+                                @foreach ($knowledges as $knowledge)
+                                    @php
+                                        $tag = \App\Tag::find($knowledge->tag_id);
+                                    @endphp
+                                    <li><a href="{{ url('tag/'.$tag->id) }}">{{ $tag->tag_name }}</a></li>
+                                @endforeach
+                            @endif
                         </ul>
                     </li>
 
@@ -73,7 +84,7 @@
                     </li>
                     <li style="padding-top: 5px;">
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-success font-color-green">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-bg-white font-color-green">Search</button>
                         </a>
                     </li>
 
@@ -126,30 +137,30 @@
 
     <script>
         $(document).ready(function(){
-            setInterval(function() {
-                $.post('{{ url('notification/check') }}', {
-                    _token: '{{ csrf_token() }}',
-                    member_id: '{{ Auth::user()->id }}'
-                },
-                function(data, status) {
-                    if (data != null) {
-                        var obj = JSON.parse(data);
-                        var str = obj.username + " follow you.";
-                        $('#bell-color').attr('style', 'color: red');
-                        $('#list-notification').text(str);
+            {{--setInterval(function() {--}}
+                {{--$.post('{{ url('notification/check') }}', {--}}
+                    {{--_token: '{{ csrf_token() }}',--}}
+                    {{--member_id: '{{ Auth::user()->id }}'--}}
+                {{--},--}}
+                {{--function(data, status) {--}}
+                    {{--if (data != null) {--}}
+                        {{--var obj = JSON.parse(data);--}}
+                        {{--var str = obj.username + " follow you.";--}}
+                        {{--$('#bell-color').attr('style', 'color: red');--}}
+                        {{--$('#list-notification').text(str);--}}
 
-                        $.post('{{ url('notification/insert') }}', {
-                            _token: '{{ csrf_token() }}',
-                            id: obj.id
-                        },
-                        function(data, status) {
+                        {{--$.post('{{ url('notification/insert') }}', {--}}
+                            {{--_token: '{{ csrf_token() }}',--}}
+                            {{--id: obj.id--}}
+                        {{--},--}}
+                        {{--function(data, status) {--}}
 
-                        });
+                        {{--});--}}
 
-                    }
-//                    console.log("Data: " + data + "\nStatus: " + status);
-                });
-            }, 1000);
+                    {{--}--}}
+
+                {{--});--}}
+            {{--}, 1000);--}}
         });
     </script>
 
@@ -181,9 +192,17 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Knowledge
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Windows</a></li>
-                            <li><a href="#">Linux</a></li>
-                            <li><a href="#">OSX</a></li>
+                            @php
+                                $knowledges = \App\Knowledge::all();
+                            @endphp
+                            @if ($knowledges)
+                                @foreach ($knowledges as $knowledge)
+                                    @php
+                                        $tag = \App\Tag::find($knowledge->tag_id);
+                                    @endphp
+                                    <li><a href="{{ url('tag/'.$tag->id) }}">{{ $tag->tag_name }}</a></li>
+                                @endforeach
+                            @endif
                         </ul>
                     </li>
 
@@ -198,7 +217,7 @@
                     </li>
                     <li>
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-success font-color-green">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-bg-white font-color-green">Search</button>
                         </a>
                     </li>
 
@@ -272,7 +291,7 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px;">
-                        <button type="button" id="btn-sign-up-email" class="btn btn-success btn-remove-shadow font-color-green pull-left" style="font-size: 18px; width: 150px;">Sign up</button>
+                        <button type="button" id="btn-sign-up-email" class="btn btn-bg-white btn-remove-shadow font-color-green pull-left" style="font-size: 18px; width: 150px;">Sign up</button>
                         <button type="submit" class="btn btn-success btn-remove-hover btn-bg-green pull-right" style="font-size: 18px; width: 150px;">Login</button>
                     </div>
                 </form>

@@ -30,9 +30,9 @@
                         @endphp
 
                         @if ($follow_check)
-                            <button type="button" id="btn_unfollow" class="btn btn-success font-color-blue" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                            <button type="button" id="btn_unfollow" class="btn btn-bg-white font-color-blue" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
                         @else
-                            <button type="button" id="btn_follow" class="btn btn-success font-color-blue" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                            <button type="button" id="btn_follow" class="btn btn-bg-white font-color-blue" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
                         @endif
 
                         <script>

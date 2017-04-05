@@ -23,7 +23,7 @@ body {
 button {
     font-family: 'Kanit', sans-serif;
     border-radius: 0px !important;
-    background-color: #fff !important;
+    //background-color: #fff !important;
 }
 
 a {
@@ -33,4 +33,8 @@ a {
 .btn-bg-green {
     background-color: #03B876 !important;
     color: #fff !important;
+}
+
+.col-fulid {
+    padding: 0px !important;
 }

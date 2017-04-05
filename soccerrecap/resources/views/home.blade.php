@@ -268,6 +268,17 @@
             </div>
         @endif
 
+        <!-- Contact -->
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group">
+                <span><b>Contact</b></span>
+            </div>
+            <div class="form-group">
+                <a href="{{ url('contact') }}">{{ $contact_title }}</a>
+            </div>
+        </div>
+
+
     </div>
 
 @endsection

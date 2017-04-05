@@ -9,8 +9,7 @@ class Knowledge extends Model
     protected $table = 'knowledge';
 
     protected $fillable = [
-        'tag_name',
-        'tag_link',
+        'tag_id',
         'sort'
     ];
 }

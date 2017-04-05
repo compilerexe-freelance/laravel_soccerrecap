@@ -31,6 +31,12 @@ Route::group(['prefix' => '/admin'], function() {
        Route::post('tags_story/update', 'EditController@UpdateTagsStory');
        Route::get('editor_pick', 'EditController@EditorPick');
        Route::post('editor_pick/update', 'EditController@UpdateEditorPick');
+       Route::get('knowledge', 'EditController@Knowledge');
+       Route::post('knowledge/insert', 'EditController@InsertKnowledge');
+       Route::post('knowledge/sort/update/{id}', 'EditController@UpdateSortKnowledge');
+       Route::get('knowledge/sort/delete/{id}', 'EditController@DeleteSortKnowledge');
+       Route::get('contact', 'EditController@Contact');
+       Route::post('contact', 'EditController@UpdateContact');
    });
 
    Route::group(['prefix' => 'report'], function() {
@@ -51,7 +57,8 @@ Route::group(['prefix' => '/'], function () {
     Route::post('search', 'HomeController@Search');
     Route::get('profile', 'ProfileController@Profile');
     Route::get('profile/user/{id}', 'ProfileController@UserProfile');
-    Route::get('setting', 'ProfileController@Setting');
+    Route::get('setting', 'ProfileController@SettingMember');
+    Route::post('setting/update/new_sletter', 'ProfileController@UpdateNewsletter');
     Route::post('update_password', 'ProfileController@UpdatePassword');
     Route::get('my_stories', 'ProfileController@MyStories');
     Route::get('update_story/{id}', 'ProfileController@GetUpdateStory');
@@ -65,6 +72,7 @@ Route::group(['prefix' => '/'], function () {
     Route::post('sign_in', 'MemberController@SignIn');
     Route::get('sign_out', 'MemberController@SignOut');
     Route::get('tag/{id}', 'HomeController@Tag');
+    Route::get('contact', 'HomeController@Contact');
 
     Route::post('notification/check', 'HomeController@NotificationCheck');
 });

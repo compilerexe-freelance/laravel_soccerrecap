@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Setting extends Model
+class SettingMember extends Model
 {
-    protected $table = 'setting';
+    protected $table = 'setting_member';
 
     protected $primaryKey = 'member_id';
 

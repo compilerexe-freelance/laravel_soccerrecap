@@ -27,9 +27,21 @@ class HomeController extends Controller
         session()->put('navbar', 'home');
         $storys = \App\Story::orderBy('id', 'desc')->get();
         $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();
+
+        // Contact
+        $contact_title = "";
+        $contact_detail = "";
+        $check_contact = \App\Contact::find(1);
+        if ($check_contact) {
+            $contact_title = $check_contact->contact_title;
+            $contact_detail = $check_contact->contact_detail;
+        }
+
         return view('home')
             ->with('storys', $storys)
-            ->with('tags', $tags);
+            ->with('tags', $tags)
+            ->with('contact_title', $contact_title)
+            ->with('contact_detail', $contact_detail);
     }
 
     public function FollowingUsers(Request $request) {
@@ -74,6 +86,19 @@ class HomeController extends Controller
         $notifications = \App\FollowsMember::where('follow_member_id', $request->member_id)->orderBy('created_at', 'desc')->limit(1)->first();
         $fillter_username = \App\Member::find($notifications->member_id);
         return json_encode($fillter_username);
+    }
+
+    public function Contact() {
+        $check_contact = \App\Contact::find(1);
+        $contact_title = "";
+        $contact_detail = "";
+        if ($check_contact) {
+            $contact_title = $check_contact->contact_title;
+            $contact_detail = $check_contact->contact_detail;
+        }
+        return view('contact')
+            ->with('contact_title', $contact_title)
+            ->with('contact_detail', $contact_detail);
     }
 
 }

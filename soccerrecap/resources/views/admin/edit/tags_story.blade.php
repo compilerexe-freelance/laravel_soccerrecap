@@ -20,6 +20,12 @@
     </style>
 
     <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 20px;">
+        <div class="form-group">
+            <span style="font-size: 26px;">Tag Stories</span>
+        </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 20px;">
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover">
@@ -78,7 +84,7 @@
                             <input type="hidden" name="tag4_id" value="{{ $tag4_id }}">
                             <input type="hidden" name="tag5_id" value="{{ $tag5_id }}">
 
-                            <td><button type="submit" class="btn btn-success btn-bg-green">Save</button></td>
+                            <td><button type="submit" class="btn btn-success btn-bg-green" style="font-size: 16px;">Save</button></td>
                         </tr>
                     </form>
                 @endforeach

@@ -16,7 +16,7 @@ button {
 //font-size: 18px !important;
     //border-radius: 20px !important;
     border-radius: 0px !important;
-    background-color: #fff !important;
+    //background-color: #fff !important;
 }
 
 .btn-remove-hover:active {
@@ -95,6 +95,9 @@ a:hover {
 .btn-bg-red {
     background-color: #ce8483 !important;
     color: #fff !important;
+}
+.btn-bg-white {
+    background: #fff !important;
 }
 
 /* The switch - the box around the slider */

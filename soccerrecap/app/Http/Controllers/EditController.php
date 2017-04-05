@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\EditorPick;
+use App\Contact;
+use App\Knowledge;
 
 class EditController extends Controller
 {
@@ -75,6 +77,64 @@ class EditController extends Controller
             $editor_pick->story_id_5 = $request->editor_pick_5;
             $editor_pick->save();
         }
+        return redirect()->back();
+    }
+
+    public function Contact(Request $request) {
+        session()->put('navbar', 'edit');
+        $check_contact = \App\Contact::find(1);
+        $contact_title = "";
+        $contact_detail = "";
+        if ($check_contact) {
+            $contact_title = $check_contact->contact_title;
+            $contact_detail = $check_contact->contact_detail;
+        }
+        return view('admin.edit.contact')
+            ->with('contact_title', $contact_title)
+            ->with('contact_detail', $contact_detail);
+    }
+
+    public function UpdateContact(Request $request) {
+        $check_contact = \App\Contact::find(1);
+        if ($check_contact) {
+            $contact = \App\Contact::find(1);
+            $contact->contact_title = $request->contact_title;
+            $contact->contact_detail = $request->contact_detail;
+            $contact->save();
+        } else {
+            $contact = new Contact;
+            $contact->contact_title = $request->contact_title;
+            $contact->contact_detail = $request->contact_detail;
+            $contact->save();
+        }
+        return redirect()->back();
+    }
+
+    public function Knowledge() {
+        session()->put('navbar', 'edit');
+        $knowledges = \App\Knowledge::all();
+        return view('admin.edit.knowledge')
+            ->with('knowledges', $knowledges);
+    }
+
+    public function InsertKnowledge(Request $request) {
+        $count_sort = \App\Knowledge::all();
+        $knowledge = new Knowledge;
+        $knowledge->tag_id = $request->tag_id;
+        $knowledge->sort = count($count_sort) + 1;
+        $knowledge->save();
+        return redirect()->back();
+    }
+
+    public function UpdateSortKnowledge(Request $request) {
+        $knowledge = \App\Knowledge::find($request->id);
+        $knowledge->sort = $request->sort;
+        $knowledge->save();
+        return redirect()->back();
+    }
+
+    public function DeleteSortKnowledge(Request $request) {
+        $knowledge = \App\Knowledge::find($request->id)->delete();
         return redirect()->back();
     }
 }

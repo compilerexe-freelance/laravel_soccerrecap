@@ -46,6 +46,7 @@ class ProfileController extends Controller
     }
 
     public function MyStories(Request $request) {
+        session()->put('navbar', null);
         $storys = \App\Story::where('member_id', $request->user()->id)->get();
         return view('my_stories')
             ->with('storys', $storys);
@@ -102,9 +103,18 @@ class ProfileController extends Controller
 
     }
 
-    public function Setting() {
+    public function SettingMember(Request $request) {
         session()->put('navbar', null);
-        return view('setting');
+        $setting = \App\SettingMember::find($request->user()->id);
+        return view('setting')
+            ->with('setting', $setting);
+    }
+
+    public function UpdateNewsletter(Request $request) {
+        $setting = \App\SettingMember::find($request->user()->id);
+        $setting->status_new_sletter = $request->status_new_sletter;
+        $setting->save();
+        return redirect()->back();
     }
 
     public function UpdateImage(Request $request) {

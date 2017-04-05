@@ -97,7 +97,7 @@
                     <span style="font-size: 16px; visibility: hidden;">...</span>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-bg-green" style="width: 100%;">Save</button>
+                    <button type="submit" class="btn btn-bg-green" style="width: 100%; font-size: 16px;">Save</button>
                 </div>
             </div>
         </form>

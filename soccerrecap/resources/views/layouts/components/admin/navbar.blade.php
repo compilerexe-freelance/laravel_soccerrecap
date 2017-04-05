@@ -32,14 +32,12 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('admin/edit/tags_story') }}">Tags Story</a></li>
+                        <li><a href="{{ url('admin/edit/tags_story') }}">Tag Stories</a></li>
                         <li><a href="{{ url('admin/edit/editor_pick') }}">Editor pick</a></li>
+                        <li><a href="{{ url('admin/edit/knowledge') }}">Knowledge</a></li>
+                        <li><a href="{{ url('admin/edit/contact') }}">Contact</a></li>
                     </ul>
                 </li>
-
-                {{--<li @if (session('navbar') == 'following') class="active" @endif><a href="#">Member Report</a></li>--}}
-                {{--<li @if (session('navbar') == 'top_stories') class="active" @endif><a href="#">Top stories</a></li>--}}
-                {{--<li @if (session('navbar') == 'bookmarks') class="active" @endif><a href="#">Bookmarks</a></li>--}}
 
                 <li @if (session('navbar') == 'report') class="dropdown active" @else class="dropdown" @endif>
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Report

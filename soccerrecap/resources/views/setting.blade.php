@@ -11,39 +11,54 @@
 
             <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3" style="//border: 1px solid red; margin-top: 50px; margin-bottom: 50px;">
 
-                <form action="{{ url('update_password') }}" method="post">
+                <div class="form-group">
+                    <span style="font-size: 28px;" class="font-color-blue">Newsletter</span>
+                </div>
+
+                <form action="{{ url('setting/update/new_sletter') }}" method="post">
                     {{ csrf_field() }}
                     <div class="form-group">
-                        <span style="font-size: 28px;" class="font-color-blue">Setting</span>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-xs-12 col-sm-12 col-md-6 text-left">
-                            <span style="font-size: 19px;" class="font-color-gray">Newsletter</span>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 text-right">
-                            <label class="switch">
-                                <input type="checkbox">
-                                <div class="slider round"></div>
-                            </label>
+                        <div class="form-inline">
+                            <div class="form-group">
+                                <label for="" class="font-color-gray">Accept</label>&ensp;
+                                <input type="radio" name="status_new_sletter" value="1" @if ($setting->status_new_sletter == 1) checked @endif>
+                            </div>
+                            &ensp;&ensp;
+                            <div class="form-group">
+                                <label for="" class="font-color-gray">Disaccept</label>&ensp;
+                                <input type="radio" name="status_new_sletter" value="0" @if ($setting->status_new_sletter == 0) checked @endif>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <span style="font-size: 28px;" class="font-color-blue">Change Password</span>
-                    </div>
-                    <div class="form-group text-right">
-                        <span style="color: red;">{{ $errors->first('password') }}</span>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password" class="form-control border-none input-lg" placeholder="Password (8 characters minimum)" min="8" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" name="password_confirmation" class="form-control border-none input-lg" placeholder="Re-enter Password" required>
-                    </div>
-                    <div class="form-group text-right" style="margin-top: 20px;">
-                        <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px;"><i class="fa fa-save"></i> Save</button>
+                        <div class="form-group text-right" style="margin-top: 20px;">
+                            <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px;">Save</button>
+                        </div>
                     </div>
                 </form>
+
+
+
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3" style="//border: 1px solid red; //margin-top: 50px; //margin-bottom: 50px;">
+
+                <div class="form-group">
+                    <span style="font-size: 28px;" class="font-color-blue">Change Password</span>
+                </div>
+                <div class="form-group text-right">
+                    <span style="color: red;">{{ $errors->first('password') }}</span>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" class="form-control border-none input-lg" placeholder="Password (8 characters minimum)" min="8" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password_confirmation" class="form-control border-none input-lg" placeholder="Re-enter Password" required>
+                </div>
+                <div class="form-group text-right" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px;">Save</button>
+                </div>
 
             </div>
 
