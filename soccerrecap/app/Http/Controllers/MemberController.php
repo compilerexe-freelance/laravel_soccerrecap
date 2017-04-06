@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Validator;
 use Illuminate\Http\Request;
-use Hash;
+use Validator;
 use Auth;
-
+use Hash;
 use App\Member;
 use App\Profile;
 use App\SettingMember;

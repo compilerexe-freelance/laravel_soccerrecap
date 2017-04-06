@@ -15,7 +15,7 @@
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav" style="padding: 7px;">
+            <ul class="nav navbar-nav navbar-left" style="padding: 7px;">
 
                 <li @if (session('navbar') == 'main') class="active" @endif><a href="{{ url('/admin/main') }}">Main</a></li>
 
@@ -48,6 +48,15 @@
                     </ul>
                 </li>
 
+            </ul>
+            <ul class="nav navbar-nav navbar-right" style="padding: 7px;">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-user-circle"></i> {{ Auth::guard('admin')->user()->username }}
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{ url('admin/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                    </ul>
+                </li>
             </ul>
 
         </div>

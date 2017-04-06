@@ -18,10 +18,4 @@
 
 </div>
 
-<script>
-    $(document).ready(function() {
-
-    });
-</script>
-
 @endsection

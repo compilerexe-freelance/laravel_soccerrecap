@@ -3,9 +3,9 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
-class AuthAdmin
+class AuthMember
 {
     /**
      * Handle an incoming request.
@@ -14,12 +14,13 @@ class AuthAdmin
      * @param  \Closure  $next
      * @return mixed
      */
+
     public function handle($request, Closure $next)
     {
-        if (Auth::guard('admin')->check()) {
+        if (Auth::guard('web')->check()) {
             return $next($request);
         } else {
-            return redirect()->route('administrator');
+            return redirect()->route('/');
         }
     }
 }
