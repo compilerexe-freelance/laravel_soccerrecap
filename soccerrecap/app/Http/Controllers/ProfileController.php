@@ -65,7 +65,11 @@ class ProfileController extends Controller
         $story = \App\Story::find($request->id);
 
         if ($request->file('story_picture')) {
-            $request->file('story_picture')->storeAs('story_pictures', $request->id);
+//            $request->file('story_picture')->storeAs('story_pictures', $request->id);
+            $file = $request->file('story_picture');
+            $filename = $request->id;
+            $path = "uploads/story_pictures";
+            $file->move($path, $filename);
         }
 
         $story->member_id = $request->user()->id;
@@ -118,12 +122,20 @@ class ProfileController extends Controller
     }
 
     public function UpdateImage(Request $request) {
-        $request->file('profile_image')->storeAs('profile_images', $request->user()->id);
+//        $request->file('profile_image')->storeAs('profile_images', $request->user()->id);
+        $file = $request->file('profile_image');
+        $filename = $request->user()->id;
+        $path = "uploads/profile_images";
+        $file->move($path, $filename);
         return redirect()->back();
     }
 
     public function UpdateCover(Request $request) {
-        $request->file('cover_profile')->storeAs('profile_covers', $request->user()->id);
+//        $request->file('cover_profile')->storeAs('profile_covers', $request->user()->id);
+        $file = $request->file('cover_profile');
+        $filename = $request->user()->id;
+        $path = "uploads/profile_covers";
+        $file->move($path, $filename);
         return redirect()->back();
     }
 

@@ -8,6 +8,7 @@ use Session;
 use App\Story;
 use App\Tag;
 use App\Report;
+use App\StickNavbarFeed;
 
 class HomeController extends Controller
 {
@@ -37,46 +38,120 @@ class HomeController extends Controller
             $contact_detail = $check_contact->contact_detail;
         }
 
+        // Pin Story
+        $pin_story = \App\StickNavbarFeed::find(1);
+        if (!$pin_story) {
+            $create_pin = new StickNavbarFeed;
+            $create_pin->story_id_1 = 0;
+            $create_pin->story_id_2 = 0;
+            $create_pin->save();
+        }
+
         return view('home')
             ->with('storys', $storys)
             ->with('tags', $tags)
             ->with('contact_title', $contact_title)
-            ->with('contact_detail', $contact_detail);
+            ->with('contact_detail', $contact_detail)
+            ->with('pin_story', $pin_story);
     }
 
     public function FollowingUsers(Request $request) {
         Session()->put('navbar', 'following');
         $follows_users = \App\FollowsMember::where('member_id', $request->user()->id)->get();
+
+        // Pin Story
+        $pin_story = \App\StickNavbarFeed::find(1);
+        if (!$pin_story) {
+            $create_pin = new StickNavbarFeed;
+            $create_pin->story_id_1 = 0;
+            $create_pin->story_id_2 = 0;
+            $create_pin->save();
+        }
+
         return view('following_users')
-            ->with('follows_users', $follows_users);
+            ->with('follows_users', $follows_users)
+            ->with('pin_story', $pin_story);
     }
 
     public function FollowingTags(Request $request) {
         Session()->put('navbar', 'following');
         $follows_tags = \App\FollowsTag::where('member_id', $request->user()->id)->get();
+
+        // Pin Story
+        $pin_story = \App\StickNavbarFeed::find(1);
+        if (!$pin_story) {
+            $create_pin = new StickNavbarFeed;
+            $create_pin->story_id_1 = 0;
+            $create_pin->story_id_2 = 0;
+            $create_pin->save();
+        }
+
         return view('following_tags')
-            ->with('follows_tags', $follows_tags);
+            ->with('follows_tags', $follows_tags)
+            ->with('pin_story', $pin_story);
     }
 
     public function TopStories() {
         Session()->put('navbar', 'top_stories');
-        return view('top_stories');
+        // Pin Story
+        $pin_story = \App\StickNavbarFeed::find(1);
+        if (!$pin_story) {
+            $create_pin = new StickNavbarFeed;
+            $create_pin->story_id_1 = 0;
+            $create_pin->story_id_2 = 0;
+            $create_pin->save();
+        }
+
+        return view('top_stories')
+            ->with('pin_story', $pin_story);
     }
 
     public function Bookmarks() {
         Session()->put('navbar', 'bookmarks');
-        return view('bookmarks');
+        // Pin Story
+        $pin_story = \App\StickNavbarFeed::find(1);
+        if (!$pin_story) {
+            $create_pin = new StickNavbarFeed;
+            $create_pin->story_id_1 = 0;
+            $create_pin->story_id_2 = 0;
+            $create_pin->save();
+        }
+
+        return view('bookmarks')
+            ->with('pin_story', $pin_story);
     }
 
-    public function Search() {
-        Session()->put('navbar', null);
-        return view('search');
+    public function Search(Request $request) {
+
+        $tag = \App\Tag::where('tag_name', 'LIKE', '%'.$request->keyword.'%')->get();
+        if ($tag->count()) {
+            return 'tag found';
+        } else {
+
+            $story = \App\Story::where('story_title', 'LIKE', '%'.$request->keyword.'%')->get();
+            if ($story->count()) {
+                return 'story found';
+            } else {
+
+                $member = \App\Member::where('username', 'LIKE', '%'.$request->keyword.'%')->get();
+                if($member->count()) {
+                    return 'member found';
+                }   else {
+                    return 'not found anything.';
+                }
+
+            }
+
+        }
+
+//        return view('search');
     }
 
     public function Tag(Request $request) {
         Session()->put('navbar', null);
         $tag = \App\Tag::find($request->id);
         $nearby_tags = \App\Tag::where('tag_name', $tag->tag_name)->get();
+
         return view('tag')
             ->with('tag', $tag)
             ->with('nearby_tags', $nearby_tags);

@@ -79,7 +79,7 @@
                         >
                             <img src="{{ url('images/icons/me.jpg') }}"
                                  style="width: 40px !important; height: 40px !important;"
-                                 class="img-circle"
+                                 class=""
                                  alt="">
                         </a>
                     </div>

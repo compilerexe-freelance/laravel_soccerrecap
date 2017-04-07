@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\EditorPick;
 use App\Contact;
 use App\Knowledge;
+use App\StickNavbarFeed;
+use App\StickTagFeed;
 
 class EditController extends Controller
 {
@@ -135,6 +137,65 @@ class EditController extends Controller
 
     public function DeleteSortKnowledge(Request $request) {
         $knowledge = \App\Knowledge::find($request->id)->delete();
+        return redirect()->back();
+    }
+
+    public function PinStory() {
+        session()->put('navbar', 'edit');
+        $pin_story = \App\StickNavbarFeed::find(1);
+        if (!$pin_story) {
+            $create_pin = new StickNavbarFeed;
+            $create_pin->story_id_1 = 0;
+            $create_pin->story_id_2 = 0;
+            $create_pin->save();
+        }
+        return view('admin.edit.pin_story')
+            ->with('pin_story', $pin_story);
+    }
+
+    public function UpdatePinStory(Request $request) {
+        $pin_story = \App\StickNavbarFeed::find(1);
+        if ($request->story_id_1) {
+            $pin_story->story_id_1 = $request->story_id_1;
+        } else {
+            $pin_story->story_id_2 = $request->story_id_2;
+        }
+        $pin_story->save();
+        return redirect()->back();
+    }
+
+    public function DisablePinStory(Request $request) {
+        $pin_story = \App\StickNavbarFeed::find(1);
+        if ($request->id == 1) {
+            $pin_story->story_id_1 = 0;
+        } else {
+            $pin_story->story_id_2 = 0;
+        }
+        $pin_story->save();
+        return redirect()->back();
+    }
+
+    public function PinStoryTag() {
+        session()->put('navbar', 'edit');
+        $tags = \App\Tag::all();
+        return view('admin.edit.pin_story_tag')
+            ->with('tags', $tags);
+    }
+
+    public function UpdatePinStoryTag(Request $request) {
+
+        $pin_tag = \App\StickTagFeed::find($request->id);
+
+        if ($pin_tag) {
+            $pin_tag->story_id = $request->story_id;
+            $pin_tag->save();
+        } else {
+            $create_pin_tag = new StickTagFeed;
+            $create_pin_tag->tag_id = $request->id;
+            $create_pin_tag->story_id = $request->story_id;
+            $create_pin_tag->save();
+        }
+
         return redirect()->back();
     }
 }

@@ -32,6 +32,11 @@ Route::group(['middleware' => 'AuthAdmin'], function() {
             Route::get('knowledge/sort/delete/{id}', 'EditController@DeleteSortKnowledge');
             Route::get('contact', 'EditController@Contact');
             Route::post('contact', 'EditController@UpdateContact');
+            Route::get('pin_story', 'EditController@PinStory');
+            Route::post('pin_story/update', 'EditController@UpdatePinStory');
+            Route::get('pin_story/disable/{id}', 'EditController@DisablePinStory');
+            Route::get('pin_story_tag', 'EditController@PinStoryTag');
+            Route::post('pin_story_tag/update/{id}', 'EditController@UpdatePinStoryTag');
         });
 
         Route::group(['prefix' => 'report'], function() {
@@ -45,6 +50,7 @@ Route::group(['middleware' => 'AuthAdmin'], function() {
 
 Route::get('/', 'HomeController@Home')->name('/');
 Route::post('sign_in', 'MemberController@SignIn');
+Route::post('sign_up', 'MemberController@SignUp');
 
 Route::group(['middleware' => 'AuthMember'], function() {
 
@@ -70,7 +76,6 @@ Route::group(['middleware' => 'AuthMember'], function() {
         Route::post('unfollow/{id}', 'ProfileController@Unfollow');
         Route::post('tag/follow/{id}', 'ProfileController@TagFollow');
         Route::post('tag/unfollow/{id}', 'ProfileController@TagUnfollow');
-        Route::post('sign_up', 'MemberController@SignUp');
 
         Route::get('sign_out', 'MemberController@SignOut');
         Route::get('tag/{id}', 'HomeController@Tag');

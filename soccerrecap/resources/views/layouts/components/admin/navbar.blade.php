@@ -32,7 +32,9 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Edit
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('admin/edit/tags_story') }}">Tag Stories</a></li>
+                        <li><a href="{{ url('admin/edit/pin_story') }}">Pin story feed</a></li>
+                        <li><a href="{{ url('admin/edit/pin_story_tag/') }}">Pin story tag</a></li>
+                        <li><a href="{{ url('admin/edit/tags_story') }}">Tag stories</a></li>
                         <li><a href="{{ url('admin/edit/editor_pick') }}">Editor pick</a></li>
                         <li><a href="{{ url('admin/edit/knowledge') }}">Knowledge</a></li>
                         <li><a href="{{ url('admin/edit/contact') }}">Contact</a></li>
@@ -44,7 +46,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="{{ url('admin/report/follows') }}">Follows</a></li>
-                        <li><a href="{{ url('admin/report/story_likes') }}">Story Likes</a></li>
+                        <li><a href="{{ url('admin/report/story_likes') }}">Story likes</a></li>
                     </ul>
                 </li>
 

@@ -20,8 +20,8 @@
         <div class="panel-body" style="padding-top: 0px !important;">
 
             <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-fulid text-center">
-                @if (Storage::has('profile_covers/'.$member->id))
-                    <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_covers/'.$member->id)) }}" style="width: 851px; height: 315px;">
+                @if (file_exists(public_path('uploads/profile_covers/'.$member->id)))
+                    <img src="{{ url('uploads/profile_covers/'.$member->id) }}" style="width: 851px; height: 315px;">
                 @endif
             </div>
 
@@ -38,8 +38,8 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-3" style="margin-top: 10px; //border: 1px solid red">
                     <div class="form-group">
-                        @if (Storage::has('profile_images/'.$member->id))
-                            <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$member->id)) }}" style="//width: 90px; //heigth: 90px; width: 100%;" class="img-circle">
+                        @if (file_exists(public_path('uploads/profile_images/'.$member->id)))
+                            <img src="{{ url('uploads/profile_images/'.$member->id) }}" style="//width: 90px; //heigth: 90px; width: 100%;" class="">
                         @else
                             <img src="{{ url('images/icons/user.png') }}" style="//width: 90px; //heigth: 90px; width: 100%;" class="img-circle" alt="">
                         @endif
@@ -57,9 +57,9 @@
                             @if ($member->id != Auth::user()->id)
 
                                 @if ($follow_check)
-                                    <button type="button" id="btn_unfollow" class="btn btn-success btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                                    <button type="button" id="btn_unfollow" class="btn btn-bg-green btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
                                 @else
-                                    <button type="button" id="btn_follow" class="btn btn-success" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                                    <button type="button" id="btn_follow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
                                 @endif
 
                                     <script>
@@ -123,10 +123,10 @@
                                 <div class="form-group">
                                     <div class="form-inline">
                                         <div class="form-group" style="margin-top: 20px;">
-                                            @if (Storage::has('profile_images/'.$story->member_id))
-                                                <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                            @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                                <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
                                             @else
-                                                <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                                <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="" alt=""></a>
                                             @endif
                                         </div>
                                         <div class="form-group">
@@ -141,8 +141,8 @@
                                     <a href="{{ url('/story/'.$story->id) }}"><h3>{{ $story->story_title }}</h3></a>
                                 </div>
                                 <div class="form-group">
-                                    @if (Storage::has('story_pictures/'.$story->id))
-                                        <a href="{{ url('/story/'.$story->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('story_pictures/'.$story->id)) }}" alt="" class="img-responsive"></a>
+                                    @if (file_exists(public_path('uploads/story_pictures/'.$story->id)))
+                                        <a href="{{ url('/story/'.$story->id) }}"><img src="{{ url('uploads/story_pictures/'.$story->id) }}" alt="" class="img-responsive"></a>
                                     @endif
                                 </div>
                                 <div class="form-group">

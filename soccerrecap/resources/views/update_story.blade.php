@@ -12,7 +12,7 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="//border: 1px solid red;">
 
                 <div class="form-group text-right">
-                    <a href="{{ url('my_stories') }}"><button type="button" class="btn btn-success font-color-blue" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> Back</button></a>
+                    <a href="{{ url('my_stories') }}"><button type="button" class="btn btn-bg-green font-color-blue" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> Back</button></a>
                 </div>
 
                 <form action="{{ url('update_story/'.$story->id) }}" method="post" enctype="multipart/form-data">
@@ -21,8 +21,8 @@
                         <div class="form-inline">
                             <div class="form-group">
 
-                                @if (Storage::has('profile_images/'.Auth::user()->id))
-                                    <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
+                                @if (file_exists(public_path('uploads/profile_images/'.Auth::user()->id)))
+                                    <img src="{{ url('uploads/profile_images/'.Auth::user()->id) }}"
                                          style="width: 50px !important; height: 50px !important;"
                                          class="img-circle"
                                          alt="">
@@ -45,8 +45,8 @@
                     </div>
 
                     <div class="form-group">
-                        @if (Storage::has('story_pictures/'.$story->id))
-                            <a href="{{ url('/story/'.$story->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('story_pictures/'.$story->id)) }}" alt="" class="img-responsive"></a>
+                        @if (file_exists(public_path('uploads/story_pictures/'.$story->id)))
+                            <a href="{{ url('/story/'.$story->id) }}"><img src="{{ url('uploads/story_pictures/'.$story->id) }}" alt="" class="img-responsive"></a>
                         @endif
                     </div>
 

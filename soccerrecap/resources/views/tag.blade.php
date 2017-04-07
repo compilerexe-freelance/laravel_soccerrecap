@@ -8,6 +8,30 @@
 
     <div class="col-xs-12 col-sm-12 col-md-7" style="padding-top: 20px;">
 
+        @php
+            // Pin Tag
+            $pin_tag = \App\StickTagFeed::find($tag->id);
+        @endphp
+
+        @if ($pin_tag)
+
+            @php
+                $story = \App\Story::find($pin_tag->story_id);
+            @endphp
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <div class="col-xs-12 col-sm-12 col-md-12">
+                        <div class="form-group">
+                            <a href="{{ url('/story/'.$story->id) }}"><h3 style="font-weight: bold;"><i class="fa fa-star" style="color: #eddd45;"></i> {{ $story->story_title }} <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span></h3></a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        @endif
+
         <div class="form-group">
             <span class="font-color-gray" style="font-size: 12px;">TAGGED IN</span>
         </div>
@@ -30,9 +54,9 @@
                         @endphp
 
                         @if ($follow_check)
-                            <button type="button" id="btn_unfollow" class="btn btn-bg-white font-color-blue" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                            <button type="button" id="btn_unfollow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
                         @else
-                            <button type="button" id="btn_follow" class="btn btn-bg-white font-color-blue" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                            <button type="button" id="btn_follow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
                         @endif
 
                         <script>
@@ -82,14 +106,14 @@
                         <div class="col-xs-12 col-sm-12 col-md-4 col-fulid">
                             <div class="form-inline">
                                 <div class="form-group" style="margin-top: 20px;">
-                                    @if (Storage::has('profile_images/'.$story->member_id))
-                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                    @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
                                     @else
-                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
                                         <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
                                     </span>
                                 </div>
@@ -97,8 +121,8 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-fulid" style="margin-top: 20px; padding-bottom: 10px;">
                             <div class="form-group">
-                                @if (Storage::has('story_pictures/'.$story->id))
-                                    <a href="{{ url('/story/'.$story->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('story_pictures/'.$story->id)) }}" alt="" class="img-responsive"></a>
+                                @if (file_exists(public_path('uploads/story_pictures/'.$story->id)))
+                                    <a href="{{ url('/story/'.$story->id) }}"><img src="{{ url('uploads/story_pictures/'.$story->id) }}" alt="" class="img-responsive"></a>
                                 @endif
                             </div>
                             <div class="form-group">

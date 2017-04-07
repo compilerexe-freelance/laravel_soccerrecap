@@ -15,12 +15,12 @@
                     <div class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 0px !important; padding-right: 0px !important;">
                         <div class="col-xs-7 col-sm-12 col-md-4">
                             <div class="form-group" style="margin-top: 20px;">
-                                @if (Storage::has('profile_images/'.$story->member_id))
-                                    <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                    <img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt="">
                                 @else
-                                    <img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                    <img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt="">
                                 @endif
-                                <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}</span>
+                                <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
                             </div>
                             <div class="form-group">
                                 <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-xs-5 col-sm-12 col-md-8">
                             <div class="form-group text-right" style="margin-top: 20px;">
-                                <button type="button" class="btn btn-success bg-success btn-remove-shadow" style="background-color: #03B876 !important;"><i class="fa fa-facebook"></i> SHARE</button>
+                                <button type="button" class="btn btn-bg-blue" style="//background-color: #03B876 !important;"><i class="fa fa-facebook"></i> SHARE</button>
                             </div>
                         </div>
                     </div>
@@ -37,7 +37,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             @if (Storage::has('story_pictures/'.$story->id))
-                                <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('story_pictures/'.$story->id)) }}" alt="" class="img-responsive">
+                                <img src="{{ url('uploads/story_pictures/'.$story->id) }}" alt="" class="img-responsive">
                             @endif
                         </div>
                     </div>
@@ -107,12 +107,12 @@
                         <div class="col-xs-12 col-sm-12 col-md-12" style="padding-left: 0px !important; padding-right: 0px !important;">
                             <div class="col-xs-12 col-sm-12 col-md-5 col-md-offset-1 text-center" style="//border: 1px solid red">
                                 <div class="form-group" style="//margin-top: 20px;">
-                                    @if (Storage::has('profile_images/'.$story->member_id))
-                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                    @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
                                     @else
-                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
                                     @endif
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}</span>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
                                 </div>
                                 <div class="form-group">
                                     <span style="font-size: 14px; font-weight: normal; //margin-left: 94px;" class="font-color-gray">{{ $profile->describe_profile }}</span>
@@ -131,9 +131,9 @@
                                         @if ($member->id != Auth::user()->id)
 
                                             @if ($follow_check)
-                                                <button type="button" id="btn_unfollow" class="btn btn-success btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                                                <button type="button" id="btn_unfollow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
                                             @else
-                                                <button type="button" id="btn_follow" class="btn btn-success" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                                                <button type="button" id="btn_follow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
                                             @endif
 
                                             <script>
@@ -191,14 +191,14 @@
                     <div class="form-group">
                         <div class="form-inline">
                             <div class="form-group" style="margin-top: 10px;">
-                                @if (Storage::has('profile_images/'.$story->member_id))
-                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
                                 @else
-                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt=""></a>
+                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
                                 @endif
                             </div>
                             <div class="form-group">
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
                                     <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
                                     </span>
                             </div>
@@ -251,9 +251,9 @@
                             {{ csrf_field() }}
                             <!-- Header -->
                             <div class="form-group" style="margin-top: 20px;">
-                                @if (Storage::has('profile_images/'.Auth::user()->id))
-                                    <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
-                                         style="width: 50px !important; height: 50px !important;"
+                                @if (file_exists(public_path('uploads/profile_images/'.Auth::user()->id)))
+                                    <img src="{{ url('uploads/profile_images/'.Auth::user()->id) }}"
+                                         style="width: 50px; height: 50px;"
                                          class="img-circle"
                                          alt="">
                                 @else
@@ -262,14 +262,14 @@
                                          class="img-circle"
                                          alt="">
                                 @endif
-                                <span for="" style="margin-left: 10px;" class="font-color-blue">{{ Auth::user()->username }}</span>
+                                <span for="" style="margin-left: 10px;" class="font-color-green">{{ Auth::user()->username }}</span>
                             </div>
                             <div class="form-group">
                                 <textarea name="comment_detail" id="summernote"></textarea>
                             </div>
                             <div class="form-group text-right" style="margin-top: 20px;">
-                                <button type="submit" id="btn_comment_submit" class="btn btn-success bg-success" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>Post</button>
-                                <button type="button" id="btn_comment_cancel" class="btn btn-success bg-success font-color-blue" style="font-size: 16px; width: 120px;">Cancle</button>
+                                <button type="submit" id="btn_comment_submit" class="btn btn-bg-green" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>Post</button>
+                                <button type="button" id="btn_comment_cancel" class="btn btn-bg-white font-color-green" style="font-size: 16px; width: 120px;">Cancle</button>
                             </div>
                         </form>
                     </div>
@@ -285,8 +285,8 @@
                     <div class="col-md-6 col-md-offset-3">
                         <!-- Header -->
                         <div class="form-group" style="margin-top: 20px;">
-                            @if (Storage::has('profile_images/'.$member->id))
-                                <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$member->id)) }}"
+                            @if (file_exists(public_path('uploads/profile_images/'.$member->id)))
+                                <img src="{{ url('uploads/profile_images/'.$member->id) }}"
                                      style="width: 50px !important; height: 50px !important;"
                                      class="img-circle"
                                      alt="">
@@ -296,7 +296,7 @@
                                      class="img-circle"
                                      alt="">
                             @endif
-                            <span for="" style="margin-left: 10px;" class="font-color-blue">{{ $member->username }} <span class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $comment->created_at)->toFormattedDateString() }}</span></span>
+                            <span for="" style="margin-left: 10px;" class="font-color-green">{{ $member->username }} <span class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $comment->created_at)->toFormattedDateString() }}</span></span>
                         </div>
                         <div class="form-group">
                             <span style="font-size: 18px;">{!! $comment->comment_detail !!}</span>

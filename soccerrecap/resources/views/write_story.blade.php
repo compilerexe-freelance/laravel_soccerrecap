@@ -21,8 +21,8 @@
                         <div class="form-inline">
                             <div class="form-group">
 
-                                @if (Storage::has('profile_images/'.Auth::user()->id))
-                                    <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
+                                @if (file_exists(public_path('uploads/profile_images/'.Auth::user()->id)))
+                                    <img src="{{ url('uploads/profile_images/'.Auth::user()->id) }}"
                                          style="width: 50px !important; height: 50px !important;"
                                          class="img-circle"
                                          alt="">

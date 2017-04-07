@@ -79,7 +79,7 @@
 
                     <li style="padding-top: 5px;">
                         <a href="#">
-                            <input type="text" id="txt_search" class="form-control" placeholder="Tag, Stories, People" style="border-radius: 0px;">
+                            <input type="text" id="keyword" class="form-control" placeholder="Tag, Stories, People" style="border-radius: 0px;">
                         </a>
                     </li>
                     <li style="padding-top: 5px;">
@@ -98,15 +98,15 @@
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->username }}
                             <span class="caret"></span>&ensp;
-                            @if (Storage::has('profile_images/'.Auth::user()->id))
-                                <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.Auth::user()->id)) }}"
+                            @if (file_exists(public_path('uploads/profile_images/'.Auth::user()->id)))
+                                <img src="{{ url('uploads/profile_images/'.Auth::user()->id) }}"
                                      style="width: 40px !important; height: 40px !important;"
                                      class="img-rounded"
                                      alt="">
                             @else
                                 <img src="{{ url('images/icons/user.png') }}"
                                      style="width: 40px !important; height: 40px !important;"
-                                     class="img-circle"
+                                     class="img-rounded"
                                      alt="">
                             @endif
                         </a>
@@ -162,6 +162,20 @@
                 {{--});--}}
             {{--}, 1000);--}}
         });
+
+        $(document).ready(function() {
+            $('#btn_search').on('click', function() {
+                $.post('{{ url('search') }}',
+                {
+                    _token: '{{ csrf_token() }}',
+                    keyword: $('#keyword').val()
+                },
+                function(data, status) {
+                    console.log("Data: " + data + "\nStatus: " + status);
+                });
+            });
+        });
+
     </script>
 
 @else

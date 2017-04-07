@@ -4,7 +4,7 @@
     <body>
     @yield('navbar')
 
-    <div class="container">
+    <div class="container animated fadeIn">
         <div class="row">
             @yield('content')
         </div>

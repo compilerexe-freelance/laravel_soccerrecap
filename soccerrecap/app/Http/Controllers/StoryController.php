@@ -70,7 +70,11 @@ class StoryController extends Controller
         $last_id++;
 
         if ($request->file('story_picture')) {
-            $request->file('story_picture')->storeAs('story_pictures', $last_id);
+//            $request->file('story_picture')->storeAs('story_pictures', $last_id);
+            $file = $request->file('story_picture');
+            $filename = $last_id;
+            $path = "uploads/story_pictures";
+            $file->move($path, $filename);
         }
 
         $story->member_id = $request->user()->id;

@@ -37,7 +37,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-4 col-fulid">
                     <div class="form-inline">
                         <div class="form-group" style="margin-top: 20px;">
-                            <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                            <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; height: 50px;" class="img-circle" alt="">
                         </div>
                         <div class="form-group">
                             <span for="" style="margin-left: 10px;" class="font-color-blue">Macbook Pro<br>

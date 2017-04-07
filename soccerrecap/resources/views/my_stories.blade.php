@@ -29,10 +29,10 @@
                         <div class="col-xs-12 col-sm-12 col-md-4">
                             <div class="form-inline">
                                 <div class="form-group" style="margin-top: 20px;">
-                                    @if (Storage::has('profile_images/'.$story->member_id))
-                                        <img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('profile_images/'.$story->member_id)) }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                    @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                        <img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt="">
                                     @else
-                                        <img src="{{ url('images/icons/user.png') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                        <img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt="">
                                     @endif
                                 </div>
                                 <div class="form-group">
@@ -44,8 +44,8 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 20px; padding-bottom: 10px;">
                             <div class="form-group">
-                                @if (Storage::has('story_pictures/'.$story->id))
-                                    <a href="{{ url('/story/'.$story->id) }}"><img src="data:image/jpeg;base64,{{ base64_encode(Storage::get('story_pictures/'.$story->id)) }}" alt="" class="img-responsive"></a>
+                                @if (file_exists(public_path('uploads/story_pictures/'.$story->id)))
+                                    <a href="{{ url('/story/'.$story->id) }}"><img src="{{ url('uploads/story_pictures/'.$story->id) }}" alt="" class="img-responsive"></a>
                                 @endif
                             </div>
                             <div class="form-group">

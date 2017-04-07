@@ -8,6 +8,36 @@
 
     <div class="col-xs-12 col-sm-12 col-md-7" style="padding-top: 20px;">
 
+        @if ($pin_story->story_id_1 != 0 && $pin_story->story_id_2 != 0)
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    @if ($pin_story->story_id_1 != 0)
+                        @php
+                            $story = \App\Story::find($pin_story->story_id_1);
+                        @endphp
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <a href="{{ url('/story/'.$story->id) }}"><h3 style="font-weight: bold;"><i class="fa fa-star" style="color: #eddd45;"></i> {{ $story->story_title }} <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span></h3></a>
+                            </div>
+                        </div>
+                    @endif
+
+                    @if ($pin_story->story_id_2 != 0)
+                        @php
+                            $story = \App\Story::find($pin_story->story_id_2);
+                        @endphp
+                        <div class="col-xs-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <a href="{{ url('/story/'.$story->id) }}"><h3 style="font-weight: bold;"><i class="fa fa-star" style="color: #eddd45;"></i> {{ $story->story_title }} <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span></h3></a>
+                            </div>
+                        </div>
+                    @endif
+
+                </div>
+            </div>
+        @endif
+
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="form-group">
@@ -22,7 +52,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-2 text-right">
                         <div class="form-group" style="//margin-top: 25px;">
-                            <button type="button" class="btn btn-success btn-remove-shadow" style="border-radius: 20px; width: 100%; color: #03B876">Follow</button>
+                            <button type="button" class="btn btn-bg-green btn-remove-shadow" style="border-radius: 20px; width: 100%; color: #03B876">Follow</button>
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">
@@ -33,7 +63,7 @@
                         <div class="col-xs-12 col-sm-12 col-md-4 col-fulid">
                             <div class="form-inline">
                                 <div class="form-group" style="margin-top: 20px;">
-                                    <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; heigth: 50px;" class="img-circle" alt="">
+                                    <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; heigth: 50px;" class="" alt="">
                                 </div>
                                 <div class="form-group">
                             <span for="" style="margin-left: 10px;" class="font-color-blue">Macbook Pro<br>
@@ -44,16 +74,16 @@
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 col-fulid" style="margin-top: 20px; padding-bottom: 10px;">
                             <div class="form-group">
-                                <a href="read_story.php"><img src="https://stories-app.s3.amazonaws.com/uploads/post/picture/734/thumb_AAEAAQAAAAAAAAYcAAAAJDgwZTVmMDdjLTVjMWMtNGY2My1hMThhLWYyZmVmYzY0NDZkMw.jpg" alt="" class="img-responsive"></a>
+                                <a href="#"><img src="https://stories-app.s3.amazonaws.com/uploads/post/picture/734/thumb_AAEAAQAAAAAAAAYcAAAAJDgwZTVmMDdjLTVjMWMtNGY2My1hMThhLWYyZmVmYzY0NDZkMw.jpg" alt="" class="img-responsive"></a>
                             </div>
                             <div class="form-group">
-                                <a href="read_story.php"><h3 style="font-weight: bold;">How to become an entrepreneur!!</h3></a>
+                                <a href="#"><h3 style="font-weight: bold;">How to become an entrepreneur!!</h3></a>
                             </div>
                             <div class="form-group">
                                 <span style="font-size: 18px;">Hello world! This is a test!!!</span>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">1,000</span></button>
+                                <button type="button" class="btn btn-bg-white font-color-blue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">1,000</span></button>
 
                                 <i class="fa fa-eye" style="margin-left: 10px;"></i>
                                 <span style="color: #a6a6a6; //margin-left: 10px;">2,000</span>
@@ -61,7 +91,7 @@
                                 <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
                                 <span style="color: #a6a6a6; //margin-left: 10px;">5,000</span>
 
-                                <a href="#"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
+                                <a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
 
                             </div>
                         </div>

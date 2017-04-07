@@ -6,7 +6,7 @@
 
         <div class="panel panel-default">
             <div class="panel-heading">
-                <span style="font-size: 16px;">Authentication</span>
+                <span style="font-size: 16px; font-weight: bold;">Authentication</span>
             </div>
             <div class="panel-body">
                 <form action="{{ url('auth/administrator') }}" method="post">
