@@ -85,10 +85,12 @@ a:hover {
     color: dodgerblue !important;
 }
 .btn-bg-green {
+    border-color: inherit !important;
     background-color: #03B876 !important;
     color: #fff !important;
 }
 .btn-bg-blue {
+    border-color: inherit !important;
     background-color: dodgerblue !important;
     color: #fff !important;
 }
@@ -177,4 +179,8 @@ input:checked + .slider:before {
 .note-editable {
     font-size: 18px;
     font-weight: normal;
+}
+
+button {
+    //border: inherit !important;
 }

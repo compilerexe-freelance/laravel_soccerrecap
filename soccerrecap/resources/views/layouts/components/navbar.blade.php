@@ -165,14 +165,17 @@
 
         $(document).ready(function() {
             $('#btn_search').on('click', function() {
-                $.post('{{ url('search') }}',
-                {
-                    _token: '{{ csrf_token() }}',
-                    keyword: $('#keyword').val()
-                },
-                function(data, status) {
-                    console.log("Data: " + data + "\nStatus: " + status);
-                });
+
+                window.location.href = '{{ url('search') }}/' + $('#keyword').val();
+
+                {{--$.post('{{ url('search') }}',--}}
+                {{--{--}}
+                    {{--_token: '{{ csrf_token() }}',--}}
+                    {{--keyword: $('#keyword').val()--}}
+                {{--},--}}
+                {{--function(data, status) {--}}
+                    {{--console.log("Data: " + data + "\nStatus: " + status);--}}
+                {{--});--}}
             });
         });
 

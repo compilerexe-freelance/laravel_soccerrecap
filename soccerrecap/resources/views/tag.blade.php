@@ -32,6 +32,25 @@
             </div>
         @endif
 
+        <div class="form-group text-right">
+            <span class="font-color-green pull-left" style="font-size: 16px;">{{ $current_sort }}</span>
+
+            @if ($current_sort == "Current sort by latest")
+                <a href="{{ url('tag/sort/like/'.$tag->id) }}">
+                    <button type="button" class="btn btn-bg-white font-color-green">
+                        Sort by like
+                    </button>
+                </a>
+            @else
+                <a href="{{ url('tag/'.$tag->id) }}">
+                    <button type="button" class="btn btn-bg-white font-color-green">
+                        Sort by latest
+                    </button>
+                </a>
+            @endif
+
+        </div>
+
         <div class="form-group">
             <span class="font-color-gray" style="font-size: 12px;">TAGGED IN</span>
         </div>
@@ -95,7 +114,12 @@
 
             @foreach ($nearby_tags as $nearby_tag)
                 @php
-                    $story = \App\Story::find($nearby_tag->story_id);
+                    if ($current_sort == "Current sort by like") {
+                        $story_count = \App\StoryCount::orderBy('count_like')->where('story_id', $nearby_tag->story_id)->first();
+                        $story = \App\Story::find($story_count->story_id);
+                    } else {
+                        $story = \App\Story::find($nearby_tag->story_id);
+                    }
                     $member = \App\Member::find($story->member_id);
                     $comment = \App\Comment::where('story_id', $story->id)->get();
                     $count = \App\StoryCount::find($story->id);

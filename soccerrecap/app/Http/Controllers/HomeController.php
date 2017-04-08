@@ -123,38 +123,62 @@ class HomeController extends Controller
 
     public function Search(Request $request) {
 
-        $tag = \App\Tag::where('tag_name', 'LIKE', '%'.$request->keyword.'%')->get();
-        if ($tag->count()) {
-            return 'tag found';
+        Session()->put('navbar', null);
+
+        $tags = \App\Tag::groupBy('story_id')
+            ->orderBy('created_at', 'desc')
+            ->where('tag_name', 'LIKE', '%'.$request->keyword.'%')
+            ->get();
+        if ($tags->count()) {
+            $data = array("tags", $tags);
         } else {
 
-            $story = \App\Story::where('story_title', 'LIKE', '%'.$request->keyword.'%')->get();
-            if ($story->count()) {
-                return 'story found';
+            $storys = \App\Story::groupBy('id')
+                ->orderBy('created_at', 'desc')
+                ->where('story_title', 'LIKE', '%'.$request->keyword.'%')
+                ->get();
+            if ($storys->count()) {
+                $data = array("storys", $storys);
             } else {
 
-                $member = \App\Member::where('username', 'LIKE', '%'.$request->keyword.'%')->get();
-                if($member->count()) {
-                    return 'member found';
+                $members = \App\Member::where('username', 'LIKE', '%'.$request->keyword.'%')->get();
+                if($members->count()) {
+                    $data = array("members", $members);
                 }   else {
-                    return 'not found anything.';
+                    $data = "not found anything.";
                 }
 
             }
 
         }
 
-//        return view('search');
+        return view('search')
+            ->with('keyword', $request->keyword)
+            ->with('data', $data);
     }
 
     public function Tag(Request $request) {
         Session()->put('navbar', null);
         $tag = \App\Tag::find($request->id);
-        $nearby_tags = \App\Tag::where('tag_name', $tag->tag_name)->get();
+        $nearby_tags = \App\Tag::where('tag_name', $tag->tag_name)->orderBy('created_at', 'desc')->get();
+        $current_sort = "Current sort by latest";
 
         return view('tag')
             ->with('tag', $tag)
-            ->with('nearby_tags', $nearby_tags);
+            ->with('nearby_tags', $nearby_tags)
+            ->with('current_sort', $current_sort);
+    }
+
+    public function TagSortByLike(Request $request) {
+        Session()->put('navbar', null);
+        $tag = \App\Tag::find($request->id);
+        $nearby_tags = \App\Tag::where('tag_name', $tag->tag_name)->get();
+        $current_sort = "Current sort by like";
+
+        return view('tag')
+            ->with('tag', $tag)
+            ->with('nearby_tags', $nearby_tags)
+            ->with('current_sort', $current_sort);
     }
 
     public function NotificationCheck(Request $request) {

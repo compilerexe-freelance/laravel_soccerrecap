@@ -62,7 +62,7 @@ Route::group(['middleware' => 'AuthMember'], function() {
         Route::get('bookmarks', 'HomeController@Bookmarks');
         Route::get('posts/new', 'StoryController@WriteStory');
         Route::post('posts/new', 'StoryController@InsertStory');
-        Route::post('search', 'HomeController@Search');
+        Route::get('search/{keyword}', 'HomeController@Search');
         Route::get('profile', 'ProfileController@Profile');
         Route::get('profile/user/{id}', 'ProfileController@UserProfile');
         Route::get('setting', 'ProfileController@SettingMember');
@@ -74,14 +74,20 @@ Route::group(['middleware' => 'AuthMember'], function() {
         Route::post('posts/comment/{id}', 'StoryController@PostComment');
         Route::post('follow/{id}', 'ProfileController@Follow');
         Route::post('unfollow/{id}', 'ProfileController@Unfollow');
-        Route::post('tag/follow/{id}', 'ProfileController@TagFollow');
-        Route::post('tag/unfollow/{id}', 'ProfileController@TagUnfollow');
+
 
         Route::get('sign_out', 'MemberController@SignOut');
-        Route::get('tag/{id}', 'HomeController@Tag');
+
         Route::get('contact', 'HomeController@Contact');
 
         Route::post('notification/check', 'HomeController@NotificationCheck');
+
+        Route::group(['prefix' => 'tag'], function() {
+            Route::get('{id}', 'HomeController@Tag'); // Normal
+            Route::get('sort/like/{id}', 'HomeController@TagSortByLike'); // Sort by like
+            Route::post('follow/{id}', 'ProfileController@TagFollow');
+            Route::post('unfollow/{id}', 'ProfileController@TagUnfollow');
+        });
     });
 
     Route::group(['prefix' => 'list'], function() {

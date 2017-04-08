@@ -14,59 +14,218 @@
 
     <div class="col-xs-12 col-sm-12 col-md-7" style="padding-top: 20px;">
 
-        <div class="form-group">
-            <span class="font-color-gray" style="font-size: 12px;">TAGGED IN</span>
-        </div>
         <div class="form-group" style="//border: 1px solid red;">
 
             <div class="col-xs-12 col-sm-12 col-md-10 text-left col-fulid">
                 <div class="form-group" style="//margin-top: 20px;">
-                    <span style="font-size: 26px">Artificial Intelligence</span>
-                </div>
-            </div>
-            <div class="col-xs-12 col-sm-12 col-md-2 text-right col-fulid">
-                <div class="form-group" style="//margin-top: 25px;">
-                    <button type="button" class="btn btn-success btn-remove-shadow" style="border-radius: 20px; width: 100%; color: #03B876">Follow</button>
+                    <span style="font-size: 26px" class="font-color-gray">Keyword :</span> <span style="font-size: 26px">{{ $keyword }}</span>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-fulid">
                 <hr style="margin: 0px">
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-fulid">
-                <div class="col-xs-12 col-sm-12 col-md-4 col-fulid">
-                    <div class="form-inline">
-                        <div class="form-group" style="margin-top: 20px;">
-                            <img src="{{ url('images/icons/me.jpg') }}" style="width: 50px; height: 50px;" class="img-circle" alt="">
+            @if ($data[0] == "tags")
+
+                @foreach ($data[1] as $data)
+
+                    @php
+                        $story = \App\Story::find($data->story_id);
+                        $member = \App\Member::find($story->member_id);
+                        $comment = \App\Comment::where('story_id', $story->id)->get();
+                        $count = \App\StoryCount::find($story->id);
+                    @endphp
+
+                    <!-- Article -->
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-fulid">
+
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-fulid">
+                                <div class="form-inline">
+                                    <div class="form-group" style="margin-top: 20px;">
+                                        @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                            <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
+                                        @else
+                                            <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
+                                        @endif
+                                    </div>
+                                    <div class="form-group">
+                                        <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
+                                        <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-fulid" style="margin-top: 20px; padding-bottom: 10px;">
+                                <div class="form-group">
+                                    @if (file_exists(public_path('uploads/story_pictures/'.$story->id)))
+                                        <a href="{{ url('/story/'.$story->id) }}"><img src="{{ url('uploads/story_pictures/'.$story->id) }}" alt="" class="img-responsive"></a>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                    <a href="{{ url('/story/'.$story->id) }}"><h3 style="font-weight: bold;">{{ $story->story_title }}</h3></a>
+                                </div>
+                                <div class="form-group">
+                                    <span style="font-size: 18px;">{!! str_limit($story->story_detail, 100) !!}</span>
+                                </div>
+                                <div class="form-group">
+
+                                    <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue">
+                                        <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
+                                        <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
+                                    </a>
+
+                                    <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px;"></i>
+                                    <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
+
+                                    <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
+                                    <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
+
+                                    <a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                                </div>
+                                <hr>
+                            </div>
+
                         </div>
-                        <div class="form-group">
-                            <span for="" style="margin-left: 10px;" class="font-color-blue">Macbook Pro<br>
-                                <span style="margin-left: 10px; font-size: 12px !important;" class="font-color-gray">2017/01/02 21:30</span>
-                            </span>
+                        <!-- End Article -->
+
+                        @if (Auth::check())
+                            <script>
+                                $(document).ready(function() {
+                                    $('#btn_like_story_{{ $story->id }}').on('click', function() {
+                                        $.post('{{ url('like_story/'.$story->id.'/'.Auth::user()->id) }}', {
+                                                _token: '{{ csrf_token() }}',
+                                                story_id: '{{ $story->id }}',
+                                                member_id: '{{ Auth::user()->id }}'
+                                            },
+                                            function(data, status) {
+                                                if (status) {
+                                                    $('#story_{{ $story->id }}_like').text(data);
+//                                        console.log("Data: " + data + "\nStatus: " + status);
+//                                        console.log(typeof (data));
+                                                }
+                                            });
+                                    });
+                                });
+                            </script>
+                        @endif
+
+                @endforeach
+            @endif
+
+            {{-- Result story --}}
+            @if ($data[0] == "storys")
+
+                @foreach ($data[1] as $story)
+
+                    @php
+                        $member = \App\Member::find($story->member_id);
+                        $comment = \App\Comment::where('story_id', $story->id)->get();
+                        $count = \App\StoryCount::find($story->id);
+                    @endphp
+
+                <!-- Article -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-fulid">
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-fulid">
+                            <div class="form-inline">
+                                <div class="form-group" style="margin-top: 20px;">
+                                    @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
+                                    @else
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                        <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
+                                        <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
+                                        </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-fulid" style="margin-top: 20px; padding-bottom: 10px;">
+                            <div class="form-group">
+                                @if (file_exists(public_path('uploads/story_pictures/'.$story->id)))
+                                    <a href="{{ url('/story/'.$story->id) }}"><img src="{{ url('uploads/story_pictures/'.$story->id) }}" alt="" class="img-responsive"></a>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <a href="{{ url('/story/'.$story->id) }}"><h3 style="font-weight: bold;">{{ $story->story_title }}</h3></a>
+                            </div>
+                            <div class="form-group">
+                                <span style="font-size: 18px;">{!! str_limit($story->story_detail, 100) !!}</span>
+                            </div>
+                            <div class="form-group">
+
+                                <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue">
+                                    <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
+                                    <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
+                                </a>
+
+                                <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px;"></i>
+                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
+
+                                <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
+                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
+
+                                <a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                            </div>
+                            <hr>
+                        </div>
+
+                    </div>
+                    <!-- End Article -->
+
+                    @if (Auth::check())
+                        <script>
+                            $(document).ready(function() {
+                                $('#btn_like_story_{{ $story->id }}').on('click', function() {
+                                    $.post('{{ url('like_story/'.$story->id.'/'.Auth::user()->id) }}', {
+                                            _token: '{{ csrf_token() }}',
+                                            story_id: '{{ $story->id }}',
+                                            member_id: '{{ Auth::user()->id }}'
+                                        },
+                                        function(data, status) {
+                                            if (status) {
+                                                $('#story_{{ $story->id }}_like').text(data);
+//                                        console.log("Data: " + data + "\nStatus: " + status);
+//                                        console.log(typeof (data));
+                                            }
+                                        });
+                                });
+                            });
+                        </script>
+                    @endif
+
+                @endforeach
+            @endif
+
+            {{-- Result member --}}
+            @if ($data[0] == "members")
+
+                @foreach ($data[1] as $member)
+
+                <!-- Article -->
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-fulid">
+
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-fulid">
+                            <div class="form-inline">
+                                <div class="form-group" style="margin-top: 20px;">
+                                    @if (file_exists(public_path('uploads/profile_images/'.$member->id)))
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$member->id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
+                                    @else
+                                        <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
+                                    @endif
+                                </div>
+                                <div class="form-group">
+                                        <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-fulid" style="margin-top: 20px; padding-bottom: 10px;">
-                    <div class="form-group">
-                        <img src="https://stories-app.s3.amazonaws.com/uploads/post/picture/734/thumb_AAEAAQAAAAAAAAYcAAAAJDgwZTVmMDdjLTVjMWMtNGY2My1hMThhLWYyZmVmYzY0NDZkMw.jpg" alt="" class="img-responsive">
-                    </div>
-                    <div class="form-group">
-                        <h3>How to become an entrepreneur!!</h3>
-                    </div>
-                    <div class="form-group">
-                        <span style="font-size: 18px;">Hello world! This is a test!!!</span>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">1,000</span></button>
+                    <!-- End Article -->
 
-                        <i class="fa fa-eye" style="margin-left: 10px;"></i>
-                        <span style="color: #a6a6a6; //margin-left: 10px;">2,000</span>
-
-                        <a href="#"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
-
-                    </div>
-                </div>
-            </div>
+                @endforeach
+            @endif
 
         </div>
 

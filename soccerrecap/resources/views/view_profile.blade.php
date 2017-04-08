@@ -39,9 +39,9 @@
                 <div class="col-xs-12 col-sm-12 col-md-3" style="margin-top: 10px; //border: 1px solid red">
                     <div class="form-group">
                         @if (file_exists(public_path('uploads/profile_images/'.$member->id)))
-                            <img src="{{ url('uploads/profile_images/'.$member->id) }}" style="//width: 90px; //heigth: 90px; width: 100%;" class="">
+                            <img src="{{ url('uploads/profile_images/'.$member->id) }}" style="width: 90px; height: 90px;" class="img-circle">
                         @else
-                            <img src="{{ url('images/icons/user.png') }}" style="//width: 90px; //heigth: 90px; width: 100%;" class="img-circle" alt="">
+                            <img src="{{ url('images/icons/user.png') }}" style="width: 90px; height: 90px;" class="img-circle" alt="">
                         @endif
                     </div>
                     <div class="form-group">
