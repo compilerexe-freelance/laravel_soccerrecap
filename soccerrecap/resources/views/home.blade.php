@@ -302,6 +302,27 @@
             <div class="form-group">
                 <a href="{{ url('contact') }}">{{ $contact_title }}</a>
             </div>
+            <hr>
+        </div>
+
+        <!-- Live score -->
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            @foreach ($livescore_thai as $data)
+
+                <div class="form-group text-center">
+                    <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
+                    <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
+                </div>
+
+            @endforeach
+            @foreach ($livescore_england as $data)
+
+                <div class="form-group text-center">
+                    <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
+                    <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
+                </div>
+
+            @endforeach
         </div>
 
     </div>
