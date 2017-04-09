@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="form-group text-right">
-                            <button type="submit" class="btn btn-success btn-bg-green btn-remove-shadow" style="width: 115px;"><i class="fa fa-upload"></i> Upload</button>
+                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="width: 115px;"><i class="fa fa-upload"></i> Upload</button>
                         </div>
 
                     </form>
@@ -68,7 +68,7 @@
                         </div>
 
                         <div class="form-group text-right">
-                            <button type="submit" class="btn btn-success btn-bg-green btn-remove-shadow" style="width: 115px;"><i class="fa fa-upload"></i> Upload</button>
+                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="width: 115px;"><i class="fa fa-upload"></i> Upload</button>
                         </div>
                     </form>
                 </div>
@@ -87,7 +87,7 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-3 col-md-offset-9">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-bg-green btn-remove-shadow" style="border-radius: 20px; width: 100%; color: #03B876"><i class="fa fa-save"></i> Save</button>
+                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="border-radius: 20px; width: 100%; color: #03B876"><i class="fa fa-save"></i> Save</button>
                         </div>
                     </div>
                 </form>

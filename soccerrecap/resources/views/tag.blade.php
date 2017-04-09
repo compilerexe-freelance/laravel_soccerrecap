@@ -37,13 +37,13 @@
 
             @if ($current_sort == "Current sort by latest")
                 <a href="{{ url('tag/sort/like/'.$tag->id) }}">
-                    <button type="button" class="btn btn-bg-white font-color-green">
+                    <button type="button" class="btn btn-bg-white font-color-green border-green">
                         Sort by like
                     </button>
                 </a>
             @else
                 <a href="{{ url('tag/'.$tag->id) }}">
-                    <button type="button" class="btn btn-bg-white font-color-green">
+                    <button type="button" class="btn btn-bg-white font-color-green border-green">
                         Sort by latest
                     </button>
                 </a>
@@ -73,9 +73,9 @@
                         @endphp
 
                         @if ($follow_check)
-                            <button type="button" id="btn_unfollow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                            <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
                         @else
-                            <button type="button" id="btn_follow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                            <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
                         @endif
 
                         <script>
@@ -172,13 +172,15 @@
                                 <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
                                 <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
 
-                                @php
-                                    $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
-                                @endphp
-                                @if ($bookmark)
-                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green"><i class="fa fa-bookmark"></i></span></a>
-                                @else
-                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                                @if (Auth::check())
+                                    @php
+                                        $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
+                                    @endphp
+                                    @if ($bookmark)
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green"><i class="fa fa-bookmark"></i></span></a>
+                                    @else
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                                    @endif
                                 @endif
 
                             </div>

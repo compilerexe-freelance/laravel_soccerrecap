@@ -12,7 +12,7 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="//border: 1px solid red;">
 
                 <div class="form-group text-right">
-                    <a href="{{ url('/') }}"><button type="button" class="btn btn-bg-white font-color-green" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> Back</button></a>
+                    <a href="{{ url('/') }}"><button type="button" class="btn btn-bg-white font-color-green border-green" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> Back</button></a>
                 </div>
 
                 <form action="{{ url('posts/new') }}" method="post" enctype="multipart/form-data">
@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="story_title" class="form-control border-none input-lg" style="font-size: 38px; border-bottom: 1px solid #fff !important;" placeholder="Title" autofocus required>
+                        <input type="text" name="story_title" class="form-control border-none input-lg" style="height: 60px; font-size: 38px; border-bottom: 1px solid #ffffff !important;" placeholder="Title" autofocus required>
                     </div>
 
                     <div class="form-group">
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-group text-center" style="margin-top: 30px;">
-                        <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px; font-size: 16px;">Publish <i class="fa fa-paper-plane"></i></button>
+                        <button type="submit" class="btn btn-success btn-bg-green border-green" style="width: 150px; font-size: 16px;">Publish <i class="fa fa-paper-plane"></i></button>
                     </div>
 
                 </form>

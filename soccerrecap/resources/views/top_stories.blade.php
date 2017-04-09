@@ -75,13 +75,15 @@
                                     <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
                                     <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
 
-                                    @php
-                                        $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
-                                    @endphp
-                                    @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green"><i class="fa fa-bookmark"></i></span></a>
-                                    @else
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                                    @if (Auth::check())
+                                        @php
+                                            $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
+                                        @endphp
+                                        @if ($bookmark)
+                                            <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green"><i class="fa fa-bookmark"></i></span></a>
+                                        @else
+                                            <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                                        @endif
                                     @endif
 
                                 </div>

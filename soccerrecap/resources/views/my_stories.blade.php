@@ -69,7 +69,7 @@
 
                             </div>
                             <div class="form-group text-right">
-                                <a href="{{ url('update_story/'.$story->id) }}"><button type="button" class="btn btn-bg-blue" style="width: 130px;"><i class="fa fa-pencil"></i> Edit</button></a>
+                                <a href="{{ url('update_story/'.$story->id) }}"><button type="button" class="btn btn-bg-green border-green" style="width: 130px;"><i class="fa fa-pencil"></i> Edit</button></a>
                             </div>
                         </div>
                     </div>

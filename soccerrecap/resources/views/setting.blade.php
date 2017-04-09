@@ -33,7 +33,7 @@
 
                     <div class="form-group">
                         <div class="form-group text-right" style="margin-top: 20px;">
-                            <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px;">Save</button>
+                            <button type="submit" class="btn btn-success btn-bg-green border-green" style="width: 150px;">Save</button>
                         </div>
                     </div>
                 </form>
@@ -57,7 +57,7 @@
                     <input type="password" name="password_confirmation" class="form-control border-none input-lg" placeholder="Re-enter Password" required>
                 </div>
                 <div class="form-group text-right" style="margin-top: 20px;">
-                    <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px;">Save</button>
+                    <button type="submit" class="btn btn-success btn-bg-green border-green" style="width: 150px;">Save</button>
                 </div>
 
             </div>

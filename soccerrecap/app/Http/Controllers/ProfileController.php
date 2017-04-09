@@ -14,6 +14,7 @@ use App\Tag;
 use App\StoryCount;
 use App\FollowsMember;
 use App\FollowsTag;
+use App\NotificationFollow;
 
 class ProfileController extends Controller
 {
@@ -202,14 +203,25 @@ class ProfileController extends Controller
             $follow->member_id = $request->user()->id;
             $follow->follow_member_id = $request->id;
             $follow->save();
+
+            $notification_follow = new NotificationFollow;
+            $notification_follow->follows_id = $follow->id;
+            $notification_follow->alert_member_id = $request->id;
+            $notification_follow->save();
         }
 
     }
 
     public function Unfollow(Request $request) {
-        \App\FollowsMember::where('member_id', $request->user()->id)
+//        \App\FollowsMember::where('member_id', $request->user()->id)
+//            ->where('follow_member_id', $request->id)
+//            ->delete();
+        $follows_member = \App\FollowsMember::where('member_id', $request->user()->id)
             ->where('follow_member_id', $request->id)
-            ->delete();
+            ->first();
+
+        \App\NotificationFollow::where('follows_id', $follows_member->id)->delete();
+        $follows_member->delete();
     }
 
     public function ListFollowers(Request $request) {

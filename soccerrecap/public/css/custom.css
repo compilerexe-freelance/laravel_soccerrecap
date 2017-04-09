@@ -184,3 +184,11 @@ input:checked + .slider:before {
 button {
     //border: inherit !important;
 }
+
+.border-green {
+    border-color: #03B876 !important;
+}
+
+.border-blue {
+    border-color: dodgerblue !important;
+}

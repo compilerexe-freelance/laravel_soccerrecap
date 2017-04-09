@@ -8,8 +8,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/') }}">
-                <img src="{{ url('images/logo.png') }}" class="img-responsive" style="height: 100%;" alt="">
+            <a class="navbar-brand font-color-gray" href="{{ url('/') }}">
+                {{--<img src="{{ url('images/logo.png') }}" class="img-responsive" style="height: 100%;" alt="">--}}
+                Soccerrecap
             </a>
         </div>
 

@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-xs-5 col-sm-12 col-md-8">
                             <div class="form-group text-right" style="margin-top: 20px;">
-                                <button type="button" class="btn btn-bg-blue" style="//background-color: #03B876 !important;"><i class="fa fa-facebook"></i> SHARE</button>
+                                <button type="button" class="btn btn-bg-blue border-blue" style="//background-color: #03B876 !important;"><i class="fa fa-facebook"></i> SHARE</button>
                             </div>
                         </div>
                     </div>
@@ -76,13 +76,15 @@
                             <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
                             <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comments) }}</span>
 
-                            @php
-                                $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
-                            @endphp
-                            @if ($bookmark)
-                                <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green"><i class="fa fa-bookmark"></i></span></a>
-                            @else
-                                <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                            @if (Auth::check())
+                                @php
+                                    $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
+                                @endphp
+                                @if ($bookmark)
+                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green"><i class="fa fa-bookmark"></i></span></a>
+                                @else
+                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                                @endif
                             @endif
 
                         </div>
@@ -139,9 +141,9 @@
                                         @if ($member->id != Auth::user()->id)
 
                                             @if ($follow_check)
-                                                <button type="button" id="btn_unfollow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                                                <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
                                             @else
-                                                <button type="button" id="btn_follow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                                                <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
                                             @endif
 
                                             <script>
@@ -276,8 +278,8 @@
                                 <textarea name="comment_detail" id="summernote"></textarea>
                             </div>
                             <div class="form-group text-right" style="margin-top: 20px;">
-                                <button type="submit" id="btn_comment_submit" class="btn btn-bg-green" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>Post</button>
-                                <button type="button" id="btn_comment_cancel" class="btn btn-bg-white font-color-green" style="font-size: 16px; width: 120px;">Cancle</button>
+                                <button type="submit" id="btn_comment_submit" class="btn btn-bg-green border-green" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>Post</button>
+                                <button type="button" id="btn_comment_cancel" class="btn btn-bg-white border-green font-color-green" style="font-size: 16px; width: 120px;">Cancle</button>
                             </div>
                         </form>
                     </div>

@@ -57,9 +57,9 @@
                             @if ($member->id != Auth::user()->id)
 
                                 @if ($follow_check)
-                                    <button type="button" id="btn_unfollow" class="btn btn-bg-green btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                                    <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
                                 @else
-                                    <button type="button" id="btn_follow" class="btn btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                                    <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
                                 @endif
 
                                     <script>
