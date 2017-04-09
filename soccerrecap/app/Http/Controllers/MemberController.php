@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Validator;
 use Auth;
 use Hash;
@@ -57,7 +58,6 @@ class MemberController extends Controller
     }
 
     public function SignIn(Request $request) {
-
         // Check Permissions
         $status_permission = 0;
         $member = \App\Member::where('email', $request->sign_in_email)->first();
@@ -75,17 +75,33 @@ class MemberController extends Controller
         }
 
         if ($status_permission == 0) {
-            if (Auth::attempt(['email' => $request->sign_in_email, 'password' => $request->sign_in_password])) {
-                return redirect('/');
+
+            if ($request->remember == 1) {
+
+                if (Auth::attempt(['email' => $request->sign_in_email, 'password' => $request->sign_in_password], true)) {
+                    return redirect('/');
+                } else {
+                    return redirect('/')
+                        ->withInput($request->except('sign_in_password'))
+                        ->with('status_sign_in', 'fail');
+                }
+
             } else {
-                return redirect('/')
-                    ->withInput($request->except('sign_in_password'))
-                    ->with('status_sign_in', 'fail');
+
+                // Not remember
+                if (Auth::attempt(['email' => $request->sign_in_email, 'password' => $request->sign_in_password])) {
+                    return redirect('/');
+                } else {
+                    return redirect('/')
+                        ->withInput($request->except('sign_in_password'))
+                        ->with('status_sign_in', 'fail');
+                }
+
             }
+
         } else {
             return redirect('/');
         }
-
     }
 
     public function SignOut() {

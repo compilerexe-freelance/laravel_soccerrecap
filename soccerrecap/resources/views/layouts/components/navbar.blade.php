@@ -327,7 +327,7 @@
                     <div class="form-group text-right">
                         <div class="checkbox">
                             <label class="font-color-gray">
-                                <input type="checkbox"> Remember
+                                <input type="checkbox" name="remember" value="1"> Remember
                             </label>
                         </div>
                     </div>
