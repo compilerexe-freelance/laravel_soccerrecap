@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\Newsletter;
+use App\StoryCount;
 use Illuminate\Http\Request;
 use Session;
 
@@ -28,16 +29,16 @@ class HomeController extends Controller
 
         session()->put('navbar', 'home');
         $storys = \App\Story::orderBy('id', 'desc')->get();
-        $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();
-
+//        $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();
+//
         // Contact
-        $contact_title = "";
-        $contact_detail = "";
-        $check_contact = \App\Contact::find(1);
-        if ($check_contact) {
-            $contact_title = $check_contact->contact_title;
-            $contact_detail = $check_contact->contact_detail;
-        }
+//        $contact_title = "";
+//        $contact_detail = "";
+//        $check_contact = \App\Contact::find(1);
+//        if ($check_contact) {
+//            $contact_title = $check_contact->contact_title;
+//            $contact_detail = $check_contact->contact_detail;
+//        }
 
         // Pin Story
         $pin_story = \App\StickNavbarFeed::find(1);
@@ -50,9 +51,9 @@ class HomeController extends Controller
 
         return view('home')
             ->with('storys', $storys)
-            ->with('tags', $tags)
-            ->with('contact_title', $contact_title)
-            ->with('contact_detail', $contact_detail)
+//            ->with('tags', $tags)
+//            ->with('contact_title', $contact_title)
+//            ->with('contact_detail', $contact_detail)
             ->with('pin_story', $pin_story);
     }
 
@@ -103,8 +104,106 @@ class HomeController extends Controller
             $create_pin->save();
         }
 
+        $filter_top_like = \App\StoryCount::orderBy('count_like', 'desc')->get();
+
+        $January = array();
+        $February = array();
+        $March = array();
+        $April = array();
+        $May = array();
+        $June = array();
+        $July = array();
+        $August = array();
+        $September = array();
+        $October = array();
+        $November = array();
+        $December = array();
+
+        foreach ($filter_top_like as $item) {
+
+            $month = \Carbon\Carbon::parse($item->created_at)->month;
+
+            if ($month == 1) {
+
+                if (count($January) <= 10) {
+                    array_push($January, $item->story_id);
+                }
+
+            } else if ($month == 2) {
+
+                if (count($February) <= 10) {
+                    array_push($February, $item->story_id);
+                }
+
+            } else if ($month == 3) {
+
+                if (count($March) <= 10) {
+                    array_push($March, $item->story_id);
+                }
+
+            } else if ($month == 4) {
+
+                if (count($April) <= 10) {
+                    array_push($April, $item->story_id);
+                }
+
+            } else if ($month == 5) {
+
+                if (count($May) <= 10) {
+                    array_push($May, $item->story_id);
+                }
+
+            } else if ($month == 6) {
+
+                if (count($June) <= 10) {
+                    array_push($June, $item->story_id);
+                }
+
+            } else if ($month == 7) {
+
+                if (count($July) <= 10) {
+                    array_push($July, $item->story_id);
+                }
+
+            } else if ($month == 8) {
+
+                if (count($August) <= 10) {
+                    array_push($August, $item->story_id);
+                }
+
+            } else if ($month == 9) {
+
+                if (count($September) <= 10) {
+                    array_push($September, $item->story_id);
+                }
+
+            } else if ($month == 10) {
+
+                if (count($October) <= 10) {
+                    array_push($October, $item->story_id);
+                }
+
+            } else if ($month == 11) {
+
+                if (count($November) <= 10) {
+                    array_push($November, $item->story_id);
+                }
+
+            } else {
+
+                if (count($December) <= 10) {
+                    array_push($December, $item->story_id);
+                }
+
+            }
+
+        }
+
+        $list_month = array($January, $February, $March, $April, $May, $June, $July, $August, $September, $October, $November, $December);
+
         return view('top_stories')
-            ->with('pin_story', $pin_story);
+            ->with('pin_story', $pin_story)
+            ->with('list_month', $list_month);
     }
 
     public function Bookmarks() {
