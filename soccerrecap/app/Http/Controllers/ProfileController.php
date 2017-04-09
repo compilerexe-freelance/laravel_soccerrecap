@@ -207,6 +207,7 @@ class ProfileController extends Controller
             $notification_follow = new NotificationFollow;
             $notification_follow->follows_id = $follow->id;
             $notification_follow->alert_member_id = $request->id;
+            $notification_follow->status = 1;
             $notification_follow->save();
         }
 

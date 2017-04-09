@@ -8,10 +8,9 @@ class NotificationFollow extends Model
 {
     protected $table = 'notification_follow';
 
-    protected $primaryKey = 'follows_id';
-
     protected $fillable = [
         'follows_id',
-        'alert_member_id'
+        'alert_member_id',
+        'status'
     ];
 }

@@ -77,7 +77,12 @@ Route::group(['middleware' => 'AuthMember'], function() {
         Route::post('unfollow/{id}', 'ProfileController@Unfollow');
         Route::get('sign_out', 'MemberController@SignOut');
         Route::get('contact', 'HomeController@Contact');
-        Route::post('notification/check', 'HomeController@NotificationCheck');
+//        Route::post('notification/check', 'HomeController@NotificationCheck');
+
+        Route::group(['prefix' => 'notification'], function() {
+            Route::get('fetch', 'HomeController@NotificationFetch');
+            Route::post('seen', 'HomeController@NotificationSeen');
+        });
 
         Route::group(['prefix' => 'tag'], function() {
             Route::get('{id}', 'HomeController@Tag'); // Normal

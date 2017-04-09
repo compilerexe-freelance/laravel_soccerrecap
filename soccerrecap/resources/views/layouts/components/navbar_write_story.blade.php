@@ -18,12 +18,7 @@
 
             <ul class="nav navbar-nav navbar-right">
 
-                <li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">
-                    <a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg"></i></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">No have notification.</a></li>
-                    </ul>
-                </li>
+                <li class="dropdown" style="padding-top: 10px" id="display_notification"></li>
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->username }}
@@ -56,3 +51,13 @@
         </div>
     </div>
 </nav>
+
+<script>
+    $(document).ready(function(){
+        setInterval(function() {
+            $.get("{{ url('notification/fetch') }}", function (result) {
+                $('#display_notification').html(result);
+            });
+        }, 1000);
+    });
+</script>

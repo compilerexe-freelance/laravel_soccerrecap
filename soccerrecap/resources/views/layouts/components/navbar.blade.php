@@ -89,12 +89,50 @@
                         </a>
                     </li>
 
-                    <li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">
-                        <a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg" id="bell-color"></i></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#" id="list-notification">No have notification.</a></li>
-                        </ul>
+                    {{-- notification --}}
+
+                    {{--<li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">--}}
+
+                    {{--</li>--}}
+
+                    <li class="dropdown" style="padding-top: 10px" id="display_notification">
+                        {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#">--}}
+                            {{--<i class="fa fa-circle font-color-green"></i>--}}
+                        {{--</a>--}}
+                        {{--<ul class="dropdown-menu" id="display_notification">--}}
+
+                        {{--</ul>--}}
                     </li>
+
+                    {{--<li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">--}}
+                        {{--@php--}}
+                            {{--$notifications = \App\NotificationFollow::all();--}}
+                        {{--@endphp--}}
+
+                        {{--@if ($notifications->count())--}}
+                            {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg" style="color:red;" id="bell-color"></i></a>--}}
+                        {{--@else--}}
+                            {{--<a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg" id="bell-color"></i></a>--}}
+                        {{--@endif--}}
+
+                        {{--<ul class="dropdown-menu">--}}
+
+                            {{--@if ($notifications->count())--}}
+                                {{--@foreach ($notifications as $notification)--}}
+                                    {{--@php--}}
+                                        {{--$follows_member = \App\FollowsMember::find($notification->follows_id);--}}
+                                        {{--$member = \App\Member::find($follows_member->member_id);--}}
+                                    {{--@endphp--}}
+                                    {{--<li><a href="#" id="list-notification">{{ $member->username }} follow you. <span class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $follows_member->created_at)->toFormattedDateString() }}</span></a></li>--}}
+                                {{--@endforeach--}}
+                            {{--@else--}}
+                                {{--<li><a href="#" id="list-notification">No have notification.</a></li>--}}
+                            {{--@endif--}}
+
+                        {{--</ul>--}}
+                    {{--</li>--}}
+
+                    {{-- end notification--}}
 
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->username }}
@@ -138,36 +176,20 @@
 
     <script>
         $(document).ready(function(){
-            {{--setInterval(function() {--}}
-                {{--$.post('{{ url('notification/check') }}', {--}}
-                    {{--_token: '{{ csrf_token() }}',--}}
-                    {{--member_id: '{{ Auth::user()->id }}'--}}
-                {{--},--}}
-                {{--function(data, status) {--}}
-                    {{--if (data != null) {--}}
-                        {{--var obj = JSON.parse(data);--}}
-                        {{--var str = obj.username + " follow you.";--}}
-                        {{--$('#bell-color').attr('style', 'color: red');--}}
-                        {{--$('#list-notification').text(str);--}}
-
-                        {{--$.post('{{ url('notification/insert') }}', {--}}
-                            {{--_token: '{{ csrf_token() }}',--}}
-                            {{--id: obj.id--}}
-                        {{--},--}}
-                        {{--function(data, status) {--}}
-
-                        {{--});--}}
-
-                    {{--}--}}
-
-                {{--});--}}
-            {{--}, 1000);--}}
+            setInterval(function() {
+                $.get("{{ url('notification/fetch') }}", function (result) {
+                    $('#display_notification').html(result);
+                });
+            }, 1000);
         });
 
         $(document).ready(function() {
             $('#btn_search').on('click', function() {
-
-                window.location.href = '{{ url('search') }}/' + $('#keyword').val();
+                var keyword = $('#keyword').val();
+                if (keyword == "") {
+                    keyword = "none";
+                }
+                window.location.href = '{{ url('search') }}/' + keyword;
 
                 {{--$.post('{{ url('search') }}',--}}
                 {{--{--}}
@@ -236,13 +258,13 @@
                     </li>
                     <li>
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-bg-white font-color-green">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-bg-white font-color-green border-green">Search</button>
                         </a>
                     </li>
 
                     <li>
                         <a href="#">
-                            <button type="button" class="btn btn-success btn-bg-green" id="btn-sign-in" style="border-radius: 20px; width: 100%; color: #03B876">Sign In / Sign Up</button>
+                            <button type="button" class="btn btn-success btn-bg-green border-green" id="btn-sign-in" style="border-radius: 20px; width: 100%; color: #03B876">Sign In / Sign Up</button>
                         </a>
                     </li>
 
@@ -271,7 +293,7 @@
                     <span style="font-size: 16px;" class="font-color-gray"><b>Sign in or create an account</b></span>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary" style="background-color: #0d71bb !important; font-size: 18px;"><i class="fa fa-facebook-official"></i> Sign in with Facebook</button>
+                    <button type="button" class="btn btn-primary border-blue" style="background-color: #0d71bb !important; font-size: 18px;"><i class="fa fa-facebook-official"></i> Sign in with Facebook</button>
                 </div>
                 <div class="form-group">
                     <a href="#" id="link-sign-in-email" style="text-decoration: none;"><span style="font-size: 16px;" class="font-color-green">Sign in or Sign up with email</span></a>
@@ -310,8 +332,8 @@
                         </div>
                     </div>
                     <div class="form-group" style="margin-top: 20px;">
-                        <button type="button" id="btn-sign-up-email" class="btn btn-bg-white btn-remove-shadow font-color-green pull-left" style="font-size: 18px; width: 150px;">Sign up</button>
-                        <button type="submit" class="btn btn-success btn-remove-hover btn-bg-green pull-right" style="font-size: 18px; width: 150px;">Login</button>
+                        <button type="button" id="btn-sign-up-email" class="btn btn-bg-white btn-remove-shadow font-color-green border-green pull-left" style="font-size: 18px; width: 150px;">Sign up</button>
+                        <button type="submit" class="btn btn-success btn-remove-hover btn-bg-green border-green pull-right" style="font-size: 18px; width: 150px;">Login</button>
                     </div>
                 </form>
 
@@ -364,7 +386,7 @@
                     </div>
 
                     <div class="form-group text-right" style="margin-top: 30px;">
-                        <button type="submit" class="btn btn-success btn-remove-hover btn-bg-green text-right" style="font-size: 18px; width: 150px;">Create Account</button>
+                        <button type="submit" class="btn btn-remove-hover btn-bg-green border-green text-right" style="font-size: 18px; width: 150px;">Create Account</button>
                     </div>
                 </form>
 

@@ -284,11 +284,11 @@ class HomeController extends Controller
             ->with('current_sort', $current_sort);
     }
 
-    public function NotificationCheck(Request $request) {
-        $notifications = \App\FollowsMember::where('follow_member_id', $request->member_id)->orderBy('created_at', 'desc')->limit(1)->first();
-        $fillter_username = \App\Member::find($notifications->member_id);
-        return json_encode($fillter_username);
-    }
+//    public function NotificationCheck(Request $request) {
+//        $notifications = \App\FollowsMember::where('follow_member_id', $request->member_id)->orderBy('created_at', 'desc')->limit(1)->first();
+//        $fillter_username = \App\Member::find($notifications->member_id);
+//        return json_encode($fillter_username);
+//    }
 
     public function Contact() {
         $check_contact = \App\Contact::find(1);
@@ -301,6 +301,21 @@ class HomeController extends Controller
         return view('contact')
             ->with('contact_title', $contact_title)
             ->with('contact_detail', $contact_detail);
+    }
+
+    public function NotificationFetch() {
+        return view('notification_fetch');
+    }
+
+    public function NotificationSeen(Request $request) {
+        $notifications = \App\NotificationFollow::where('alert_member_id', $request->member_id)
+            ->where('status', 1)
+            ->get();
+        foreach ($notifications as $notification) {
+            $seen = \App\NotificationFollow::find($notification->id);
+            $seen->status = 0;
+            $seen->save();
+        }
     }
 
 }
