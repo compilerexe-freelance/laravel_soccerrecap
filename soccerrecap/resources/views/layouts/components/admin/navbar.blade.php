@@ -23,7 +23,7 @@
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Member
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{ url('admin/member/send_message') }}">Send message</a></li>
+                        <li><a href="{{ url('admin/member/newsletter') }}">Newsletter</a></li>
                         <li><a href="{{ url('admin/member/permission') }}">Permission</a></li>
                     </ul>
                 </li>

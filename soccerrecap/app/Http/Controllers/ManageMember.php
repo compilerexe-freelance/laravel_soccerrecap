@@ -4,12 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Mail;
+use App\Mail\Newsletter;
 use App\PermissionMember;
 
 class ManageMember extends Controller
 {
-    public function SendMessage() {
+    public function Newsletter() {
         session()->put('navbar', 'member');
+        return view('admin.member.newsletter');
+    }
+
+    public function SendNewsletter(Request $request) {
+        $members = \App\SettingMember::where('status_new_sletter', 1)->get();
+        foreach ($members as $member) {
+            $info = \App\Member::find($member->member_id);
+            Mail::to($info->email)->send(new Newsletter([
+                'topic' => $request->topic,
+                'body' => $request->body
+            ]));
+        }
+        return redirect()->back();
     }
 
     public function Permission() {

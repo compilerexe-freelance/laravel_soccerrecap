@@ -38,3 +38,14 @@ a {
 .col-fulid {
     padding: 0px !important;
 }
+
+.border-none {
+    border: none !important;
+    -webkit-border-radius: 0px !important;
+    -moz-border-radius: 0px !important;
+    border-radius: 0px !important;
+    border-bottom: 1px solid #808080 !important;
+    width: 100% !important;
+    margin-top: 10px !important;
+    box-shadow: none !important;
+}

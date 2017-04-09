@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\Newsletter;
 use Illuminate\Http\Request;
 use Session;
 

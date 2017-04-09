@@ -10,7 +10,8 @@ Route::group(['middleware' => 'AuthAdmin'], function() {
         Route::get('main', 'AdminController@Main');
 
         Route::group(['prefix' => 'member'], function() {
-            Route::get('send_message', 'ManageMember@SendMessage');
+            Route::get('newsletter', 'ManageMember@Newsletter');
+            Route::post('newsletter/send', 'ManageMember@SendNewsletter');
             Route::get('permission', 'ManageMember@Permission');
         });
 
@@ -51,6 +52,8 @@ Route::group(['middleware' => 'AuthAdmin'], function() {
 Route::get('/', 'HomeController@Home')->name('/');
 Route::post('sign_in', 'MemberController@SignIn');
 Route::post('sign_up', 'MemberController@SignUp');
+
+Route::get('/sendemail', 'HomeController@sendemail');
 
 Route::group(['middleware' => 'AuthMember'], function() {
 
