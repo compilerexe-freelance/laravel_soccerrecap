@@ -53,8 +53,6 @@ Route::get('/', 'HomeController@Home')->name('/');
 Route::post('sign_in', 'MemberController@SignIn');
 Route::post('sign_up', 'MemberController@SignUp');
 
-Route::get('/sendemail', 'HomeController@sendemail');
-
 Route::group(['middleware' => 'AuthMember'], function() {
 
     Route::group(['prefix' => '/'], function () {
@@ -77,12 +75,8 @@ Route::group(['middleware' => 'AuthMember'], function() {
         Route::post('posts/comment/{id}', 'StoryController@PostComment');
         Route::post('follow/{id}', 'ProfileController@Follow');
         Route::post('unfollow/{id}', 'ProfileController@Unfollow');
-
-
         Route::get('sign_out', 'MemberController@SignOut');
-
         Route::get('contact', 'HomeController@Contact');
-
         Route::post('notification/check', 'HomeController@NotificationCheck');
 
         Route::group(['prefix' => 'tag'], function() {
@@ -90,6 +84,10 @@ Route::group(['middleware' => 'AuthMember'], function() {
             Route::get('sort/like/{id}', 'HomeController@TagSortByLike'); // Sort by like
             Route::post('follow/{id}', 'ProfileController@TagFollow');
             Route::post('unfollow/{id}', 'ProfileController@TagUnfollow');
+        });
+
+        Route::group(['prefix' => 'bookmark'], function() {
+            Route::get('{story_id}', 'MemberController@Bookmark');
         });
     });
 

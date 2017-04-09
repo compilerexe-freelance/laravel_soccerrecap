@@ -118,8 +118,11 @@ class HomeController extends Controller
             $create_pin->save();
         }
 
+        $bookmarks = \App\Bookmark::all();
+
         return view('bookmarks')
-            ->with('pin_story', $pin_story);
+            ->with('pin_story', $pin_story)
+            ->with('bookmarks', $bookmarks);
     }
 
     public function Search(Request $request) {

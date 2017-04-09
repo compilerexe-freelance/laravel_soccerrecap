@@ -10,6 +10,7 @@ use App\Member;
 use App\Profile;
 use App\SettingMember;
 use App\PermissionMember;
+use App\Bookmark;
 
 class MemberController extends Controller
 {
@@ -90,5 +91,20 @@ class MemberController extends Controller
     public function SignOut() {
         Auth::logout();
         return redirect('/');
+    }
+
+    public function Bookmark(Request $request) {
+        $check_bookmark = \App\Bookmark::where('member_id', $request->user()->id)
+            ->where('story_id', $request->story_id)
+            ->first();
+        if ($check_bookmark) {
+            $check_bookmark->delete();
+        } else {
+            $bookmark = new Bookmark;
+            $bookmark->member_id = $request->user()->id;
+            $bookmark->story_id = $request->story_id;
+            $bookmark->save();
+        }
+        return redirect()->back();
     }
 }
