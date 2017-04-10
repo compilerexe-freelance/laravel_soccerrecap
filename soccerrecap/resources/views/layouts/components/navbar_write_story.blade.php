@@ -9,8 +9,8 @@
                 <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand font-color-gray" href="{{ url('/') }}">
-                {{--<img src="{{ url('images/logo.png') }}" class="img-responsive" style="height: 100%;" alt="">--}}
-                Soccerrecap
+                <img src="{{ url('images/soccerrecap_blue.png') }}" class="img-responsive" style="height: 100%;" alt="">
+                {{--Soccerrecap--}}
             </a>
         </div>
 
@@ -26,12 +26,12 @@
                         @if (file_exists(public_path('uploads/profile_images/'.Auth::user()->id)))
                             <img src="{{ url('uploads/profile_images/'.Auth::user()->id) }}"
                                  style="width: 40px !important; height: 40px !important;"
-                                 class=""
+                                 class="img-circle"
                                  alt="">
                         @else
                             <img src="{{ url('images/icons/user.png') }}"
                                  style="width: 40px !important; height: 40px !important;"
-                                 class=""
+                                 class="img-circle"
                                  alt="">
                         @endif
                     </a>

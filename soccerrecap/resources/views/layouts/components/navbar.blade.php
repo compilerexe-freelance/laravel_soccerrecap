@@ -31,8 +31,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand font-color-gray" href="{{ url('/') }}">
-                    {{--<img src="{{ url('images/logo.png') }}" class="img-responsive" style="height: 100%;" alt="">--}}
-                    Soccerrecap
+                    <img src="{{ url('images/soccerrecap_blue.png') }}" class="img-responsive" style="height: 100%;" alt="">
+                    {{--Soccerrecap--}}
                 </a>
             </div>
 
@@ -77,7 +77,7 @@
 
                     <li style="padding-top: 5px;">
                         <a href="#">
-                            <input type="text" id="keyword" class="form-control" placeholder="Tag, Stories, People" style="border-radius: 0px;">
+                            <input type="text" id="keyword" class="form-control" placeholder="Tag, Stories, People" style="border-radius: 20px !important;">
                         </a>
                     </li>
                     <li style="padding-top: 5px;">
@@ -104,12 +104,12 @@
                             @if (file_exists(public_path('uploads/profile_images/'.Auth::user()->id)))
                                 <img src="{{ url('uploads/profile_images/'.Auth::user()->id) }}"
                                      style="width: 40px !important; height: 40px !important;"
-                                     class="img-rounded"
+                                     class="img-circle"
                                      alt="">
                             @else
                                 <img src="{{ url('images/icons/user.png') }}"
                                      style="width: 40px !important; height: 40px !important;"
-                                     class="img-rounded"
+                                     class="img-circle"
                                      alt="">
                             @endif
 
@@ -182,8 +182,8 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand font-color-gray" href="{{ url('/') }}">
-                    {{--<img src="{{ url('images/logo.png') }}" class="img-responsive" style="height: 100%;" alt="">--}}
-                    Soccerrecap
+                    <img src="{{ url('images/soccerrecap_blue.png') }}" class="img-responsive" style="height: 100%;" alt="">
+                    {{--Soccerrecap--}}
                 </a>
             </div>
 
@@ -218,7 +218,7 @@
 
                     <li>
                         <a href="#">
-                            <input type="text" id="txt_search" class="form-control" placeholder="Tag, Stories, People" style="border-radius: 0px;">
+                            <input type="text" id="txt_search" class="form-control" placeholder="Tag, Stories, People" style="border-radius: 20px !important;">
                         </a>
                     </li>
                     <li>

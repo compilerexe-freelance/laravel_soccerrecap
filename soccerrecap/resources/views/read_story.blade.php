@@ -7,8 +7,7 @@
 @section('content')
 
     <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 20px;">
-        <div class="panel panel-default">
-            <div class="panel-body">
+
 
                 <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1">
                     <!-- Header -->
@@ -77,25 +76,25 @@
                                 {{--<span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>--}}
                             {{--</button>--}}
 
-                            <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue">
+                            <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue" style="font-size: 16px !important;">
                                 <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
                                 <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
                             </a>
 
-                            <i class="fa fa-eye" style="margin-left: 10px;"></i>
-                            <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
+                            <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px; font-size: 16px;"></i>
+                            <span style="color: #a6a6a6; //margin-left: 10px; font-size: 16px;">{{ number_format($count->count_view) }}</span>
 
-                            <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
-                            <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comments) }}</span>
+                            <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px; font-size: 16px;"></i>
+                            <span style="color: #a6a6a6; //margin-left: 10px; font-size: 16px;">{{ count($comments) }}</span>
 
                             @if (Auth::check())
                                 @php
                                     $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                 @endphp
                                 @if ($bookmark)
-                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green"><i class="fa fa-bookmark"></i></span></a>
+                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">Bookmark <i class="fa fa-bookmark"></i></span></a>
                                 @else
-                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
                                 @endif
                             @endif
 
@@ -189,14 +188,13 @@
                                 @endif
 
                             </div>
-                        </div>
 
+                        </div>
+                        
                     </div>
 
                 </div>
 
-            </div>
-        </div>
     </div>
 
     @foreach ($unique_tag_ids as $unique_tag_id)
@@ -206,62 +204,35 @@
             $comment = \App\Comment::where('story_id', $story_suggest->id)->get();
         @endphp
 
-        <div class="col-xs-12 col-sm-12 col-md-4" style="//border: 1px solid #abc; //padding-left: 0px !important; //padding-right: 0px !important;">
-            <div class="panel panel-default">
-                <div class="panel-body">
+        <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 20px; //border: 1px solid #abc; //padding-left: 0px !important; //padding-right: 0px !important;">
 
-                    <div class="form-group">
-                        <div class="form-inline">
-                            <div class="form-group" style="margin-top: 10px;">
-                                @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
-                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
-                                @else
-                                    <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
-                                @endif
-                            </div>
-                            <div class="form-group">
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
-                                    <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
-                                    </span>
-                            </div>
+            <div class="col-md-6 col-md-offset-3">
+
+                <div class="form-group">
+                    <div class="form-inline">
+                        <div class="form-group" style="margin-top: 10px;">
+                            @if (file_exists(public_path('uploads/profile_images/'.$story->member_id)))
+                                <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('uploads/profile_images/'.$story->member_id) }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
+                            @else
+                                <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
+                            @endif
+                        </div>
+                        <div class="form-group">
+                            <span for="" style="font-size: 20px; font-weight: bold; margin-left: 10px;" class="font-color-gray">{{ $story_suggest->story_title }}<br>
+                            <span style="margin-left: 10px; font-size: 14px !important; font-weight: normal;" class="font-color-gray">{{ $member->username }}</span>
+                            </span>
                         </div>
                     </div>
-
-                    <div class="form-group">
-                        <a href="#"><h3>{{ $story_suggest->story_title }}</h3></a>
-                    </div>
-                    <div class="form-group">
-                        <span style="font-size: 18px;">{!! str_limit($story_suggest->story_detail, 100) !!}</span>
-                    </div>
-                    <div class="form-group text-right" style="margin-top: 20px; //padding-bottom: 50px;">
-
-                        {{--<button type="button" id="btn_like_story_{{ $story->id }}" class="btn btn-info btn-remove-hover" style="width: 120px; border-radius: 20px; color: dodgerblue">--}}
-                            {{--<i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>--}}
-                            {{--<span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>--}}
-                        {{--</button>--}}
-
-                        <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue">
-                            <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
-                            <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
-                        </a>
-
-                        <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px;"></i>
-                        <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
-
-                        <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
-                        <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
-
-
-                    </div>
                 </div>
+                <hr>
             </div>
+
         </div>
 
     @endforeach
 
-    <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-body">
+    <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 20px;">
+
 
                 @if (Auth::check())
 
@@ -328,8 +299,6 @@
 
                 @endforeach
 
-            </div>
-        </div>
     </div>
 
     <script>

@@ -12,7 +12,7 @@
 
     <title>Soccerrecap</title>
 
-    <link rel="shortcut icon" href="{{ url('images/logo.ico') }}">
+    {{--<link rel="shortcut icon" href="{{ url('images/logo.ico') }}">--}}
     <link rel="stylesheet" href="{{ url('css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('css/sweetalert.css') }}">
     <link rel="stylesheet" href="{{ url('font-awesome-4.7.0/css/font-awesome.min.css') }}">

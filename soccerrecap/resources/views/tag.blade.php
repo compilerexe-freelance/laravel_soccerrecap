@@ -161,25 +161,25 @@
                                     {{--<span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>--}}
                                 {{--</button>--}}
 
-                                <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue">
+                                <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue" style="font-size: 16px !important;">
                                     <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
                                     <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
                                 </a>
 
-                                <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px;"></i>
-                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
+                                <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px; font-size: 16px;"></i>
+                                <span style="color: #a6a6a6; //margin-left: 10px; font-size: 16px;">{{ number_format($count->count_view) }}</span>
 
-                                <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px;"></i>
-                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
+                                <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px; font-size: 16px;"></i>
+                                <span style="color: #a6a6a6; //margin-left: 10px; font-size: 16px;">{{ count($comment) }}</span>
 
                                 @if (Auth::check())
                                     @php
                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                     @endphp
                                     @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green"><i class="fa fa-bookmark"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">Bookmark <i class="fa fa-bookmark"></i></span></a>
                                     @else
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right"><i class="fa fa-bookmark-o"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
                                     @endif
                                 @endif
 
@@ -198,34 +198,166 @@
     <!--        <div class="col-xs-12 col-sm-12 col-md-4" style="background-color: #FAFAFA; padding-top: 20px;">-->
     <div class="col-xs-12 col-sm-12 col-md-5" style="background-color: #FAFAFA; padding-top: 20px;">
 
+        @php
+            $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();
+
+            // Contact
+            $contact_title = "";
+            $contact_detail = "";
+            $check_contact = \App\Contact::find(1);
+            if ($check_contact) {
+                $contact_title = $check_contact->contact_title;
+                $contact_detail = $check_contact->contact_detail;
+            }
+        @endphp
+
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            <div class="form-group" style="//margin-top: 20px;">
+                <small><b>FEATURED TAGS</b></small>
+            </div>
+            <div class="form-group">
+
+                @foreach ($tags as $tag)
+                    <a href="{{ url('tag/'.$tag->id) }}"><button type="button" class="btn btn-default btn-remove-hover btn-tag">{{ $tag->tag_name }}</button></a>
+                @endforeach
+
+            </div>
+            <hr style="border-color: #ffffff">
+        </div>
+
+    @php
+        $editor_pick = \App\EditorPick::find(1);
+    @endphp
+
+    @if ($editor_pick)
+
+        @php
+
+            if ($editor_pick->story_id_1 != null) {
+                $editor_pick_1 = \App\Story::find($editor_pick->story_id_1);
+                $member_editor_1 = \App\Member::find($editor_pick_1->member_id);
+            }
+
+            if ($editor_pick->story_id_2 != null) {
+                $editor_pick_2 = \App\Story::find($editor_pick->story_id_2);
+                $member_editor_2 = \App\Member::find($editor_pick_2->member_id);
+            }
+
+            if ($editor_pick->story_id_3 != null) {
+                $editor_pick_3 = \App\Story::find($editor_pick->story_id_3);
+                $member_editor_3 = \App\Member::find($editor_pick_3->member_id);
+            }
+
+            if ($editor_pick->story_id_4 != null) {
+                $editor_pick_4 = \App\Story::find($editor_pick->story_id_4);
+                $member_editor_4 = \App\Member::find($editor_pick_4->member_id);
+            }
+
+            if ($editor_pick->story_id_5 != null) {
+                $editor_pick_5 = \App\Story::find($editor_pick->story_id_5);
+                $member_editor_5 = \App\Member::find($editor_pick_5->member_id);
+            }
+
+        @endphp
+
+        <!-- Editor's pick -->
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <small><b>EDITOR'S PICK</b></small>
+                </div>
+
+                @if ($editor_pick->story_id_1 != null)
+                    <div class="form-group">
+                        <div class="col-xs-1 col-sm-12 col-md-1 text-center">
+                            <div class="text-cycle">
+                                <span>1</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-12 col-md-11">
+                            <a href="{{ url('/story/'.$editor_pick->story_id_1) }}"><span style="padding-left: 10px; line-height: 35px;">{{ $editor_pick_1->story_title }}</span></a><br>
+                            <span style="padding-left: 10px;" class="font-color-gray">{{ $member_editor_1->username }}</span>
+                            <hr style="border-color: #f2f2f2">
+                        </div>
+                    </div>
+                @endif
+
+                @if ($editor_pick->story_id_2 != null)
+                    <div class="form-group">
+                        <div class="col-xs-1 col-sm-12 col-md-1 text-center">
+                            <div class="text-cycle">
+                                <span>2</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-12 col-md-11">
+                            <a href="{{ url('/story/'.$editor_pick->story_id_2) }}"><span style="padding-left: 10px; line-height: 35px;">{{ $editor_pick_2->story_title }}</span></a><br>
+                            <span style="padding-left: 10px;" class="font-color-gray">{{ $member_editor_2->username }}</span>
+                            <hr style="border-color: #f2f2f2">
+                        </div>
+                    </div>
+                @endif
+
+                @if ($editor_pick->story_id_3 != null)
+                    <div class="form-group">
+                        <div class="col-xs-1 col-sm-12 col-md-1 text-center">
+                            <div class="text-cycle">
+                                <span>3</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-12 col-md-11">
+                            <a href="{{ url('/story/'.$editor_pick->story_id_3) }}"><span style="padding-left: 10px; line-height: 35px;">{{ $editor_pick_3->story_title }}</span></a><br>
+                            <span style="padding-left: 10px;" class="font-color-gray">{{ $member_editor_3->username }}</span>
+                            <hr style="border-color: #f2f2f2">
+                        </div>
+                    </div>
+                @endif
+
+                @if ($editor_pick->story_id_4 != null)
+                    <div class="form-group">
+                        <div class="col-xs-1 col-sm-12 col-md-1 text-center">
+                            <div class="text-cycle">
+                                <span>4</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-12 col-md-11">
+                            <a href="{{ url('/story/'.$editor_pick->story_id_4) }}"><span style="padding-left: 10px; line-height: 35px;">{{ $editor_pick_4->story_title }}</span></a><br>
+                            <span style="padding-left: 10px;" class="font-color-gray">{{ $member_editor_4->username }}</span>
+                            <hr style="border-color: #f2f2f2">
+                        </div>
+                    </div>
+                @endif
+
+                @if ($editor_pick->story_id_5 != null)
+                    <div class="form-group">
+                        <div class="col-xs-1 col-sm-12 col-md-1 text-center">
+                            <div class="text-cycle">
+                                <span>5</span>
+                            </div>
+                        </div>
+                        <div class="col-xs-11 col-sm-12 col-md-11">
+                            <a href="{{ url('/story/'.$editor_pick->story_id_5) }}"><span style="padding-left: 10px; line-height: 35px;">{{ $editor_pick_5->story_title }}</span></a><br>
+                            <span style="padding-left: 10px;" class="font-color-gray">{{ $member_editor_5->username }}</span>
+                            <hr style="border-color: #f2f2f2">
+                        </div>
+                    </div>
+                @endif
+
+            </div>
+    @else
+        <!-- Editor's pick -->
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <small><b>EDITOR'S PICK</b></small>
+                </div>
+            </div>
+    @endif
+
+    <!-- Contact -->
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <small><b>TOP STORIES</b></small>
-            </div>
-
-            <div class="form-group">
-                <div class="col-xs-1 col-sm-12 col-md-1 text-center">
-                    <div class="text-cycle">
-                        <span>1</span>
-                    </div>
-                </div>
-                <div class="col-xs-11 col-sm-12 col-md-11">
-                    <span style="padding-left: 10px; line-height: 35px;">How to make your feeling happy!</span><br>
-                    <span style="padding-left: 10px;" class="font-color-gray">Compiler Exe</span>
-                    <hr style="border-color: #f2f2f2">
-                </div>
+                <span><b>Contact</b></span>
             </div>
             <div class="form-group">
-                <div class="col-xs-1 col-sm-12 col-md-1 text-center">
-                    <div class="text-cycle">
-                        <span>2</span>
-                    </div>
-                </div>
-                <div class="col-xs-11 col-sm-12 col-md-11">
-                    <span style="padding-left: 10px; line-height: 35px;">3 Tips you need to know before travel!</span><br>
-                    <span style="padding-left: 10px;" class="font-color-gray">Compiler Exe</span>
-                    <hr style="border-color: #f2f2f2">
-                </div>
+                <a href="{{ url('contact') }}">{{ $contact_title }}</a>
             </div>
         </div>
 

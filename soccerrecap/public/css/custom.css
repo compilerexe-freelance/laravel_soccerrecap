@@ -8,14 +8,15 @@
 
 body {
     /*background-color: #f2f2f2;*/
-    background-color: #FAFAFA;
+    /*background-color: #FAFAFA;*/
+    background-color: #fff;
     font-family: 'Kanit', sans-serif;
 }
 button {
     font-family: 'Kanit', sans-serif;
 //font-size: 18px !important;
-    //border-radius: 20px !important;
-    border-radius: 0px !important;
+    border-radius: 20px !important;
+    //border-radius: 0px !important;
     //background-color: #fff !important;
 }
 
@@ -191,4 +192,8 @@ button {
 
 .border-blue {
     border-color: dodgerblue !important;
+}
+
+.panel {
+    border-color: #fff !important;
 }

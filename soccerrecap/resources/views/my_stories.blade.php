@@ -56,14 +56,17 @@
                             </div>
                             <div class="form-group">
                                 {{--<button type="button" class="btn btn-bg-white btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">20,000</span></button>--}}
-                                <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
-                                <span style="//color: dodgerblue" id="story_{{ $story->id }}_like" class="font-color-gray">{{ number_format($count->count_like) }}</span>
 
-                                <i class="fa fa-eye" style="margin-left: 10px;"></i>
-                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ number_format($count->count_view) }}</span>
+                                <a href="#" id="btn_like_story_{{ $story->id }}" class="font-color-blue" style="font-size: 16px !important;">
+                                    <i class="fa fa-thumbs-o-up" style="margin-right: 10px;"></i>
+                                    <span style="color: dodgerblue" id="story_{{ $story->id }}_like">{{ number_format($count->count_like) }}</span>
+                                </a>
 
-                                <i class="fa fa-comment-o" style="margin-left: 10px;"></i>
-                                <span style="color: #a6a6a6; //margin-left: 10px;">{{ count($comment) }}</span>
+                                <i class="fa fa-eye" style="margin-left: 10px; margin-right: 10px; font-size: 16px;"></i>
+                                <span style="color: #a6a6a6; //margin-left: 10px; font-size: 16px;">{{ number_format($count->count_view) }}</span>
+
+                                <i class="fa fa-comment-o" style="margin-left: 10px; margin-right: 10px; font-size: 16px;"></i>
+                                <span style="color: #a6a6a6; //margin-left: 10px; font-size: 16px;">{{ count($comment) }}</span>
 
                                 {{--<a href="#"><span class="font-color-gray pull-right"><i class="fa fa-bookmark font-color-blue"></i></span></a>--}}
 
