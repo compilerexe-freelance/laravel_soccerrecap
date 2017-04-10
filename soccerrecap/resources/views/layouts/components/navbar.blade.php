@@ -57,9 +57,6 @@
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Knowledge
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            {{--<li><a href="#">Windows</a></li>--}}
-                            {{--<li><a href="#">Linux</a></li>--}}
-                            {{--<li><a href="#">OSX</a></li>--}}
                             @php
                                 $knowledges = \App\Knowledge::all();
                             @endphp
@@ -91,52 +88,19 @@
 
                     {{-- notification --}}
 
-                    {{--<li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">--}}
-
-                    {{--</li>--}}
-
                     <li class="dropdown" style="padding-top: 10px" id="display_notification">
-                        {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#">--}}
-                            {{--<i class="fa fa-circle font-color-green"></i>--}}
-                        {{--</a>--}}
-                        {{--<ul class="dropdown-menu" id="display_notification">--}}
 
-                        {{--</ul>--}}
                     </li>
-
-                    {{--<li class="dropdown" style="padding-top: 10px;" onmouseover="this.style.color='dodgerblue'">--}}
-                        {{--@php--}}
-                            {{--$notifications = \App\NotificationFollow::all();--}}
-                        {{--@endphp--}}
-
-                        {{--@if ($notifications->count())--}}
-                            {{--<a class="dropdown-toggle" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg" style="color:red;" id="bell-color"></i></a>--}}
-                        {{--@else--}}
-                            {{--<a class="dropdown-toggle font-color-blue" data-toggle="dropdown" href="#"><i class="fa fa-bell-o fa-lg" id="bell-color"></i></a>--}}
-                        {{--@endif--}}
-
-                        {{--<ul class="dropdown-menu">--}}
-
-                            {{--@if ($notifications->count())--}}
-                                {{--@foreach ($notifications as $notification)--}}
-                                    {{--@php--}}
-                                        {{--$follows_member = \App\FollowsMember::find($notification->follows_id);--}}
-                                        {{--$member = \App\Member::find($follows_member->member_id);--}}
-                                    {{--@endphp--}}
-                                    {{--<li><a href="#" id="list-notification">{{ $member->username }} follow you. <span class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $follows_member->created_at)->toFormattedDateString() }}</span></a></li>--}}
-                                {{--@endforeach--}}
-                            {{--@else--}}
-                                {{--<li><a href="#" id="list-notification">No have notification.</a></li>--}}
-                            {{--@endif--}}
-
-                        {{--</ul>--}}
-                    {{--</li>--}}
 
                     {{-- end notification--}}
 
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{ Auth::user()->username }}
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+
+                            {{ Auth::user()->username }}
+
                             <span class="caret"></span>&ensp;
+
                             @if (file_exists(public_path('uploads/profile_images/'.Auth::user()->id)))
                                 <img src="{{ url('uploads/profile_images/'.Auth::user()->id) }}"
                                      style="width: 40px !important; height: 40px !important;"
@@ -148,6 +112,7 @@
                                      class="img-rounded"
                                      alt="">
                             @endif
+
                         </a>
 
                         <ul class="dropdown-menu">
@@ -293,7 +258,7 @@
                     <span style="font-size: 16px;" class="font-color-gray"><b>Sign in or create an account</b></span>
                 </div>
                 <div class="form-group">
-                    <button type="button" class="btn btn-primary border-blue" style="background-color: #0d71bb !important; font-size: 18px;"><i class="fa fa-facebook-official"></i> Sign in with Facebook</button>
+                    <a href="{{ url('login/facebook') }}"><button type="button" class="btn btn-primary border-blue" style="background-color: #0d71bb !important; font-size: 18px;"><i class="fa fa-facebook-official"></i> Sign in with Facebook</button></a>
                 </div>
                 <div class="form-group">
                     <a href="#" id="link-sign-in-email" style="text-decoration: none;"><span style="font-size: 16px;" class="font-color-green">Sign in or Sign up with email</span></a>
@@ -428,11 +393,16 @@
         @endif
 
         @if (session('status_sign_up') == 'success')
-            $('#Modal-SignUp-Success').modal();
+//            $('#Modal-SignUp-Success').modal();
+            alert('ลงทะเบียนสำเร็จ');
         @endif
 
         @if (session('status_sign_in'))
             $('#Modal-Sign-In-Email').modal();
+        @endif
+
+        @if (session('facebook_error') == 'fail')
+            alert('อีเมล {{session('facebook_email')}} มีการใช้ลงทะเบียนแล้ว');
         @endif
 
         $('#btn-sign-in').on('click', function() {

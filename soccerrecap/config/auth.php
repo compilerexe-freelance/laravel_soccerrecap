@@ -23,7 +23,6 @@ return [
             'driver' => 'database',
             'table' => 'member',
         ],
-
         'admin' => [
             'driver' => 'database',
             'table' => 'administrator',

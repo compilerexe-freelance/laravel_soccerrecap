@@ -7,6 +7,7 @@ use App\StoryCount;
 use Illuminate\Http\Request;
 use Session;
 
+use Auth;
 use App\Story;
 use App\Tag;
 use App\Report;
@@ -14,7 +15,7 @@ use App\StickNavbarFeed;
 
 class HomeController extends Controller
 {
-    public function Home() {
+    public function Home(Request $request) {
 
         // Live score
 

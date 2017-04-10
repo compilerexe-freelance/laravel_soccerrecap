@@ -53,6 +53,9 @@ Route::get('/', 'HomeController@Home')->name('/');
 Route::post('sign_in', 'MemberController@SignIn');
 Route::post('sign_up', 'MemberController@SignUp');
 
+Route::get('login/facebook', 'MemberController@redirectToProvider');
+Route::get('login/facebook/callback', 'MemberController@handleProviderCallback');
+
 Route::group(['middleware' => 'AuthMember'], function() {
 
     Route::group(['prefix' => '/'], function () {

@@ -12,6 +12,8 @@ use App\Profile;
 use App\SettingMember;
 use App\PermissionMember;
 use App\Bookmark;
+use Socialite;
+use App\FacebookLogin;
 
 class MemberController extends Controller
 {
@@ -106,6 +108,7 @@ class MemberController extends Controller
 
     public function SignOut() {
         Auth::logout();
+        session()->flush();
         return redirect('/');
     }
 
@@ -122,5 +125,64 @@ class MemberController extends Controller
             $bookmark->save();
         }
         return redirect()->back();
+    }
+
+    /**
+     * Redirect the user to the GitHub authentication page.
+     *
+     * @return Response
+     */
+    public function redirectToProvider()
+    {
+        return Socialite::driver('facebook')->redirect();
+    }
+
+    /**
+     * Obtain the user information from GitHub.
+     *
+     * @return Response
+     */
+    public function handleProviderCallback(Request $request)
+    {
+        $user = Socialite::driver('facebook')->fields(['id', 'email', 'name', 'first_name', 'last_name'])->user();
+
+
+
+        $check_facebook_login = \App\Member::where('email', $user->email)
+            ->first();
+
+        if (!$check_facebook_login) {
+            $member = new Member;
+            $member->username = $user->user['first_name'];
+            $member->email = $user->email;
+            $member->facebook_id = $user->id;
+            $member->password = Hash::make($user->id);
+            $member->save();
+
+            $profile = new Profile;
+            $profile->member_id = $member->id;
+            $profile->describe_profile = "Profile describe ...";
+            $profile->save();
+
+            $permission = new PermissionMember;
+            $permission->member_id = $member->id;
+            $permission->temporary_suspend = 0;
+            $permission->suspended = 0;
+            $permission->save();
+
+            $setting = new SettingMember;
+            $setting->member_id = $member->id;
+            $setting->status_new_sletter = 0;
+            $setting->save();
+        } else {
+            return redirect('/')
+                ->with('facebook_error', 'fail')
+                ->with('facebook_email', $user->email);
+        }
+
+        if (Auth::attempt(['email' => $user->email, 'password' => $user->id])) {
+            return redirect('/');
+        }
+
     }
 }

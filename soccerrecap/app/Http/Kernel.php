@@ -59,5 +59,7 @@ class Kernel extends HttpKernel
 
         'AuthAdmin' => \App\Http\Middleware\AuthAdmin::class,
         'AuthMember' => \App\Http\Middleware\AuthMember::class,
+
+        'csrf' => \App\Http\Middleware\VerifyCsrfToken::class,
     ];
 }
