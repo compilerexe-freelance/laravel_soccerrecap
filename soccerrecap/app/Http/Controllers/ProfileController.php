@@ -19,6 +19,7 @@ use App\NotificationFollow;
 class ProfileController extends Controller
 {
     public function Profile(Request $request) {
+        \App::setLocale(session()->get('locale'));
         session()->put('navbar', null);
         $profile = \App\Profile::find($request->user()->id);
         $following = \App\FollowsMember::where('member_id', $request->user()->id)->get();
@@ -47,6 +48,7 @@ class ProfileController extends Controller
     }
 
     public function MyStories(Request $request) {
+        \App::setLocale(session()->get('locale'));
         session()->put('navbar', null);
         $storys = \App\Story::where('member_id', $request->user()->id)->get();
         return view('my_stories')
@@ -54,6 +56,7 @@ class ProfileController extends Controller
     }
 
     public function GetUpdateStory(Request $request) {
+        \App::setLocale(session()->get('locale'));
         $story = \App\Story::find($request->id);
         $tags = \App\Tag::where('story_id', $story->id)->get();
         return view('update_story')
@@ -109,6 +112,7 @@ class ProfileController extends Controller
     }
 
     public function SettingMember(Request $request) {
+        \App::setLocale(session()->get('locale'));
         session()->put('navbar', null);
         $setting = \App\SettingMember::find($request->user()->id);
         return view('setting')
@@ -166,10 +170,12 @@ class ProfileController extends Controller
     }
 
     public function UserProfile(Request $request) {
+        \App::setLocale(session()->get('locale'));
         $member = \App\Member::find($request->id);
         $profile = \App\Profile::find($request->id);
         $followers = \App\FollowsMember::where('follow_member_id', $request->id)->get();
         $following = \App\FollowsMember::where('member_id', $request->id)->get();
+        $tag_following = \App\FollowsTag::where('member_id', $request->id)->get();
 
         // Result like
         $total_like = 0;
@@ -189,7 +195,8 @@ class ProfileController extends Controller
             ->with('total_like', $total_like)
             ->with('storys', $storys)
             ->with('followers', count($followers))
-            ->with('following', count($following));
+            ->with('following', count($following))
+            ->with('tag_following', count($tag_following));
     }
 
     public function Follow(Request $request) {
@@ -226,6 +233,8 @@ class ProfileController extends Controller
     }
 
     public function ListFollowers(Request $request) {
+        \App::setLocale(session()->get('locale'));
+        session()->put('navbar', null);
         if ($request->user()->id != $request->id) {
             return redirect('profile');
         }
@@ -235,6 +244,8 @@ class ProfileController extends Controller
     }
 
     public function ListTagFollowing(Request $request) {
+        \App::setLocale(session()->get('locale'));
+        session()->put('navbar', null);
         if ($request->user()->id != $request->id) {
             return redirect('profile');
         }

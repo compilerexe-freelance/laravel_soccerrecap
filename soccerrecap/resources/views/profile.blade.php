@@ -22,12 +22,12 @@
                         {{ csrf_field() }}
 
                         <div class="form-group text-right">
-                            <span class="font-color-gray" style="font-size: 16px;">Select image your cover profile</span>
+                            <span class="font-color-gray" style="font-size: 16px;">@lang('messages.text_upload_cover')</span>
                             <input type="file" name="cover_profile" id="cover_profile">
                         </div>
 
                         <div class="form-group text-right">
-                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="width: 115px;"><i class="fa fa-upload"></i> Upload</button>
+                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="width: 115px;"><i class="fa fa-upload"></i> @lang('messages.upload')</button>
                         </div>
 
                     </form>
@@ -40,11 +40,11 @@
                     </div>
                     <div class="form-group" style="margin-top: 40px;">
                         <span style="font-size: 18px;" class="font-color-gray">
-                            <b>{{ $following }}</b> Following
-                            <a href="{{ url('list/followers/'.Auth::user()->id) }}"><b>{{ $followers }}</b> Followers</a>
+                            <b>{{ $following }}</b> @lang('messages.profile_following')
+                            <a href="{{ url('list/followers/'.Auth::user()->id) }}"><b>{{ $followers }}</b> @lang('messages.profile_followers')</a>
                             <br><br>
-                            <a href="{{ url('list/tag_following/'.Auth::user()->id) }}"><b>{{ $tag_following }}</b> Tag Following</a>
-                            <b>{{ $total_like }}</b> Like
+                            <a href="{{ url('list/tag_following/'.Auth::user()->id) }}"><b>{{ $tag_following }}</b> @lang('messages.profile_tag_following')</a>
+                            <b>{{ $total_like }}</b> @lang('messages.profile_like')
                         </span>
                     </div>
                 </div>
@@ -63,12 +63,12 @@
                     <form action="{{ url('profile/update_image') }}" method="post" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group text-right">
-                            <span class="font-color-gray" style="font-size: 16px;">Select image your profile</span>
+                            <span class="font-color-gray" style="font-size: 16px;">@lang('messages.text_upload_profile')</span>
                             <input type="file" name="profile_image" id="profile_image">
                         </div>
 
                         <div class="form-group text-right">
-                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="width: 115px;"><i class="fa fa-upload"></i> Upload</button>
+                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="width: 115px;"><i class="fa fa-upload"></i> @lang('messages.upload')</button>
                         </div>
                     </form>
                 </div>
@@ -87,7 +87,7 @@
 
                     <div class="col-xs-12 col-sm-12 col-md-3 col-md-offset-9">
                         <div class="form-group">
-                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="border-radius: 20px; width: 100%; color: #03B876"><i class="fa fa-save"></i> Save</button>
+                            <button type="submit" class="btn btn-success btn-bg-green border-green btn-remove-shadow" style="border-radius: 20px; width: 100%; color: #03B876"><i class="fa fa-save"></i> @lang('messages.save')</button>
                         </div>
                     </div>
                 </form>

@@ -92,9 +92,9 @@
                                     $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                 @endphp
                                 @if ($bookmark)
-                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">Bookmark <i class="fa fa-bookmark"></i></span></a>
+                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                 @else
-                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
+                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                 @endif
                             @endif
 
@@ -190,7 +190,7 @@
                             </div>
 
                         </div>
-                        
+
                     </div>
 
                 </div>
@@ -219,7 +219,7 @@
                         </div>
                         <div class="form-group">
                             <span for="" style="font-size: 20px; font-weight: bold; margin-left: 10px;" class="font-color-gray">{{ $story_suggest->story_title }}<br>
-                            <span style="margin-left: 10px; font-size: 14px !important; font-weight: normal;" class="font-color-gray">{{ $member->username }}</span>
+                            <span style="margin-left: 10px; font-size: 16px !important; font-weight: normal;" class="font-color-gray">{{ $member->username }}</span>
                             </span>
                         </div>
                     </div>
@@ -238,7 +238,7 @@
 
                     <div class="col-md-6 col-md-offset-3">
                         <div class="form-group">
-                            <span style="font-size: 14px; font-weight: bold;">RESPONSES</span>
+                            <span style="font-size: 16px; font-weight: bold;">@lang('messages.text_responses')</span>
                         </div>
                         <form action="{{ url('posts/comment/'.$story->id) }}" method="post" enctype="multipart/form-data">
                             {{ csrf_field() }}
@@ -255,14 +255,14 @@
                                          class="img-circle"
                                          alt="">
                                 @endif
-                                <span for="" style="margin-left: 10px;" class="font-color-green">{{ Auth::user()->username }}</span>
+                                <span for="" style="margin-left: 10px; font-size: 16px;" class="font-color-green">{{ Auth::user()->username }}</span>
                             </div>
                             <div class="form-group">
                                 <textarea name="comment_detail" id="summernote"></textarea>
                             </div>
                             <div class="form-group text-right" style="margin-top: 20px;">
-                                <button type="submit" id="btn_comment_submit" class="btn btn-bg-green border-green" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>Post</button>
-                                <button type="button" id="btn_comment_cancel" class="btn btn-bg-white border-green font-color-green" style="font-size: 16px; width: 120px;">Cancle</button>
+                                <button type="submit" id="btn_comment_submit" class="btn btn-bg-green border-green" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>@lang('messages.post')</button>
+                                <button type="button" id="btn_comment_cancel" class="btn btn-bg-white border-green font-color-green" style="font-size: 16px; width: 120px;">@lang('messages.cancel')</button>
                             </div>
                         </form>
                     </div>
@@ -289,7 +289,7 @@
                                      class="img-circle"
                                      alt="">
                             @endif
-                            <span for="" style="margin-left: 10px;" class="font-color-green">{{ $member->username }} <span class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $comment->created_at)->toFormattedDateString() }}</span></span>
+                            <span for="" style="margin-left: 10px; font-size: 16px;" class="font-color-green">{{ $member->username }} <span class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $comment->created_at)->toFormattedDateString() }}</span></span>
                         </div>
                         <div class="form-group">
                             <span style="font-size: 18px;">{!! $comment->comment_detail !!}</span>

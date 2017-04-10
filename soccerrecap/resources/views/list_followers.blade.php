@@ -9,9 +9,11 @@
     <style>
         tr th {
             text-align: center;
+            font-size: 14px !important;
         }
         tr td {
             text-align: center;
+            font-size: 14px !important;
         }
     </style>
     
@@ -21,16 +23,16 @@
             <div class="col-md-8 col-md-offset-2">
 
                 <div class="form-group">
-                    <span style="font-size: 26px; font-weight: bold;" class="font-color-blue">Followers</span>
+                    <span style="font-size: 26px; font-weight: bold;" class="font-color-blue">@lang('messages.profile_followers')</span>
                 </div>
 
                 <div class="form-group table-responsive">
                     <table class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>No</th>
-                            <th>Username</th>
-                            <th>Date</th>
+                            <th>@lang('messages.table_no')</th>
+                            <th>@lang('messages.table_username')</th>
+                            <th>@lang('messages.table_date')</th>
                         </tr>
                         </thead>
                         <tbody>

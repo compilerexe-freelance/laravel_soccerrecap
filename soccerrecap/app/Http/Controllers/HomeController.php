@@ -16,43 +16,7 @@ use App\StickNavbarFeed;
 class HomeController extends Controller
 {
     public function Home(Request $request) {
-
-        // Live score
-
-        // Thai
-        $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=27');
-        $obj = json_decode($json);
-
-        $livescore_thai = array();
-
-        foreach ($obj->data->match as $key => $value) {
-            $buffer = array();
-            array_push($buffer, $value->home_name);
-            array_push($buffer, $value->away_name);
-            array_push($buffer, $value->score);
-            array_push($buffer, $value->time);
-
-            array_push($livescore_thai, $buffer);
-        }
-
-        // England
-        $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=19');
-        $obj = json_decode($json);
-
-        $livescore_england = array();
-
-        foreach ($obj->data->match as $key => $value) {
-            $buffer = array();
-            array_push($buffer, $value->home_name);
-            array_push($buffer, $value->away_name);
-            array_push($buffer, $value->score);
-            array_push($buffer, $value->time);
-
-            array_push($livescore_england, $buffer);
-        }
-
-
-        // End live score
+        \App::setLocale(session()->get('locale'));
 
         // Report visitor
         $field_check = \App\Report::find(1);
@@ -82,12 +46,11 @@ class HomeController extends Controller
 //            ->with('tags', $tags)
 //            ->with('contact_title', $contact_title)
 //            ->with('contact_detail', $contact_detail)
-            ->with('pin_story', $pin_story)
-            ->with('livescore_thai', $livescore_thai)
-            ->with('livescore_england', $livescore_england);
+            ->with('pin_story', $pin_story);
     }
 
     public function FollowingUsers(Request $request) {
+        \App::setLocale(session()->get('locale'));
         Session()->put('navbar', 'following');
         $follows_users = \App\FollowsMember::where('member_id', $request->user()->id)->get();
 
@@ -106,6 +69,7 @@ class HomeController extends Controller
     }
 
     public function FollowingTags(Request $request) {
+        \App::setLocale(session()->get('locale'));
         Session()->put('navbar', 'following');
         $follows_tags = \App\FollowsTag::where('member_id', $request->user()->id)->get();
 
@@ -124,6 +88,7 @@ class HomeController extends Controller
     }
 
     public function TopStories() {
+        \App::setLocale(session()->get('locale'));
         Session()->put('navbar', 'top_stories');
         // Pin Story
         $pin_story = \App\StickNavbarFeed::find(1);
@@ -237,6 +202,7 @@ class HomeController extends Controller
     }
 
     public function Bookmarks() {
+        \App::setLocale(session()->get('locale'));
         Session()->put('navbar', 'bookmarks');
         // Pin Story
         $pin_story = \App\StickNavbarFeed::find(1);
@@ -255,7 +221,7 @@ class HomeController extends Controller
     }
 
     public function Search(Request $request) {
-
+        \App::setLocale(session()->get('locale'));
         Session()->put('navbar', null);
 
         $tags = \App\Tag::groupBy('story_id')
@@ -291,6 +257,7 @@ class HomeController extends Controller
     }
 
     public function Tag(Request $request) {
+        \App::setLocale(session()->get('locale'));
         Session()->put('navbar', null);
         $tag = \App\Tag::find($request->id);
         $nearby_tags = \App\Tag::where('tag_name', $tag->tag_name)->orderBy('created_at', 'desc')->get();
@@ -303,6 +270,7 @@ class HomeController extends Controller
     }
 
     public function TagSortByLike(Request $request) {
+        \App::setLocale(session()->get('locale'));
         Session()->put('navbar', null);
         $tag = \App\Tag::find($request->id);
         $nearby_tags = \App\Tag::where('tag_name', $tag->tag_name)->get();
@@ -321,6 +289,7 @@ class HomeController extends Controller
 //    }
 
     public function Contact() {
+        \App::setLocale(session()->get('locale'));
         $check_contact = \App\Contact::find(1);
         $contact_title = "";
         $contact_detail = "";

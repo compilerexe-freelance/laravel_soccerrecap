@@ -59,7 +59,12 @@ Route::get('login/facebook/callback', 'MemberController@handleProviderCallback')
 Route::group(['middleware' => 'AuthMember'], function() {
 
     Route::group(['prefix' => '/'], function () {
-//        Route::get('/', 'HomeController@Home');
+
+//        Route::get('{locale}', function($locale) {
+//            App::setLocale($locale);
+//            return redirect()->back();
+//        });
+
         Route::get('following/users', 'HomeController@FollowingUsers');
         Route::get('following/tags', 'HomeController@FollowingTags');
         Route::get('top_stories', 'HomeController@TopStories');
@@ -118,4 +123,8 @@ Route::group(['middleware' => 'AuthMember'], function() {
 
 });
 
+Route::get('/lang/{locale}', function($locale) {
+    session()->put('locale', $locale);
+    return redirect()->back();
+});
 

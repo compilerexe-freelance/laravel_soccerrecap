@@ -19,8 +19,7 @@
                 $story = \App\Story::find($pin_tag->story_id);
             @endphp
 
-            <div class="panel panel-default">
-                <div class="panel-body">
+
 
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
@@ -28,23 +27,24 @@
                         </div>
                     </div>
 
-                </div>
-            </div>
+
         @endif
 
         <div class="form-group text-right">
-            <span class="font-color-green pull-left" style="font-size: 16px;">{{ $current_sort }}</span>
+
 
             @if ($current_sort == "Current sort by latest")
+                <span class="font-color-green pull-left" style="font-size: 16px;">@lang('messages.current_sort_like')</span>
                 <a href="{{ url('tag/sort/like/'.$tag->id) }}">
                     <button type="button" class="btn btn-bg-white font-color-green border-green">
-                        Sort by like
+                        @lang('messages.sort_by_latest')
                     </button>
                 </a>
             @else
+                <span class="font-color-green pull-left" style="font-size: 16px;">@lang('messages.current_sort_latest')</span>
                 <a href="{{ url('tag/'.$tag->id) }}">
                     <button type="button" class="btn btn-bg-white font-color-green border-green">
-                        Sort by latest
+                        @lang('messages.sort_by_like')
                     </button>
                 </a>
             @endif
@@ -52,7 +52,7 @@
         </div>
 
         <div class="form-group">
-            <span class="font-color-gray" style="font-size: 12px;">TAGGED IN</span>
+            <span class="font-color-gray" style="font-size: 14px;">@lang('messages.tagged_in')</span>
         </div>
         <div class="form-group" style="//border: 1px solid red;">
 
@@ -73,9 +73,9 @@
                         @endphp
 
                         @if ($follow_check)
-                            <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                            <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.unfollow')</button>
                         @else
-                            <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                            <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.follow')</button>
                         @endif
 
                         <script>
@@ -177,9 +177,9 @@
                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                     @endphp
                                     @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">Bookmark <i class="fa fa-bookmark"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                     @else
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                     @endif
                                 @endif
 
@@ -198,6 +198,49 @@
     <!--        <div class="col-xs-12 col-sm-12 col-md-4" style="background-color: #FAFAFA; padding-top: 20px;">-->
     <div class="col-xs-12 col-sm-12 col-md-5" style="background-color: #FAFAFA; padding-top: 20px;">
 
+        {{--Live score--}}
+
+        @php
+            // Live score
+
+            // Thai
+            $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=27');
+            $obj = json_decode($json);
+
+            $livescore_thai = array();
+
+            foreach ($obj->data->match as $key => $value) {
+                $buffer = array();
+                array_push($buffer, $value->home_name);
+                array_push($buffer, $value->away_name);
+                array_push($buffer, $value->score);
+                array_push($buffer, $value->time);
+
+                array_push($livescore_thai, $buffer);
+            }
+
+            // England
+            $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=19');
+            $obj = json_decode($json);
+
+            $livescore_england = array();
+
+            foreach ($obj->data->match as $key => $value) {
+                $buffer = array();
+                array_push($buffer, $value->home_name);
+                array_push($buffer, $value->away_name);
+                array_push($buffer, $value->score);
+                array_push($buffer, $value->time);
+
+                array_push($livescore_england, $buffer);
+            }
+
+
+            // End live score
+        @endphp
+
+        {{--end live score--}}
+
         @php
             $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();
 
@@ -213,7 +256,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group" style="//margin-top: 20px;">
-                <small><b>FEATURED TAGS</b></small>
+                <b>@lang('messages.feature_tag')</b>
             </div>
             <div class="form-group">
 
@@ -263,7 +306,7 @@
         <!-- Editor's pick -->
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <small><b>EDITOR'S PICK</b></small>
+                    <b>@lang('messages.editor_pick')</b>
                 </div>
 
                 @if ($editor_pick->story_id_1 != null)
@@ -346,7 +389,7 @@
         <!-- Editor's pick -->
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
-                    <small><b>EDITOR'S PICK</b></small>
+                    <b>@lang('messages.editor_pick')</b>
                 </div>
             </div>
     @endif
@@ -354,11 +397,32 @@
     <!-- Contact -->
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <span><b>Contact</b></span>
+                <span><b>@lang('messages.contact')</b></span>
             </div>
             <div class="form-group">
                 <a href="{{ url('contact') }}">{{ $contact_title }}</a>
             </div>
+            <hr>
+        </div>
+
+        <!-- Live score -->
+        <div class="col-xs-12 col-sm-12 col-md-12">
+            @foreach ($livescore_thai as $data)
+
+                <div class="form-group text-center">
+                    <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
+                    <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
+                </div>
+
+            @endforeach
+            @foreach ($livescore_england as $data)
+
+                <div class="form-group text-center">
+                    <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
+                    <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
+                </div>
+
+            @endforeach
         </div>
 
     </div>

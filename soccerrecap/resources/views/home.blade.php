@@ -82,9 +82,9 @@
                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                     @endphp
                                     @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">Bookmark <i class="fa fa-bookmark"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                     @else
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                     @endif
                                 @endif
 
@@ -168,9 +168,9 @@
                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                     @endphp
                                     @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">Bookmark <i class="fa fa-bookmark"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                     @else
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                     @endif
                                 @endif
 
@@ -260,9 +260,9 @@
                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                     @endphp
                                     @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">Bookmark <i class="fa fa-bookmark"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                     @else
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">Bookmark <i class="fa fa-bookmark-o"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                     @endif
                                 @endif
 
@@ -299,6 +299,49 @@
 
     <div class="col-xs-12 col-sm-12 col-md-5" style="padding-top: 20px; margin-bottom: 20px; //border: 1px solid red; //background-color: #f2f2f2">
 
+        {{--Live score--}}
+
+        @php
+            // Live score
+
+            // Thai
+            $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=27');
+            $obj = json_decode($json);
+
+            $livescore_thai = array();
+
+            foreach ($obj->data->match as $key => $value) {
+                $buffer = array();
+                array_push($buffer, $value->home_name);
+                array_push($buffer, $value->away_name);
+                array_push($buffer, $value->score);
+                array_push($buffer, $value->time);
+
+                array_push($livescore_thai, $buffer);
+            }
+
+            // England
+            $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=19');
+            $obj = json_decode($json);
+
+            $livescore_england = array();
+
+            foreach ($obj->data->match as $key => $value) {
+                $buffer = array();
+                array_push($buffer, $value->home_name);
+                array_push($buffer, $value->away_name);
+                array_push($buffer, $value->score);
+                array_push($buffer, $value->time);
+
+                array_push($livescore_england, $buffer);
+            }
+
+
+            // End live score
+        @endphp
+
+        {{--end live score--}}
+
         @php
             $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();
 
@@ -314,7 +357,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group" style="//margin-top: 20px;">
-                <small><b>FEATURED TAGS</b></small>
+                <b>@lang('messages.feature_tag')</b>
             </div>
             <div class="form-group">
 
@@ -364,7 +407,7 @@
             <!-- Editor's pick -->
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <small><b>EDITOR'S PICK</b></small>
+                        <b>@lang('messages.editor_pick')</b>
                     </div>
 
                     @if ($editor_pick->story_id_1 != null)
@@ -447,7 +490,7 @@
             <!-- Editor's pick -->
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <small><b>EDITOR'S PICK</b></small>
+                        <b>@lang('messages.editor_pick')</b>
                     </div>
                 </div>
         @endif
@@ -455,7 +498,7 @@
         <!-- Contact -->
         <div class="col-xs-12 col-sm-12 col-md-12">
             <div class="form-group">
-                <span><b>Contact</b></span>
+                <span><b>@lang('messages.contact')</b></span>
             </div>
             <div class="form-group">
                 <a href="{{ url('contact') }}">{{ $contact_title }}</a>

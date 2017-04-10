@@ -32,7 +32,13 @@
                         <span style="font-size: 30px; font-weight: bold;">{{ $member->username }}</span>
                     </div>
                     <div class="form-group" style="margin-top: 40px;">
-                        <span style="font-size: 18px;" class="font-color-gray"><b>{{ $following }}</b> Following <b>{{ $followers }}</b> Followers <br><br><b>0</b> Tag Following <b>{{ $total_like }}</b> Like</span>
+                        <span style="font-size: 18px;" class="font-color-gray">
+                            <b>{{ $following }}</b> @lang('messages.profile_following')
+                            <b>{{ $followers }}</b> @lang('messages.profile_followers')
+                            <br><br>
+                            <b>{{ $tag_following }}</b> @lang('messages.profile_tag_following')
+                            <b>{{ $total_like }}</b> @lang('messages.profile_like')
+                        </span>
                     </div>
                 </div>
 
@@ -57,9 +63,9 @@
                             @if ($member->id != Auth::user()->id)
 
                                 @if ($follow_check)
-                                    <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                                    <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.unfollow')</button>
                                 @else
-                                    <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                                    <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.follow')</button>
                                 @endif
 
                                     <script>

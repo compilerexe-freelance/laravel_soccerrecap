@@ -39,22 +39,22 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-left-padding">
 
-                    <li @if (session('navbar') == 'home') class="active" @endif><a href="{{ url('/') }}">Latest picks</a></li>
+                    <li @if (session('navbar') == 'home') class="active" @endif><a href="{{ url('/') }}">@lang('messages.latest_pick')</a></li>
                     {{--<li @if (session('navbar') == 'following') class="active" @endif><a href="{{ url('/following') }}">Following</a></li>--}}
 
                     <li @if (session('navbar') == 'following') class="active dropdown" @else class="dropdown" @endif>
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Following
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">@lang('messages.following')
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('following/users') }}">Users</a></li>
-                            <li><a href="{{ url('following/tags') }}">Tags</a></li>
+                            <li><a href="{{ url('following/users') }}">@lang('messages.following_user')</a></li>
+                            <li><a href="{{ url('following/tags') }}">@lang('messages.following_tag')</a></li>
                         </ul>
                     </li>
 
-                    <li @if (session('navbar') == 'top_stories') class="active" @endif><a href="{{ url('/top_stories') }}">Top stories</a></li>
-                    <li @if (session('navbar') == 'bookmarks') class="active" @endif><a href="{{ url('/bookmarks') }}">Bookmarks</a></li>
+                    <li @if (session('navbar') == 'top_stories') class="active" @endif><a href="{{ url('/top_stories') }}">@lang('messages.top_stories')</a></li>
+                    <li @if (session('navbar') == 'bookmarks') class="active" @endif><a href="{{ url('/bookmarks') }}">@lang('messages.bookmarks')</a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Knowledge
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">@lang('messages.knowledge')
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             @php
@@ -82,7 +82,7 @@
                     </li>
                     <li style="padding-top: 5px;">
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-bg-white border-green font-color-green">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-bg-white border-green font-color-green">@lang('messages.search')</button>
                         </a>
                     </li>
 
@@ -116,20 +116,21 @@
                         </a>
 
                         <ul class="dropdown-menu">
-                            <li><a href='{{ url('posts/new') }}'>New story</a></li>
-                            <li><a href='{{ url('my_stories') }}'>Stories</a></li>
+                            <li><a href='{{ url('posts/new') }}' style='font-size: 15px !important;'>@lang('messages.new_story')</a></li>
+                            <li><a href='{{ url('my_stories') }}' style='font-size: 15px !important;'>@lang('messages.stories')</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href='{{ url('profile') }}' style='font-size: 15px !important;'>Profile</a></li>
-                            <li><a href='{{ url('setting') }}' style='font-size: 15px !important;'>Setting</a></li>
-                            <li><a href='{{ url('sign_out') }}' style='font-size: 15px !important;'>Sign out</a></li>
+                            <li><a href='{{ url('profile') }}' style='font-size: 15px !important;'>@lang('messages.profile')</a></li>
+                            <li><a href='{{ url('setting') }}' style='font-size: 15px !important;'>@lang('messages.setting')</a></li>
+                            <li><a href='{{ url('sign_out') }}' style='font-size: 15px !important;'>@lang('messages.sign_out')</a></li>
                         </ul>
                     </li>
 
                     <li class="dropdown" style="padding-top: 10px">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">&ensp;&ensp;EN
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">&ensp;&ensp;@lang('messages.language')
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Change to Thai</a></li>
+                            <li><a href="{{ url('lang/th') }}">@lang('messages.th')</a></li>
+                            <li><a href="{{ url('lang/en') }}">@lang('messages.en')</a></li>
                         </ul>
                     </li>
 
@@ -233,11 +234,12 @@
                         </a>
                     </li>
 
-                    <li class="dropdown" style="padding-top: 7px">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">&ensp;&ensp;EN
+                    <li class="dropdown" style="padding-top: 10px">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">&ensp;&ensp;Language
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Change to Thai</a></li>
+                            <li><a href="{{ url('lang/th') }}">TH</a></li>
+                            <li><a href="{{ url('lang/en') }}">EN</a></li>
                         </ul>
                     </li>
 

@@ -37,12 +37,12 @@
                     </a>
 
                     <ul class="dropdown-menu">
-                        <li><a href='{{ url('posts/new') }}'>New story</a></li>
-                        <li><a href='{{ url('my_stories') }}'>Stories</a></li>
+                        <li><a href='{{ url('posts/new') }}' style='font-size: 15px !important;'>@lang('messages.new_story')</a></li>
+                        <li><a href='{{ url('my_stories') }}' style='font-size: 15px !important;'>@lang('messages.stories')</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href='{{ url('profile') }}' style='font-size: 15px !important;'>Profile</a></li>
-                        <li><a href='{{ url('setting') }}' style='font-size: 15px !important;'>Setting</a></li>
-                        <li><a href='{{ url('sign_out') }}' style='font-size: 15px !important;'>Sign out</a></li>
+                        <li><a href='{{ url('profile') }}' style='font-size: 15px !important;'>@lang('messages.profile')</a></li>
+                        <li><a href='{{ url('setting') }}' style='font-size: 15px !important;'>@lang('messages.setting')</a></li>
+                        <li><a href='{{ url('sign_out') }}' style='font-size: 15px !important;'>@lang('messages.sign_out')</a></li>
                     </ul>
                 </li>
 

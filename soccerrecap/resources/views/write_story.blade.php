@@ -12,7 +12,7 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="//border: 1px solid red;">
 
                 <div class="form-group text-right">
-                    <a href="{{ url('/') }}"><button type="button" class="btn btn-bg-white font-color-green border-green" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> Back</button></a>
+                    <a href="{{ url('/') }}"><button type="button" class="btn btn-bg-white font-color-green border-green" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> @lang('messages.back')</button></a>
                 </div>
 
                 <form action="{{ url('posts/new') }}" method="post" enctype="multipart/form-data">
@@ -35,7 +35,7 @@
 
                             </div>
                             <div class="form-group">
-                                <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ Auth::user()->username }}<br><span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">New Post</span></span>
+                                <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ Auth::user()->username }}<br><span style="margin-left: 10px; font-size: 16px !important;" class="font-color-gray">@lang('messages.text_post')</span></span>
                             </div>
                         </div>
                     </div>
@@ -54,7 +54,7 @@
                     </div>
 
                     <div class="form-group text-center">
-                        <span style="font-size: 16px;" class="font-color-gray">Add tags to reach more people</span>
+                        <span style="font-size: 16px;" class="font-color-gray">@lang('messages.text_tag')</span>
                     </div>
 
                     <div class="form-group">
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="form-group text-center" style="margin-top: 30px;">
-                        <button type="submit" class="btn btn-success btn-bg-green border-green" style="width: 150px; font-size: 16px;">Publish <i class="fa fa-paper-plane"></i></button>
+                        <button type="submit" class="btn btn-success btn-bg-green border-green" style="width: 150px; font-size: 16px;">@lang('messages.publish') <i class="fa fa-paper-plane"></i></button>
                     </div>
 
                 </form>

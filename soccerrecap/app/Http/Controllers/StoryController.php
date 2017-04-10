@@ -15,6 +15,7 @@ use App\RememberLike;
 class StoryController extends Controller
 {
     public function ReadStory(Request $request) {
+        \App::setLocale(session()->get('locale'));
         session()->put('navbar', null);
         $story = \App\Story::find($request->id);
         $tags = \App\Tag::where('story_id', $story->id)->get();
@@ -58,6 +59,7 @@ class StoryController extends Controller
     }
 
     public function WriteStory() {
+        \App::setLocale(session()->get('locale'));
         session()->put('navbar', null);
         return view('write_story');
     }
