@@ -2,6 +2,14 @@
     <meta charset="UTF-8">
     <meta name="keywords" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <meta property="og:url"                content="{{ url('') }}" />
+    <meta property="og:type"               content="article" />
+    <meta property="og:title"              content="Soccerrecap" />
+    <meta property="og:description"        content="" />
+    <meta property="og:image"              content="{{ url('images/soccerrecap_blue.png') }}" />
+    <meta property="fb:app_id"             content="280954535688085" />
+
     <title>Soccerrecap</title>
 
     <link rel="shortcut icon" href="{{ url('images/logo.ico') }}">
