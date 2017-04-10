@@ -34,16 +34,16 @@
 
 
             @if ($current_sort == "Current sort by latest")
-                <span class="font-color-green pull-left" style="font-size: 16px;">@lang('messages.current_sort_like')</span>
+                <span class="font-color-blue pull-left" style="font-size: 16px;">@lang('messages.current_sort_like')</span>
                 <a href="{{ url('tag/sort/like/'.$tag->id) }}">
-                    <button type="button" class="btn btn-bg-white font-color-green border-green">
+                    <button type="button" class="btn btn-bg-white font-color-blue border-blue">
                         @lang('messages.sort_by_latest')
                     </button>
                 </a>
             @else
-                <span class="font-color-green pull-left" style="font-size: 16px;">@lang('messages.current_sort_latest')</span>
+                <span class="font-color-blue pull-left" style="font-size: 16px;">@lang('messages.current_sort_latest')</span>
                 <a href="{{ url('tag/'.$tag->id) }}">
-                    <button type="button" class="btn btn-bg-white font-color-green border-green">
+                    <button type="button" class="btn btn-bg-white font-color-blue border-blue">
                         @lang('messages.sort_by_like')
                     </button>
                 </a>
@@ -73,9 +73,9 @@
                         @endphp
 
                         @if ($follow_check)
-                            <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.unfollow')</button>
+                            <button type="button" id="btn_unfollow" class="btn btn-bg-blue border-blue" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.unfollow')</button>
                         @else
-                            <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.follow')</button>
+                            <button type="button" id="btn_follow" class="btn btn-bg-blue border-blue" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.follow')</button>
                         @endif
 
                         <script>
@@ -137,7 +137,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
                                         <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
                                     </span>
                                 </div>
@@ -177,7 +177,7 @@
                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                     @endphp
                                     @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-blue">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                     @else
                                         <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                     @endif

@@ -72,7 +72,7 @@
 
                             </div>
                             <div class="form-group text-right">
-                                <a href="{{ url('update_story/'.$story->id) }}"><button type="button" class="btn btn-bg-green border-green" style="width: 130px;"><i class="fa fa-pencil"></i> @lang('messages.edit')</button></a>
+                                <a href="{{ url('update_story/'.$story->id) }}"><button type="button" class="btn btn-bg-blue border-blue" style="width: 130px;"><i class="fa fa-pencil"></i> @lang('messages.edit')</button></a>
                             </div>
                         </div>
                     </div>

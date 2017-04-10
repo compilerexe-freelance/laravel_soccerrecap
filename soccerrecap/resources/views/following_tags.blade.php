@@ -41,7 +41,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
                                     <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
                                     </span>
                                 </div>
@@ -82,7 +82,7 @@
                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                     @endphp
                                     @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-blue">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                     @else
                                         <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                     @endif
@@ -127,7 +127,7 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
+                                <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
                                 <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
                                 </span>
                                 </div>
@@ -168,7 +168,7 @@
                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                     @endphp
                                     @if ($bookmark)
-                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
+                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-blue">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                     @else
                                         <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                     @endif
@@ -232,7 +232,7 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group">
-                                            <span for="" style="margin-left: 10px;" class="font-color-green">{{ $member->username }}<br>
+                                            <span for="" style="margin-left: 10px;" class="font-color-blue">{{ $member->username }}<br>
                                                 <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
                                             </span>
                                                 </div>
@@ -275,7 +275,7 @@
                                                         $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                                     @endphp
                                                     @if ($bookmark)
-                                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
+                                                        <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-blue">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                                     @else
                                                         <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                                     @endif

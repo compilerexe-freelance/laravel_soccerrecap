@@ -12,7 +12,7 @@
             <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="//border: 1px solid red;">
 
                 <div class="form-group text-right">
-                    <a href="{{ url('my_stories') }}"><button type="button" class="btn btn-bg-white font-color-green border-green" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> @lang('messages.back')</button></a>
+                    <a href="{{ url('my_stories') }}"><button type="button" class="btn btn-bg-white font-color-blue border-blue" style="font-size: 16px; width: 150px;"><i class="fa fa-angle-double-left"></i> @lang('messages.back')</button></a>
                 </div>
 
                 <form action="{{ url('update_story/'.$story->id) }}" method="post" enctype="multipart/form-data">
@@ -109,7 +109,7 @@
                     </div>
 
                     <div class="form-group text-center" style="margin-top: 30px;">
-                        <button type="submit" class="btn btn-success btn-bg-green" style="width: 150px; font-size: 16px;">@lang('messages.publish') <i class="fa fa-paper-plane"></i></button>
+                        <button type="submit" class="btn btn-success btn-bg-blue" style="width: 150px; font-size: 16px;">@lang('messages.publish') <i class="fa fa-paper-plane"></i></button>
                     </div>
 
                 </form>

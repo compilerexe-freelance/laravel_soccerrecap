@@ -63,9 +63,9 @@
                             @if ($member->id != Auth::user()->id)
 
                                 @if ($follow_check)
-                                    <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green btn-bg-green" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.unfollow')</button>
+                                    <button type="button" id="btn_unfollow" class="btn btn-bg-blue border-blue btn-bg-blue" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.unfollow')</button>
                                 @else
-                                    <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.follow')</button>
+                                    <button type="button" id="btn_follow" class="btn btn-bg-blue border-blue" style="border-radius: 20px; width: 100px; color: #03B876">@lang('messages.follow')</button>
                                 @endif
 
                                     <script>

@@ -174,11 +174,12 @@ class MemberController extends Controller
             $setting->member_id = $member->id;
             $setting->status_new_sletter = 0;
             $setting->save();
-        } else {
-            return redirect('/')
-                ->with('facebook_error', 'fail')
-                ->with('facebook_email', $user->email);
         }
+//        else {
+//            return redirect('/')
+//                ->with('facebook_error', 'fail')
+//                ->with('facebook_email', $user->email);
+//        }
 
         if (Auth::attempt(['email' => $user->email, 'password' => $user->id])) {
             return redirect('/');

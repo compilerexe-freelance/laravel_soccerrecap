@@ -10,11 +10,11 @@ $notifications = \App\NotificationFollow::all();
             @if ($notification->alert_member_id == Auth::user()->id && $notification->status == 1)
                 <i class="fa fa-circle" style="color: #ed5233;"></i>
             @else
-                <i class="fa fa-circle font-color-green"></i>
+                <i class="fa fa-circle font-color-blue"></i>
             @endif
         @endforeach
     @else
-        <i class="fa fa-circle font-color-green"></i>
+        <i class="fa fa-circle font-color-blue"></i>
     @endif
 
 </a>

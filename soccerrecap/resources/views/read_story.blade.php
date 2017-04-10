@@ -19,7 +19,7 @@
                                 @else
                                     <img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt="">
                                 @endif
-                                <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
+                                <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}</span>
                             </div>
                             <div class="form-group">
                                 <span style="margin-left: 10px; font-size: 14px !important;" class="font-color-gray">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $story->created_at)->toFormattedDateString() }}</span>
@@ -92,7 +92,7 @@
                                     $bookmark = \App\Bookmark::where('member_id', Auth::user()->id)->where('story_id', $story->id)->first();
                                 @endphp
                                 @if ($bookmark)
-                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-green">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
+                                    <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right font-color-blue">@lang('messages.bookmark_confirm') <i class="fa fa-bookmark"></i></span></a>
                                 @else
                                     <a href="{{ url('bookmark/'.$story->id) }}"><span class="font-color-gray pull-right">@lang('messages.bookmark_cancel') <i class="fa fa-bookmark-o"></i></span></a>
                                 @endif
@@ -133,7 +133,7 @@
                                     @else
                                         <a href="{{ url('profile/user/'.$member->id) }}"><img src="{{ url('images/icons/user.png') }}" style="width: 50px; height: 50px;" class="img-circle" alt=""></a>
                                     @endif
-                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-green">{{ $member->username }}</span>
+                                    <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}</span>
                                 </div>
                                 <div class="form-group">
                                     <span style="font-size: 14px; font-weight: normal; //margin-left: 94px;" class="font-color-gray">{{ $profile->describe_profile }}</span>
@@ -152,9 +152,9 @@
                                         @if ($member->id != Auth::user()->id)
 
                                             @if ($follow_check)
-                                                <button type="button" id="btn_unfollow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
+                                                <button type="button" id="btn_unfollow" class="btn btn-bg-blue border-blue" style="border-radius: 20px; width: 100px; color: #03B876">Unfollow</button>
                                             @else
-                                                <button type="button" id="btn_follow" class="btn btn-bg-green border-green" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
+                                                <button type="button" id="btn_follow" class="btn btn-bg-blue border-blue" style="border-radius: 20px; width: 100px; color: #03B876">Follow</button>
                                             @endif
 
                                             <script>
@@ -255,14 +255,14 @@
                                          class="img-circle"
                                          alt="">
                                 @endif
-                                <span for="" style="margin-left: 10px; font-size: 16px;" class="font-color-green">{{ Auth::user()->username }}</span>
+                                <span for="" style="margin-left: 10px; font-size: 16px;" class="font-color-blue">{{ Auth::user()->username }}</span>
                             </div>
                             <div class="form-group">
                                 <textarea name="comment_detail" id="summernote"></textarea>
                             </div>
                             <div class="form-group text-right" style="margin-top: 20px;">
-                                <button type="submit" id="btn_comment_submit" class="btn btn-bg-green border-green" style="background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>@lang('messages.post')</button>
-                                <button type="button" id="btn_comment_cancel" class="btn btn-bg-white border-green font-color-green" style="font-size: 16px; width: 120px;">@lang('messages.cancel')</button>
+                                <button type="submit" id="btn_comment_submit" class="btn btn-bg-blue border-blue" style="//background-color: #03B876 !important; font-size: 16px; width: 120px;" disabled>@lang('messages.post')</button>
+                                <button type="button" id="btn_comment_cancel" class="btn btn-bg-white border-blue font-color-blue" style="font-size: 16px; width: 120px;">@lang('messages.cancel')</button>
                             </div>
                         </form>
                     </div>
@@ -289,7 +289,7 @@
                                      class="img-circle"
                                      alt="">
                             @endif
-                            <span for="" style="margin-left: 10px; font-size: 16px;" class="font-color-green">{{ $member->username }} <span class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $comment->created_at)->toFormattedDateString() }}</span></span>
+                            <span for="" style="margin-left: 10px; font-size: 16px;" class="font-color-blue">{{ $member->username }} <span class="font-color-gray pull-right">{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $comment->created_at)->toFormattedDateString() }}</span></span>
                         </div>
                         <div class="form-group">
                             <span style="font-size: 18px;">{!! $comment->comment_detail !!}</span>
