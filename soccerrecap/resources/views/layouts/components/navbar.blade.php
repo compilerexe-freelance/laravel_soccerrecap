@@ -191,12 +191,12 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav" style="padding: 7px;">
 
-                    <li @if (session('navbar') == 'home') class="active" @endif><a href="{{ url('/') }}">Latest picks</a></li>
-                    <li @if (session('navbar') == 'following') class="active" @endif><a href="#">Following</a></li>
-                    <li @if (session('navbar') == 'top_stories') class="active" @endif><a href="#">Top stories</a></li>
-                    <li @if (session('navbar') == 'bookmarks') class="active" @endif><a href="#">Bookmarks</a></li>
+                    <li @if (session('navbar') == 'home') class="active" @endif><a href="{{ url('/') }}">@lang('messages.latest_pick')</a></li>
+                    <li @if (session('navbar') == 'following') class="active" @endif><a href="#">@lang('messages.following')</a></li>
+                    <li @if (session('navbar') == 'top_stories') class="active" @endif><a href="#">@lang('messages.top_stories')</a></li>
+                    <li @if (session('navbar') == 'bookmarks') class="active" @endif><a href="#">@lang('messages.bookmarks')</a></li>
                     <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">Knowledge
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">@lang('messages.knowledge')
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             @php
@@ -224,7 +224,7 @@
                     </li>
                     <li>
                         <a href="#" style="padding-left: 0px">
-                            <button type="button" id="btn_search" class="btn btn-bg-white font-color-green border-green">Search</button>
+                            <button type="button" id="btn_search" class="btn btn-bg-white font-color-green border-green">@lang('messages.search')</button>
                         </a>
                     </li>
 
@@ -235,11 +235,11 @@
                     </li>
 
                     <li class="dropdown" style="padding-top: 10px">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">&ensp;&ensp;Language
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">&ensp;&ensp;@lang('messages.language')
                             <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ url('lang/th') }}">TH</a></li>
-                            <li><a href="{{ url('lang/en') }}">EN</a></li>
+                            <li><a href="{{ url('lang/th') }}">@lang('messages.th')</a></li>
+                            <li><a href="{{ url('lang/en') }}">@lang('messages.en')</a></li>
                         </ul>
                     </li>
 

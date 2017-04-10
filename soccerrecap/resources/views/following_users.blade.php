@@ -313,47 +313,94 @@
     <div class="col-xs-12 col-sm-12 col-md-5" style="padding-top: 20px; margin-bottom: 20px; //border: 1px solid red; //background-color: #f2f2f2">
 
         {{--Live score--}}
-
         @php
-            // Live score
 
-            // Thai
-            $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=27');
+            // Premier League
+
+            /* League 178 */
+            $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&league=178');
             $obj = json_decode($json);
 
-            $livescore_thai = array();
+            $livescore_league_178 = array();
 
-            foreach ($obj->data->match as $key => $value) {
-                $buffer = array();
-                array_push($buffer, $value->home_name);
-                array_push($buffer, $value->away_name);
-                array_push($buffer, $value->score);
-                array_push($buffer, $value->time);
+            if (count($obj->data->match) >= 1) {
+                foreach ($obj->data->match as $key => $value) {
+                    $buffer = array();
+                    array_push($buffer, $value->home_name);
+                    array_push($buffer, $value->away_name);
+                    array_push($buffer, $value->score);
+                    array_push($buffer, $value->time);
 
-                array_push($livescore_thai, $buffer);
+                    array_push($livescore_league_178, $buffer);
+                }
             }
+            /* End League 178 */
 
-            // England
+            /* League 179 */
+            $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&league=179');
+            $obj = json_decode($json);
+
+            $livescore_league_179 = array();
+
+            if (count($obj->data->match) >= 1) {
+                foreach ($obj->data->match as $key => $value) {
+                    $buffer = array();
+                    array_push($buffer, $value->home_name);
+                    array_push($buffer, $value->away_name);
+                    array_push($buffer, $value->score);
+                    array_push($buffer, $value->time);
+
+                    array_push($livescore_league_179, $buffer);
+                }
+            }
+            /* End League 179 */
+
+            /* Country 19 */
             $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=19');
             $obj = json_decode($json);
 
-            $livescore_england = array();
+            $livescore_country_19 = array();
 
-            foreach ($obj->data->match as $key => $value) {
-                $buffer = array();
-                array_push($buffer, $value->home_name);
-                array_push($buffer, $value->away_name);
-                array_push($buffer, $value->score);
-                array_push($buffer, $value->time);
+            if (count($obj->data->match) >= 1) {
+                foreach ($obj->data->match as $key => $value) {
+                    $buffer = array();
+                    array_push($buffer, $value->home_name);
+                    array_push($buffer, $value->away_name);
+                    array_push($buffer, $value->score);
+                    array_push($buffer, $value->time);
 
-                array_push($livescore_england, $buffer);
+                    array_push($livescore_country_19, $buffer);
+                }
             }
+            /* End Country 19 */
 
+            /* Country 27 */
+            $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=27');
+            $obj = json_decode($json);
 
-            // End live score
+            $livescore_country_27 = array();
+
+            if (count($obj->data->match) >= 1) {
+                foreach ($obj->data->match as $key => $value) {
+                    $buffer = array();
+                    array_push($buffer, $value->home_name);
+                    array_push($buffer, $value->away_name);
+                    array_push($buffer, $value->score);
+                    array_push($buffer, $value->time);
+
+                    array_push($livescore_country_27, $buffer);
+                }
+            }
+            /* End Country 27 */
+
+        // End Premier League
+
         @endphp
 
-        {{--end live score--}}
+
+        {{--End Live score--}}
+
+
 
         @php
             $tags = \App\Tag::orderByRaw('RAND()')->limit(20)->get();
@@ -521,22 +568,39 @@
 
         <!-- Live score -->
         <div class="col-xs-12 col-sm-12 col-md-12">
-            @foreach ($livescore_thai as $data)
 
+            <div class="form-group">
+                <span style="font-weight: bold;">@lang('messages.text_live_score')</span>
+            </div>
+
+            @foreach ($livescore_country_19 as $data)
                 <div class="form-group text-center">
                     <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
                     <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
                 </div>
-
             @endforeach
-            @foreach ($livescore_england as $data)
 
+            @foreach ($livescore_country_27 as $data)
                 <div class="form-group text-center">
                     <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
                     <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
                 </div>
-
             @endforeach
+
+            @foreach ($livescore_league_178 as $data)
+                <div class="form-group text-center">
+                    <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
+                    <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
+                </div>
+            @endforeach
+
+            @foreach ($livescore_league_179 as $data)
+                <div class="form-group text-center">
+                    <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
+                    <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
+                </div>
+            @endforeach
+
         </div>
 
     </div>

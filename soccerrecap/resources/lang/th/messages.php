@@ -72,7 +72,14 @@ return [
     'table_no' => 'ลำดับที่',
     'table_tag_name' => 'ชื่อแท็ก',
     'table_date' => 'วันที่',
-    'table_username' => 'ชื่อผู้ใช้งาน'
+    'table_username' => 'ชื่อผู้ใช้งาน',
+
+    'text_home_sign_in' => 'ล็อกอิน/สมัครสมาชิก',
+    'text_popup_1_top' => 'หากยังไม่มีบัญชีสามารถสมัครสมาชิกใหม่ได้ทันที',
+    'text_sign_in_with_facebook' => 'ล็อกอินผ่าน Facebook',
+    'text_popup_1_bottom' => 'ล็อกอิน หรือ สมัครสมาชิกใหม่',
+
+    'text_live_score' => 'ผลคะแนน / ตารางแข่ง'
 
 
 ];

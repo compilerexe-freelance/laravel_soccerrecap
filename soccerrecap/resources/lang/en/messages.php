@@ -72,7 +72,14 @@ return [
     'table_no' => 'No',
     'table_tag_name' => 'Tag Name',
     'table_date' => 'Date',
-    'table_username' => 'Username'
+    'table_username' => 'Username',
+
+    'text_home_sign_in' => 'Sign In / Sign Up',
+    'text_popup_1_top' => 'Sign in or create an account',
+    'text_sign_in_with_facebook' => 'Sign In with Facebook',
+    'text_popup_1_bottom' => 'Sign in or Sign up with email',
+
+    'text_live_score' => 'Live score'
 
 
 ];
