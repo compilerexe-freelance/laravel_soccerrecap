@@ -1,5 +1,8 @@
 <?php
 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
+
 Route::get('administrator', 'AdminController@Login')->name('administrator');
 Route::post('auth/administrator', 'AdminController@AuthAdmin');
 
@@ -60,6 +63,8 @@ Route::group(['prefix' => '/story'], function() {
     Route::get('/{id}', 'StoryController@ReadStory');
 });
 
+Route::get('search/{keyword}', 'HomeController@Search');
+
 Route::group(['middleware' => 'AuthMember'], function() {
 
     Route::group(['prefix' => '/'], function () {
@@ -75,7 +80,7 @@ Route::group(['middleware' => 'AuthMember'], function() {
         Route::get('bookmarks', 'HomeController@Bookmarks');
         Route::get('posts/new', 'StoryController@WriteStory');
         Route::post('posts/new', 'StoryController@InsertStory');
-        Route::get('search/{keyword}', 'HomeController@Search');
+
         Route::get('profile', 'ProfileController@Profile');
         Route::get('profile/user/{id}', 'ProfileController@UserProfile');
         Route::get('setting', 'ProfileController@SettingMember');
@@ -128,5 +133,36 @@ Route::group(['middleware' => 'AuthMember'], function() {
 Route::get('/lang/{locale}', function($locale) {
     session()->put('locale', $locale);
     return redirect()->back();
+});
+
+/* Queue */
+Route::get('/dispatch_livescore', function () {
+    dispatch(new App\Jobs\LiveScore());
+});
+
+Route::get('/fetch_livescore', function (Request $request) {
+
+    $country_19 = session()->get('livescore_country_19');
+    $country_27 = session()->get('livescore_country_27');
+
+    if ($country_19 != null && $country_27 != null) {
+        return Response::json(array(
+            'country_19' => $country_19,
+            'country_27' => $country_27
+        ));
+    } else {
+        if ($country_19 != null) {
+            return Response::json(array(
+                'country_19' => $country_19
+            ));
+        }
+
+        if ($country_27 != null) {
+            return Response::json(array(
+                'country_27' => $country_27
+            ));
+        }
+    }
+
 });
 

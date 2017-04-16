@@ -80,7 +80,8 @@ class MemberController extends Controller
 
             if ($request->remember == 1) {
 
-                if (Auth::attempt(['email' => $request->sign_in_email, 'password' => $request->sign_in_password], true)) {
+                if (Auth::attempt(['email' => $request->sign_in_email,
+                    'password' => $request->sign_in_password], true)) {
                     return redirect('/');
                 } else {
                     return redirect('/')
@@ -91,7 +92,8 @@ class MemberController extends Controller
             } else {
 
                 // Not remember
-                if (Auth::attempt(['email' => $request->sign_in_email, 'password' => $request->sign_in_password])) {
+                if (Auth::attempt(['email' => $request->sign_in_email,
+                    'password' => $request->sign_in_password])) {
                     return redirect('/');
                 } else {
                     return redirect('/')

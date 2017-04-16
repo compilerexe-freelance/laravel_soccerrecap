@@ -183,7 +183,9 @@ class ProfileController extends Controller
             }
         }
 
-        $storys = \App\Story::where('member_id', $request->id)->get();
+        $storys = \App\Story::where('member_id', $request->id)
+                ->orderBy('created_at', 'desc')
+                ->get();
 
         return view('view_profile')
             ->with('member', $member)

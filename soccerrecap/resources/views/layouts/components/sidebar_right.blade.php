@@ -1,57 +1,5 @@
 <div class="col-xs-12 col-sm-12 col-md-5" style="//padding-top: 20px; margin-bottom: 20px; //border: 1px solid red; //background-color: #f2f2f2">
 
-    {{--Live score--}}
-    @php
-
-        // Premier League
-
-        /* Country 19 */
-        $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=19');
-        $obj = json_decode($json);
-
-        $livescore_country_19 = array();
-
-        if (count($obj->data->match) >= 1) {
-            foreach ($obj->data->match as $key => $value) {
-                $buffer = array();
-                array_push($buffer, $value->home_name);
-                array_push($buffer, $value->away_name);
-                array_push($buffer, $value->score);
-                array_push($buffer, $value->time);
-
-                array_push($livescore_country_19, $buffer);
-            }
-        }
-        /* End Country 19 */
-
-        /* Country 27 */
-        $json = file_get_contents('http://livescore-api.com/api-client/scores/live.json?key=AY8vF3sV6lmqtdTu&secret=4klaDfvjDzWRgCwQAFlfJNbQ8yhCMa6R&country=27');
-        $obj = json_decode($json);
-
-        $livescore_country_27 = array();
-
-        if (count($obj->data->match) >= 1) {
-            foreach ($obj->data->match as $key => $value) {
-                $buffer = array();
-                array_push($buffer, $value->home_name);
-                array_push($buffer, $value->away_name);
-                array_push($buffer, $value->score);
-                array_push($buffer, $value->time);
-
-                array_push($livescore_country_27, $buffer);
-            }
-        }
-        /* End Country 27 */
-
-    // End Premier League
-
-    @endphp
-
-
-    {{--End Live score--}}
-
-
-
     @php
         $tags = \App\Tag::groupBy('tag_name')->orderByRaw('RAND()')->limit(20)->get();
 
@@ -225,20 +173,76 @@
             <span style="font-weight: bold;">@lang('messages.text_live_score')</span>
         </div>
 
-        @foreach ($livescore_country_19 as $data)
-            <div class="form-group text-center">
-                <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
-                <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
-            </div>
-        @endforeach
+        <div id="content_country_19" class="form-group text-center"></div>
+        <div id="content_country_27" class="form-group text-center"></div>
 
-        @foreach ($livescore_country_27 as $data)
-            <div class="form-group text-center">
-                <span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>
-                <span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>
-            </div>
-        @endforeach
+        {{--@foreach ($livescore_country_19 as $data)--}}
+            {{--<div class="form-group text-center">--}}
+                {{--<span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>--}}
+                {{--<span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>--}}
+            {{--</div>--}}
+        {{--@endforeach--}}
+
+        {{--@foreach ($livescore_country_27 as $data)--}}
+            {{--<div class="form-group text-center">--}}
+                {{--<span>{{ $data[0] }}</span> <span>vs</span> <span>{{ $data[1] }}</span><br>--}}
+                {{--<span>Time : {{ $data[3] }}</span> <span>/</span> <span>Score : {{ $data[2] }}</span>--}}
+            {{--</div>--}}
+        {{--@endforeach--}}
 
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $.get('{{ url('dispatch_livescore') }}',
+                {
+
+                },
+                function(data, status) {
+                    //console.log("Data: " + data + "\nStatus: " + status);
+                });
+
+            setInterval(function() {
+                $.get('{{ url('fetch_livescore') }}',
+                    {
+
+                    },
+                    function(data, status) {
+                        //console.log(JSON.stringify(data).length);
+                        if (JSON.stringify(data).length > 2) {
+                            //console.log(JSON.stringify(data));
+
+                            //console.log(data['country_19'][0][0]);
+
+                            var content_html_19;
+                            var content_html_27;
+
+                            if (data['country_19'] !== undefined
+                                && data['country_27'] !== undefined)
+                            {
+                                content_html_19 = '<span>' + data['country_19'][0][0] + '</span> <span>vs</span> <span>' + data['country_19'][0][1] + '</span><br>' + '<span>Time : ' + data['country_19'][0][3] + '</span> <span>/</span> <span>Score : ' + data['country_19'][0][2] + '</span>';
+                                content_html_27 = '<span>' + data['country_27'][0][0] + '</span> <span>vs</span> <span>' + data['country_27'][0][1] + '</span><br>' + '<span>Time : ' + data['country_27'][0][3] + '</span> <span>/</span> <span>Score : ' + data['country_27'][0][2] + '</span>';
+                                $('#content_country_19').html(content_html_19);
+                                $('#content_country_27').html(content_html_27);
+
+                            } else {
+                                if (data['country_19'] !== undefined) {
+                                    //console.log(data['country_19'][0]);
+                                    content_html_19 = '<span>' + data['country_19'][0][0] + '</span> <span>vs</span> <span>' + data['country_19'][0][1] + '</span><br>' + '<span>Time : ' + data['country_19'][0][3] + '</span> <span>/</span> <span>Score : ' + data['country_19'][0][2] + '</span>';
+                                    $('#content_country_19').html(content_html_19);
+                                }
+
+                                if (data['country_27'] !== undefined) {
+                                    //console.log(data['country_27'][0]);
+                                    content_html_27 = '<span>' + data['country_27'][0][0] + '</span> <span>vs</span> <span>' + data['country_27'][0][1] + '</span><br>' + '<span>Time : ' + data['country_27'][0][3] + '</span> <span>/</span> <span>Score : ' + data['country_27'][0][2] + '</span>';
+                                    $('#content_country_27').html(content_html_27);
+                                }
+                            }
+
+                        }
+                    });
+            }, 1000);
+        });
+    </script>
 
 </div>

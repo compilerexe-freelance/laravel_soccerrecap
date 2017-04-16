@@ -152,6 +152,7 @@
         $(document).ready(function() {
             $('#btn_search').on('click', function() {
                 var keyword = $('#keyword').val();
+                console.log(keyword);
                 if (keyword == "") {
                     keyword = "none";
                 }
@@ -219,7 +220,7 @@
 
                     <li>
                         <a href="#">
-                            <input type="text" id="txt_search" class="form-control" placeholder="Tag, Stories, People" style="border-radius: 20px !important;">
+                            <input type="text" id="keyword" class="form-control" placeholder="Tag, Stories, People" style="border-radius: 20px !important;">
                         </a>
                     </li>
                     <li>
@@ -248,6 +249,20 @@
             </div>
         </div>
     </nav>
+
+    <script>
+
+        $(document).ready(function() {
+            $('#btn_search').on('click', function() {
+                var keyword = $('#keyword').val();
+                if (keyword == "") {
+                    keyword = "none";
+                }
+                window.location.href = '{{ url('search') }}/' + keyword;
+            });
+        });
+
+    </script>
 
 @endif
 
