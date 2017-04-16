@@ -52,7 +52,12 @@
                                 <a href="{{ url('/story/'.$story->id) }}"><h3 style="font-weight: bold;">{{ $story->story_title }}</h3></a>
                             </div>
                             <div class="form-group">
-                                <span style="font-size: 18px;">{!! str_limit($story->story_detail, 100) !!}</span>
+                                <span style="font-size: 18px;">
+                                    @php
+                                        $story_detail = strip_tags($story->story_detail, "<p>");
+                                    @endphp
+                                    {!!  str_limit($story_detail, 200) !!}
+                                </span>
                             </div>
                             <div class="form-group">
                                 {{--<button type="button" class="btn btn-bg-white btn-info btn-remove-hover" style="border-radius: 20px; color: dodgerblue"><i class="fa fa-thumbs-o-up"></i> <span style="color: dodgerblue">20,000</span></button>--}}

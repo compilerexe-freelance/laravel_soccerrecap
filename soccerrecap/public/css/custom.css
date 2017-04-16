@@ -194,6 +194,18 @@ button {
     border-color: dodgerblue !important;
 }
 
-.panel {
-    border-color: #fff !important;
+/*.panel {*/
+    /*border-color: #fff !important;*/
+/*}*/
+
+img {
+    image-orientation: from-image !important;
+}
+
+span {
+    font-family: 'Kanit', sans-serif;
+}
+
+b {
+    font-family: 'Kanit', sans-serif;
 }

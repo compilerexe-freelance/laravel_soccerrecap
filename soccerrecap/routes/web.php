@@ -56,6 +56,10 @@ Route::post('sign_up', 'MemberController@SignUp');
 Route::get('login/facebook', 'MemberController@redirectToProvider');
 Route::get('login/facebook/callback', 'MemberController@handleProviderCallback');
 
+Route::group(['prefix' => '/story'], function() {
+    Route::get('/{id}', 'StoryController@ReadStory');
+});
+
 Route::group(['middleware' => 'AuthMember'], function() {
 
     Route::group(['prefix' => '/'], function () {
@@ -107,16 +111,14 @@ Route::group(['middleware' => 'AuthMember'], function() {
     Route::group(['prefix' => 'list'], function() {
         Route::get('followers/{id}', 'ProfileController@ListFollowers');
         Route::get('tag_following/{id}', 'ProfileController@ListTagFollowing');
+        Route::get('other/followers/{id}', 'ProfileController@OtherListFollowers');
+        Route::get('other/tag_following/{id}', 'ProfileController@OtherListTagFollowing');
     });
 
     Route::group(['prefix' => '/profile'], function() {
         Route::post('update_image', 'ProfileController@UpdateImage');
         Route::post('update_cover', 'ProfileController@UpdateCover');
         Route::post('update_describe', 'ProfileController@UpdateDescribe');
-    });
-
-    Route::group(['prefix' => '/story'], function() {
-        Route::get('/{id}', 'StoryController@ReadStory');
     });
 
     Route::post('like_story/{id}/{member_id}', 'StoryController@LikeStory');

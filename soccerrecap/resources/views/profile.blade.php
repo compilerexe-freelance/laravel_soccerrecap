@@ -11,11 +11,11 @@
 
             <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-fulid text-center">
                 @if (file_exists(public_path('uploads/profile_covers/'.Auth::user()->id)))
-                    <img src="{{ url('uploads/profile_covers/'.Auth::user()->id) }}" style="width: 851px; height: 315px;">
+                    <img src="{{ url('uploads/profile_covers/'.Auth::user()->id) }}" style="//width: 851px; width:100%; //height: 315px;">
                 @endif
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3" style="//border: 1px solid red; margin-top: 50px; margin-bottom: 50px;">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="//border: 1px solid red; margin-top: 50px; margin-bottom: 50px;">
 
                 <div class="col-xs-12 col-sm-12 col-md-12" style="margin-top: 10px; //border: 1px solid blue; //padding-bottom: 32px;">
                     <form action="{{ url('profile/update_cover') }}" method="post" enctype="multipart/form-data">
@@ -23,7 +23,7 @@
 
                         <div class="form-group text-right">
                             <span class="font-color-gray" style="font-size: 16px;">@lang('messages.text_upload_cover')</span>
-                            <input type="file" name="cover_profile" id="cover_profile">
+                            <input type="file" name="cover_profile" id="cover_profile" required>
                         </div>
 
                         <div class="form-group text-right">
@@ -50,7 +50,7 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-3" style="margin-top: 10px; //border: 1px solid red">
-                    <div class="form-group">
+                    <div class="form-group text-right">
                         @if (file_exists(public_path('uploads/profile_images/'.Auth::user()->id)))
                             <img src="{{ url('uploads/profile_images/'.Auth::user()->id) }}" style="//width: 90px; //heigth: 90px; width: 100px; height: 100px;" class="img-circle">
                         @else
@@ -64,7 +64,7 @@
                         {{ csrf_field() }}
                         <div class="form-group text-right">
                             <span class="font-color-gray" style="font-size: 16px;">@lang('messages.text_upload_profile')</span>
-                            <input type="file" name="profile_image" id="profile_image">
+                            <input type="file" name="profile_image" id="profile_image" required>
                         </div>
 
                         <div class="form-group text-right">
@@ -130,7 +130,12 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <span style="font-size: 18px;" class="font-color-gray">{!! str_limit($story->story_detail, 100) !!}</span>
+                                    <span style="font-size: 18px;" class="font-color-gray">
+                                        @php
+                                            $story_detail = strip_tags($story->story_detail, "<p>");
+                                        @endphp
+                                        {!!  str_limit($story_detail, 200) !!}
+                                    </span>
                                 </div>
                                 <div class="form-group text-right" style="margin-top: 20px; //padding-bottom: 50px;">
 

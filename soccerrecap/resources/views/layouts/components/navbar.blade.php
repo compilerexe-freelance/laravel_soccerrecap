@@ -172,7 +172,7 @@
 
 @else
 
-    <nav class="navbar navbar-default" style="border-radius: 0px; margin-bottom: 0px;">
+    <nav class="navbar navbar-default" style="border-radius: 0px; //margin-bottom: 0px;">
         <div class="container-fulid">
 
             <div class="navbar-header" style="padding-top: 7px;">
@@ -286,7 +286,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="sign_in_email" value="{{ old('sign_in_email') }}" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Email" required>
+                        <input type="email" name="sign_in_email" value="{{ old('sign_in_email') }}" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Email" required>
                     </div>
                     <div class="form-group">
                         <input type="password" name="sign_in_password" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Password" required>
@@ -329,7 +329,7 @@
                     </div>
 
                     <div class="form-group">
-                        <input type="text" name="username" value="{{ old('username') }}" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Username (8 characters minimum)" minlength="8"  maxlength="15" required>
+                        <input type="text" name="username" value="{{ old('username') }}" class="form-control input-lg border-none" style="font-size: 20px;" placeholder="Username (2 characters minimum)" minlength="2"  maxlength="15" required>
                     </div>
 
                     <div class="form-group text-right">

@@ -7,6 +7,7 @@ use Auth;
 use Hash;
 use Validator;
 
+use Image;
 use App\Profile;
 use App\Member;
 use App\Story;
@@ -36,7 +37,7 @@ class ProfileController extends Controller
             }
         }
 
-        $storys = \App\Story::where('member_id', $request->user()->id)->get();
+        $storys = \App\Story::where('member_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
 
         return view('profile')
             ->with('profile', $profile)
@@ -50,7 +51,7 @@ class ProfileController extends Controller
     public function MyStories(Request $request) {
         \App::setLocale(session()->get('locale'));
         session()->put('navbar', null);
-        $storys = \App\Story::where('member_id', $request->user()->id)->get();
+        $storys = \App\Story::where('member_id', $request->user()->id)->orderBy('created_at', 'desc')->get();
         return view('my_stories')
             ->with('storys', $storys);
     }
@@ -69,7 +70,6 @@ class ProfileController extends Controller
         $story = \App\Story::find($request->id);
 
         if ($request->file('story_picture')) {
-//            $request->file('story_picture')->storeAs('story_pictures', $request->id);
             $file = $request->file('story_picture');
             $filename = $request->id;
             $path = "uploads/story_pictures";
@@ -81,30 +81,25 @@ class ProfileController extends Controller
         $story->story_detail = $request->story_detail;
         $story->save();
 
-        if (isset($request->tag_1)) {
-            $tag = \App\Tag::find($request->tag_id_1);
-            $tag->tag_name = $request->tag_1;
-            $tag->save();
-        }
-        if (isset($request->tag_2)) {
-            $tag = \App\Tag::find($request->tag_id_2);
-            $tag->tag_name = $request->tag_2;
-            $tag->save();
-        }
-        if (isset($request->tag_3)) {
-            $tag = \App\Tag::find($request->tag_id_3);
-            $tag->tag_name = $request->tag_3;
-            $tag->save();
-        }
-        if (isset($request->tag_4)) {
-            $tag = \App\Tag::find($request->tag_id_4);
-            $tag->tag_name = $request->tag_4;
-            $tag->save();
-        }
-        if (isset($request->tag_5)) {
-            $tag = \App\Tag::find($request->tag_id_5);
-            $tag->tag_name = $request->tag_5;
-            $tag->save();
+        for ($i = 1; $i <= 5; $i++) {
+
+            $tag = \App\Tag::find($request->get('tag_id_'.$i));
+            if ($request->get('tag_'.$i) != null) {
+                if ($tag) {
+                    $tag->tag_name = $request->get('tag_'.$i);
+                    $tag->save();
+                } else {
+                    $create_tag = new Tag;
+                    $create_tag->story_id = $request->id;
+                    $create_tag->tag_name = $request->get('tag_'.$i);
+                    $create_tag->save();
+                }
+            } else {
+                if ($tag) {
+                    $tag->delete();
+                }
+            }
+
         }
 
         return redirect('my_stories');
@@ -130,8 +125,9 @@ class ProfileController extends Controller
 //        $request->file('profile_image')->storeAs('profile_images', $request->user()->id);
         $file = $request->file('profile_image');
         $filename = $request->user()->id;
-        $path = "uploads/profile_images";
-        $file->move($path, $filename);
+        $path = "uploads/profile_images/".$filename;
+        Image::make($file->getRealPath())->resize(100, 100)->orientate()->save($path);
+//        $file->move($path, $filename);
         return redirect()->back();
     }
 
@@ -250,6 +246,22 @@ class ProfileController extends Controller
             return redirect('profile');
         }
         $list_tag_followings = \App\FollowsTag::where('member_id', $request->user()->id)->get();
+        return view('list_tag_following')
+            ->with('list_tag_followings', $list_tag_followings);
+    }
+
+    public function OtherListFollowers(Request $request) {
+        \App::setLocale(session()->get('locale'));
+        session()->put('navbar', null);
+        $list_followers = \App\FollowsMember::where('follow_member_id', $request->id)->get();
+        return view('list_followers')
+            ->with('list_followers', $list_followers);
+    }
+
+    public function OtherListTagFollowing(Request $request) {
+        \App::setLocale(session()->get('locale'));
+        session()->put('navbar', null);
+        $list_tag_followings = \App\FollowsTag::where('member_id', $request->id)->get();
         return view('list_tag_following')
             ->with('list_tag_followings', $list_tag_followings);
     }

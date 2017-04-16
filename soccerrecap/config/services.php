@@ -37,7 +37,7 @@ return [
     'facebook' => [
         'client_id' => '280954535688085',
         'client_secret' => '7877132c4679673f92b452642d54ea0b',
-        'redirect' => 'http://debugcode.esy.es/login/facebook/callback',
+        'redirect' => 'http://soccerrecap.com/login/facebook/callback',
     ],
 
 ];

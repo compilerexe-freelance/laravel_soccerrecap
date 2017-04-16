@@ -21,11 +21,11 @@
 
             <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 col-fulid text-center">
                 @if (file_exists(public_path('uploads/profile_covers/'.$member->id)))
-                    <img src="{{ url('uploads/profile_covers/'.$member->id) }}" style="width: 851px; height: 315px;">
+                    <img src="{{ url('uploads/profile_covers/'.$member->id) }}" style="//width: 851px; width: 100%; //height: 315px;">
                 @endif
             </div>
 
-            <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3" style="//border: 1px solid red; margin-top: 50px; margin-bottom: 50px;">
+            <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="//border: 1px solid red; margin-top: 50px; margin-bottom: 50px;">
 
                 <div class="col-xs-12 col-sm-12 col-md-9" style="margin-top: 10px; //border: 1px solid blue; //padding-bottom: 32px;">
                     <div class="form-group">
@@ -33,24 +33,29 @@
                     </div>
                     <div class="form-group" style="margin-top: 40px;">
                         <span style="font-size: 18px;" class="font-color-gray">
+                            {{--<b>{{ $following }}</b> @lang('messages.profile_following')--}}
+                            {{--<b>{{ $followers }}</b> @lang('messages.profile_followers')--}}
+                            {{--<br><br>--}}
+                            {{--<b>{{ $tag_following }}</b> @lang('messages.profile_tag_following')--}}
+                            {{--<b>{{ $total_like }}</b> @lang('messages.profile_like')--}}
                             <b>{{ $following }}</b> @lang('messages.profile_following')
-                            <b>{{ $followers }}</b> @lang('messages.profile_followers')
+                            <a href="{{ url('list/other/followers/'.$member->id) }}"><b>{{ $followers }}</b> @lang('messages.profile_followers')</a>
                             <br><br>
-                            <b>{{ $tag_following }}</b> @lang('messages.profile_tag_following')
+                            <a href="{{ url('list/other/tag_following/'.$member->id) }}"><b>{{ $tag_following }}</b> @lang('messages.profile_tag_following')</a>
                             <b>{{ $total_like }}</b> @lang('messages.profile_like')
                         </span>
                     </div>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-3" style="margin-top: 10px; //border: 1px solid red">
-                    <div class="form-group">
+                    <div class="form-group text-right">
                         @if (file_exists(public_path('uploads/profile_images/'.$member->id)))
                             <img src="{{ url('uploads/profile_images/'.$member->id) }}" style="width: 90px; height: 90px;" class="img-circle">
                         @else
                             <img src="{{ url('images/icons/user.png') }}" style="width: 90px; height: 90px;" class="img-circle" alt="">
                         @endif
                     </div>
-                    <div class="form-group">
+                    <div class="form-group text-right">
 
                         @if (Auth::check())
 
@@ -152,7 +157,12 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <span style="font-size: 18px;" class="font-color-gray">{!! str_limit($story->story_detail, 100) !!}</span>
+                                    <span style="font-size: 18px;">
+                                        @php
+                                            $story_detail = strip_tags($story->story_detail, "<p>");
+                                        @endphp
+                                        {!!  str_limit($story_detail, 200) !!}
+                                    </span>
                                 </div>
                                 <div class="form-group text-right" style="margin-top: 20px; //padding-bottom: 50px;">
 

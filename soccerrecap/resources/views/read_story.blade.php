@@ -6,6 +6,12 @@
 
 @section('content')
 
+    <style>
+        body {
+            background-color: #fff !important;
+        }
+    </style>
+
     <div class="col-xs-12 col-sm-12 col-md-12" style="padding-top: 20px;">
 
 
@@ -28,8 +34,7 @@
                         <div class="col-xs-5 col-sm-12 col-md-8">
                             <div class="form-group text-right" style="margin-top: 20px;">
                                 {{--<button type="button" class="btn btn-bg-blue border-blue" style="//background-color: #03B876 !important;"><i class="fa fa-facebook"></i> SHARE</button>--}}
-                                <div class="fb-share-button" data-href="{{ url('story/'.$story->id) }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fdebugcode.esy.es%2Fstory%2F8&amp;src=sdkpreparse">Share</a></div>
-
+                                <div class="fb-share-button" data-href="{{ url('story/'.$story->id) }}" data-layout="button" data-size="large" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Fsoccerrecap.com%2Fstory%2F8&amp;src=sdkpreparse">Share</a></div>
 
                                 <div id="fb-root"></div>
                                 <script>(function(d, s, id) {
@@ -47,7 +52,7 @@
                     <!-- Article Image -->
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
-                            @if (Storage::has('story_pictures/'.$story->id))
+                            @if (file_exists(public_path('uploads/story_pictures/'.$story->id)))
                                 <img src="{{ url('uploads/story_pictures/'.$story->id) }}" alt="" class="img-responsive">
                             @endif
                         </div>
@@ -136,7 +141,7 @@
                                     <span for="" style="font-size: 16px; margin-left: 10px;" class="font-color-blue">{{ $member->username }}</span>
                                 </div>
                                 <div class="form-group">
-                                    <span style="font-size: 14px; font-weight: normal; //margin-left: 94px;" class="font-color-gray">{{ $profile->describe_profile }}</span>
+                                    <span style="font-size: 14px; font-weight: normal; //margin-left: 94px;" class="font-color-gray">{!! $profile->describe_profile !!}</span>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-2 col-md-offset-2 text-center" style="//border: 1px solid red">
@@ -218,7 +223,7 @@
                             @endif
                         </div>
                         <div class="form-group">
-                            <span for="" style="font-size: 20px; font-weight: bold; margin-left: 10px;" class="font-color-gray">{{ $story_suggest->story_title }}<br>
+                            <a href="{{ url('/story/'.$story_suggest->id) }}"><span for="" style="font-size: 20px; font-weight: bold; margin-left: 10px;" class="font-color-gray">{{ $story_suggest->story_title }}</a><br>
                             <span style="margin-left: 10px; font-size: 16px !important; font-weight: normal;" class="font-color-gray">{{ $member->username }}</span>
                             </span>
                         </div>

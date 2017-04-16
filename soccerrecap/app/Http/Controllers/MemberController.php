@@ -21,7 +21,7 @@ class MemberController extends Controller
     public function SignUp(Request $request) {
 
         $validator = Validator::make($request->all(), [
-            'username' => 'required|unique:member|min:8|max:15',
+            'username' => 'required|unique:member|min:2|max:15',
             'email' => 'required|unique:member',
             'password' => 'required|confirmed'
         ]);
@@ -52,7 +52,7 @@ class MemberController extends Controller
 
         $setting = new SettingMember;
         $setting->member_id = $member->id;
-        $setting->status_new_sletter = 0;
+        $setting->status_new_sletter = 1;
         $setting->save();
 
         return redirect('/')
@@ -154,7 +154,13 @@ class MemberController extends Controller
         if (!$check_facebook_login) {
             $member = new Member;
             $member->username = $user->user['first_name'];
-            $member->email = $user->email;
+
+            if ($user->email == null) {
+                $member->email = $user->id;
+            } else {
+                $member->email = $user->email;
+            }
+
             $member->facebook_id = $user->id;
             $member->password = Hash::make($user->id);
             $member->save();
@@ -181,8 +187,14 @@ class MemberController extends Controller
 //                ->with('facebook_email', $user->email);
 //        }
 
-        if (Auth::attempt(['email' => $user->email, 'password' => $user->id])) {
-            return redirect('/');
+        if ($user->email == null) {
+            if (Auth::attempt(['email' => $user->id, 'password' => $user->id])) {
+                return redirect('/');
+            }
+        } else {
+            if (Auth::attempt(['email' => $user->email, 'password' => $user->id])) {
+                return redirect('/');
+            }
         }
 
     }

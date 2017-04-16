@@ -79,7 +79,7 @@ return [
     'text_sign_in_with_facebook' => 'Sign In with Facebook',
     'text_popup_1_bottom' => 'Sign in or Sign up with email',
 
-    'text_live_score' => 'Live score'
+    'text_live_score' => 'LIVE SCORE'
 
 
 ];

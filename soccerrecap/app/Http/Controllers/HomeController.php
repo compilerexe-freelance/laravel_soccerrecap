@@ -7,6 +7,7 @@ use App\StoryCount;
 use Illuminate\Http\Request;
 use Session;
 
+use DB;
 use Auth;
 use App\Story;
 use App\Tag;
@@ -99,7 +100,13 @@ class HomeController extends Controller
             $create_pin->save();
         }
 
+
+
         $filter_top_like = \App\StoryCount::orderBy('count_like', 'desc')->get();
+//        $filter_top_like = DB::table('story_count')
+//            ->select('*')
+//            ->orderByRaw(DB::raw("FIELD(count_like, created_at) DESC"))
+//            ->get();
 
         $January = array();
         $February = array();

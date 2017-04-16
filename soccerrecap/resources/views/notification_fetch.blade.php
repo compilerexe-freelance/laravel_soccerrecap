@@ -1,6 +1,6 @@
 
 @php
-$notifications = \App\NotificationFollow::all();
+$notifications = \App\NotificationFollow::where('alert_member_id', Auth::user()->id)->where('status', 1)->get();
 @endphp
 
 <a id="notification_seen" class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -51,14 +51,16 @@ $notifications = \App\NotificationFollow::all();
 <script>
     $(document).ready(function() {
        $('#notification_seen').on('click', function() {
-           $.post('{{ url('notification/seen') }}',
-           {
-               _token: '{{ csrf_token() }}',
-               member_id: '{{ Auth::user()->id }}'
-           },
-           function(data, status) {
+           setTimeout(function() {
+               $.post('{{ url('notification/seen') }}',
+                   {
+                       _token: '{{ csrf_token() }}',
+                       member_id: '{{ Auth::user()->id }}'
+                   },
+                   function(data, status) {
 //               console.log("Data: " + data + "\nStatus: " + status);
-           });
+                   });
+           }, 10000);
        }) ;
     });
 </script>
