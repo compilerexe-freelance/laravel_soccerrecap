@@ -190,11 +190,11 @@ class MemberController extends Controller
 //        }
 
         if ($user->email == null) {
-            if (Auth::attempt(['email' => $user->id, 'password' => $user->id])) {
+            if (Auth::attempt(['email' => $user->id, 'password' => $user->id], true)) {
                 return redirect('/');
             }
         } else {
-            if (Auth::attempt(['email' => $user->email, 'password' => $user->id])) {
+            if (Auth::attempt(['email' => $user->email, 'password' => $user->id], true)) {
                 return redirect('/');
             }
         }

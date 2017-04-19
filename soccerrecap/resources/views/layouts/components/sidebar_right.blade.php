@@ -173,8 +173,8 @@
             <span style="font-weight: bold;">@lang('messages.text_live_score')</span>
         </div>
 
-        <div id="content_country_19" class="form-group text-center"></div>
-        <div id="content_country_27" class="form-group text-center"></div>
+        <div id="content_country_19"></div>
+        <div id="content_country_27"></div>
 
         {{--@foreach ($livescore_country_19 as $data)--}}
             {{--<div class="form-group text-center">--}}
@@ -214,27 +214,35 @@
 
                             //console.log(data['country_19'][0][0]);
 
-                            var content_html_19;
-                            var content_html_27;
+                            var content_html_19 = '';
+                            var content_html_27 = '';
 
                             if (data['country_19'] !== undefined
                                 && data['country_27'] !== undefined)
                             {
-                                content_html_19 = '<span>' + data['country_19'][0][0] + '</span> <span>vs</span> <span>' + data['country_19'][0][1] + '</span><br>' + '<span>Time : ' + data['country_19'][0][3] + '</span> <span>/</span> <span>Score : ' + data['country_19'][0][2] + '</span>';
-                                content_html_27 = '<span>' + data['country_27'][0][0] + '</span> <span>vs</span> <span>' + data['country_27'][0][1] + '</span><br>' + '<span>Time : ' + data['country_27'][0][3] + '</span> <span>/</span> <span>Score : ' + data['country_27'][0][2] + '</span>';
+                                for (var i = 0; i < data['country_19'].length; i++) {
+                                    content_html_19 += '<div class="form-group text-center">' + '<span>' + data['country_19'][i][0] + '</span> <span>vs</span> <span>' + data['country_19'][i][1] + '</span><br>' + '<span>Time : ' + data['country_19'][i][3] + '</span> <span>/</span> <span>Score : ' + data['country_19'][i][2] + '</span>' + '</div>';
+                                }
+                                for (var i = 0; i < data['country_27'].length; i++) {
+                                    content_html_27 += '<div class="form-group text-center">' + '<span>' + data['country_27'][i][0] + '</span> <span>vs</span> <span>' + data['country_27'][i][1] + '</span><br>' + '<span>Time : ' + data['country_27'][i][3] + '</span> <span>/</span> <span>Score : ' + data['country_27'][i][2] + '</span>' + '</div>';
+                                }
                                 $('#content_country_19').html(content_html_19);
                                 $('#content_country_27').html(content_html_27);
 
                             } else {
                                 if (data['country_19'] !== undefined) {
                                     //console.log(data['country_19'][0]);
-                                    content_html_19 = '<span>' + data['country_19'][0][0] + '</span> <span>vs</span> <span>' + data['country_19'][0][1] + '</span><br>' + '<span>Time : ' + data['country_19'][0][3] + '</span> <span>/</span> <span>Score : ' + data['country_19'][0][2] + '</span>';
+                                    for (var i = 0; i < data['country_19'].length; i++) {
+                                        content_html_19 += '<div class="form-group text-center">' + '<span>' + data['country_19'][i][0] + '</span> <span>vs</span> <span>' + data['country_19'][i][1] + '</span><br>' + '<span>Time : ' + data['country_19'][i][3] + '</span> <span>/</span> <span>Score : ' + data['country_19'][i][2] + '</span>' + '</div>';
+                                    }
                                     $('#content_country_19').html(content_html_19);
                                 }
 
                                 if (data['country_27'] !== undefined) {
                                     //console.log(data['country_27'][0]);
-                                    content_html_27 = '<span>' + data['country_27'][0][0] + '</span> <span>vs</span> <span>' + data['country_27'][0][1] + '</span><br>' + '<span>Time : ' + data['country_27'][0][3] + '</span> <span>/</span> <span>Score : ' + data['country_27'][0][2] + '</span>';
+                                    for (var i = 0; i < data['country_27'].length; i++) {
+                                        content_html_27 += '<div class="form-group text-center">' + '<span>' + data['country_27'][i][0] + '</span> <span>vs</span> <span>' + data['country_27'][i][1] + '</span><br>' + '<span>Time : ' + data['country_27'][i][3] + '</span> <span>/</span> <span>Score : ' + data['country_27'][i][2] + '</span>' + '</div>';
+                                    }
                                     $('#content_country_27').html(content_html_27);
                                 }
                             }
